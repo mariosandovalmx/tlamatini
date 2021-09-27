@@ -1,4 +1,4 @@
-# Tlamatini-package
+# Tlamatini
 Funciones utiles para el analisis de datos Biologicos/Ecologicos
 
 Paquete ***Tlamatini***. Este paquete contiene funciones utiles para el análisis de datos biológicos/ecológicos. 
@@ -32,7 +32,11 @@ remotes::install_github("mariosandovalmx/tlamatini")
 
 <!-- *** -->
 
+<!-- CONTACTO -->
+## Contacto
 
+Si tienes alguna duda, quieres sugerir alguna función o quisieras reportar algún problema con el paquete puedes contactarme a:
+Mario Sandoval - [@mariosandovalmo](https://twitter.com/mariosandovalmo) - sandoval.m@hotmail.com
 
-
-Si tienes alguna duda, quieres sugerir alguna función o quisieras reportar algún problema con la paquetería contactame a: sandoval.m@hotmail.com 
+Más información sobre mi:
+Link: [https://mariosandovalmx.github.io/ecology/](https://mariosandovalmx.github.io/ecology/)
