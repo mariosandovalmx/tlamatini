@@ -1,0 +1,21 @@
+#' Re-transformar variable usada en regresión beta, util para proporciones transformadas.
+#'
+#' Permite la re-transformación de las proporciones. Cuando se tienen 0 y 1 absolutos no se puede ajustar un #' modelo de regresion Beta. Arroja una advertencia: invalid dependent variable, all observations must be in
+#' (0, 1). Se recomienda aplicar la transformacion de las proporciones. Con base en el articulo: Analysing
+#' continuous proportions in ecology and evolution: A practical introduction to beta and Dirichlet
+#' regression. para ajustar modelos con familia beta, propia para proporciones o porcentajes entre 0 y 1.
+#' Esta transformacion permite lidiar con los 0 y 1 absolutos.
+#' @param x vector que contiene las proporciones transformadas con la función trans.01.beta.
+#'
+#' @return vector transformado a su escala original.
+#' @export
+#'
+#' @examples
+#' #trans.back.01.beta(x)
+#' #trans.back.01.beta(df$proporciones.trans)
+#' @encoding UTF-8
+
+trans.back.01.beta <- function(x) {
+  y <- (x * length(x) - 0.5) / (length(x) - 1)
+  return(y)
+}

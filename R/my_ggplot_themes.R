@@ -1,0 +1,18 @@
+#' Tema 1 de ggplot predefinidos por mi para publicaciones
+#'
+#' Usa parámetros de ggplot predefinidos para una publicación científica, se basa en mis criterios y gustos
+#' personales. Se puede especificar tamaño de los ejes X y Y, negritas y sin fondo.
+#'
+#' @param axis.size Tamaño de los ejes
+#' @param legend.size Tamaño de la leyenda
+#'
+#' @return Un grafico de ggplot con el tema predefinido.
+#'
+#' @export
+#'
+#' @encoding UTF-8
+#' @import ggplot2
+my_theme_ggplot<-  function( axis.size=NULL,  legend.size=NULL){
+  my_theme_ggplot  <- ggplot2::theme(legend.position = "top",legend.text=ggplot2::element_text(size=legend.size),title = ggplot2::element_blank(), axis.text=ggplot2::element_text(size=axis.size,color="black"),axis.title=ggplot2::element_text(size=axis.size,face="bold",color="black"))+ ggplot2::theme_classic(base_size = axis.size)
+
+}

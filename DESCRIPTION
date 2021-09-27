@@ -1,16 +1,46 @@
 Package: tlamatini
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Funciones utiles para el analisis de datos Biologicos/Ecologicos 
+Version: 0.1
+Date: 27-09-2021
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Mario A.",
+           family = "Sandoval Molina",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+           email = "sandoval.m@hotmail.com",
+           comment = c(ORCID = "https://orcid.org/0000-0002-8536-6006"))
+Description: Este paquete contiene funciones utiles para el análisis de datos biológicos/ecológicos. Es una compilación de funciones utiles creadas por mi o creadas por alguien más, pero que facilitan el analisis de datos y ajuste de modelos LM, LMM, GLM, GLMM, GAM, etc. Tlamatini fue creada con la finalidad de proporcionar herramientas estadísticas a hablantes del Español. El nombre de la paquetería proviene del Náhuatl, Tlamatini (los que saben algo o los que saben cosas), traducido como hombres sabios, era el equivalente a los filósofos en la época de los Mexicas. Los científicos al igual que ellos "sabemos cosas". 
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+Imports: 
+    AICcmodavg,
+    broom,
+    car,
+    data.table,
+    DHARMa,
+    dplyr (>= 1.0.5),
+    effects,
+    emmeans,
+    fitdistrplus,
+    GGally,
+    ggeffects,
+    ggplot2,
+    ggpubr,
+    graphics,
+    grDevices,
+    htmltools,
+    lme4,
+    magrittr,
+    multcomp,
+    MuMIn,
+    nlme,
+    predictmeans,
+    reshape,
+    sjPlot,
+    usdm
+Suggests: 
+    utils,
+    stats,
+    base
