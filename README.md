@@ -5,7 +5,7 @@ Paquete ***Tlamatini***. Este paquete contiene funciones útiles para el anális
 Es una compilación de funciones útiles creadas por mi o por alguien más, pero que facilitan el análisis de datos y ajuste de modelos LM, LMM, GLM, GLMM, GAM, etc. 
 Tlamatini fue creada con la finalidad de proporcionar herramientas estadísticas a hablantes del Español, principalmente de Ciencias Biológicas. 
 El nombre de la paquetería proviene del Náhuatl, Tlamatini (los que saben algo o los que saben cosas), traducido como hombres sabios, era el equivalente a los filósofos 
-en la época de los Mexicas. Los Biólogos y Ecólogos, al igual que un Tlamatini, "sabemos cosas", cosas del mundo natural. 
+en la época de los Mexicas. Quienes nos dedicamos a las Ciencias Naturales, al igual que un Tlamatini, "sabemos cosas", cosas del mundo natural. 
 
 El paquete está todavía en su **etapa de desarrollo**, puede haber errores en algunas funciones y pueden cambiar en el futuro.
 
