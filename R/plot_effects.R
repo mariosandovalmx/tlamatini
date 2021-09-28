@@ -1,7 +1,7 @@
-#' Graficar effectos de un LM, LMM, GLM, GLMM, GAM
+#' Graficar effectos de un LM, LMM, GLM, GLMM
 #'
-#' Graficar effectos de un LM, LMM, GLM, GLMM, GAM, etc. Permite hacer una observación rápida de las variables explicativas en el modelo y su influencia en la variable de respuesta. Gráficos generados con paqueteria "effects".
-#' @param modelo Modelo LM, GLM, GLMM, GAM, etc.
+#' Graficar effectos de un LM, LMM, GLM, GLMM, etc. Permite hacer una observación rápida de las variables explicativas en el modelo y su influencia en la variable de respuesta. Gráficos generados con paqueteria "effects".
+#' @param modelo Modelo LM, GLM, GLMM, etc.
 #'
 #' @return Grafica todas las variables explicativas del modelo.
 #' @export

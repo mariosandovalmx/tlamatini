@@ -8,7 +8,7 @@
 table_ANOVA3(modelo)
 }
 \arguments{
-\item{modelo}{Un modelo LM,GLM, GLMM, GAM, LMM, etc.}
+\item{modelo}{Un modelo LM,GLM, GLMM, LMM, etc.}
 }
 \value{
 Tabla ANOVA similar a la que se obtiene con la paqueteria car::Anova.

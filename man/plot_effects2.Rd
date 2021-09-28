@@ -3,18 +3,18 @@
 \encoding{UTF-8}
 \name{plot_effects2}
 \alias{plot_effects2}
-\title{Graficar effectos de un LM, LMM, GLM, GLMM, GAM}
+\title{Graficar effectos de un LM, LMM, GLM, GLMM}
 \usage{
 plot_effects2(modelo)
 }
 \arguments{
-\item{modelo}{Modelo LM, GLM, GLMM, GAM, etc.}
+\item{modelo}{Modelo LM, GLM, GLMM, etc.}
 }
 \value{
 Grafica todas las variables explicativas del modelo.
 }
 \description{
-Graficar effectos de un LM, LMM, GLM, GLMM, GAM, etc. Permite hacer una observación rápida de las variables. Gráficos generados con paqueteria "ggeffects".
+Graficar effectos de un LM, LMM, GLM, GLMM, etc. Permite hacer una observación rápida de las variables. Gráficos generados con paqueteria "ggeffects".
 explicativas en el modelo y su influencia en la variable de respuesta.
 }
 \examples{

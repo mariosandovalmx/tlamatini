@@ -1,7 +1,7 @@
 #' Encontrar outliers de un modelo con paqueteria DHARMa
 #'
 #' Encontrar outliers con paqueteria DHARMa.
-#' @param Modelo Modelo con lme4, glmer, glmmTMB, etc. GLMM y GLM.
+#' @param Modelo Modelo con lme4, glmer, glmmTMB, etc. GLMM, GLM y GAM.
 #'
 #' @return Un grafico de outliers y una lista con los outliers detectados.
 #' @export

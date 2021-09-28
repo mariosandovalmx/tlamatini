@@ -1,7 +1,7 @@
 #' Extraer tabla de ANOVA Tipo III
 #'
 #' Extraer tabla de ANOVA Tipo III de un modelo.
-#' @param modelo Un modelo LM,GLM, GLMM, GAM, LMM, etc.
+#' @param modelo Un modelo LM,GLM, GLMM, LMM, etc.
 #'
 #' @return Tabla ANOVA similar a la que se obtiene con la paqueteria car::Anova.
 #' @export

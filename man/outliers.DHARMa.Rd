@@ -8,7 +8,7 @@
 outliers.DHARMa(Modelo)
 }
 \arguments{
-\item{Modelo}{Modelo con lme4, glmer, glmmTMB, etc. GLMM y GLM.}
+\item{Modelo}{Modelo con lme4, glmer, glmmTMB, etc. GLMM, GLM y GAM.}
 }
 \value{
 Un grafico de outliers y una lista con los outliers detectados.
