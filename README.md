@@ -38,5 +38,4 @@ remotes::install_github("mariosandovalmx/tlamatini")
 Si tienes alguna duda, quieres sugerir alguna función o quisieras reportar algún problema con el paquete puedes contactarme a:
 Mario Sandoval - [@mariosandovalmo](https://twitter.com/mariosandovalmo) - sandoval.m@hotmail.com
 
-Más información sobre mi:
-Link: [https://mariosandovalmx.github.io/ecology/](https://mariosandovalmx.github.io/ecology/)
+Más información sobre mi: [https://mariosandovalmx.github.io/ecology/](https://mariosandovalmx.github.io/ecology/)
