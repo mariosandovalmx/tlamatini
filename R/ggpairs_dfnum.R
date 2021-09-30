@@ -40,7 +40,7 @@ ggpairs_dfnum <- function(dataframe){
   }
 
   #obtenemos lo siguiente:
-  g =  GGally::ggpairs(DD, lower = list(continuous = ln.function)) + ggplot2::theme_minimal()
+  g =  GGally::ggpairs(DD, lower = list(continuous = ln.function)) + ggplot2::theme_light()
   g
 
 }

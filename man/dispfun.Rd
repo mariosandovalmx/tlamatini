@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{dispfun}
 \alias{dispfun}
-\title{Parámetro de dispersión de un modelo poisson, o binomial negativo}
+\title{Parametro de dispersion de un modelo poisson, o binomial negativo}
 \usage{
 dispfun(modelo)
 }

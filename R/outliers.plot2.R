@@ -1,10 +1,10 @@
-#' Encontrar los outliers de un GLM, LM
+#' Encontrar los outliers de un LM, GLM
 #'
-#' Encontrar los outliers de un GLM.
+#' Encontrar los outliers de un LM, GLM.
 #' @param model Modelo GLM, o LM.
-#' @param fill color
-#' @param outline outline
-#' @param size tamaño
+#' @param fill Color predefinido
+#' @param outline Outline predefinido
+#' @param size tamaño predefinido
 #'
 #' @return Encontrar los outliers de un modelo y graficarlos.
 #' @export
@@ -41,6 +41,8 @@ outliers.plot2 <- function (model, fill="white",
     ggplot2::geom_vline(xintercept=myxint, linetype="dashed") +
     ggplot2::ylab("Studentized Residuals") +
     ggplot2::xlab("Hat-Values") + ggplot2::labs(size="Cook's distance")
+  message(c(" Las distancias de Cook, es una medida de como influye la observacin identificada como outlier sobre la estimacion de B (pendiente) al ser retirada del conjunto de datos. Una distancia de Cook grande significa que una observacion tiene un peso grande en la estimacion de la pendiente. En el grafico las observaciones con circulos grandes son consideradas outliers influyentes."))
+  message(c(" Nota: los acentos fueron removidos intencionalmente."))
 }
 
 

@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{trans.back.logit}
 \alias{trans.back.logit}
-\title{#' Re-transformar variable con transformación logit}
+\title{Re-transformar variable con transformación logit}
 \usage{
 trans.back.logit(x, a = 0.025)
 }

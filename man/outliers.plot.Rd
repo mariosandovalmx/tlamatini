@@ -3,12 +3,12 @@
 \encoding{UTF-8}
 \name{outliers.plot}
 \alias{outliers.plot}
-\title{Encontrar los outliers de un GLM, GLMM.}
+\title{Encontrar los outliers de un LM, GLM}
 \usage{
 outliers.plot(model, outliers = 3)
 }
 \arguments{
-\item{model}{Modelo GLM, GLMM, etc.}
+\item{model}{Modelo LM, GLM, GLMM.}
 
 \item{outliers}{Numero de outliers a mostrar.}
 }
@@ -16,8 +16,11 @@ outliers.plot(model, outliers = 3)
 Encontrar los outliers de un modelo y graficarlos.
 }
 \description{
-Encontrar los outliers de un GLM, GLMM O cualquier otro modelo. Además aplica una prueba para saber si
+Encontrar los outliers de un LM, GLM, GLMM O cualquier otro modelo. Ademas aplica una prueba para saber si
 son o no datos influyentes.
+}
+\details{
+Ver funciones outlierTest
 }
 \examples{
 data(iris)

@@ -1,7 +1,7 @@
 #' Extraer tabla de ANOVA Tipo III usando el estadistico F
 #'
-#' Extraer tabla de ANOVA Tipo III usando el estadistico F. Puede ser que algunos modelos no sean soportados.
-#' @param modelo Un modelo LM,GLM,y LMM.
+#' Extraer tabla de ANOVA Tipo III usando el estadistico F. Extraer la tabla como HTML con formato publicable. Puede ser que algunos modelos no sean soportados y deberían llamarse directamente con la función Anova de la paquetería car.
+#' @param modelo Un modelo GLM,y LMM.
 #'
 #' @return Tabla ANOVA similar a la que se obtiene con la paqueteria car::Anova.
 #' @export

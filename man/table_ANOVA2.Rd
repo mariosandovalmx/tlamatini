@@ -8,13 +8,13 @@
 table_ANOVA2(modelo)
 }
 \arguments{
-\item{modelo}{Un modelo LM,GLM, GLMM, LMM, etc.}
+\item{modelo}{Un modelo GLM, GLMM, LMM, etc.}
 }
 \value{
 Tabla ANOVA tipo II similar a la que se obtiene con la paqueteria car::Anova.
 }
 \description{
-Extraer tabla de ANOVA Tipo II de un modelo. Extraer la tabla como HTML con formato publicable.
+Extraer tabla de ANOVA Tipo II de un modelo. Extraer la tabla como HTML con formato publicable. Puede ser que algunos modelos no sean soportados y deberían llamarse directamente con la función Anova de la paquetería car.
 }
 \examples{
 data(iris)

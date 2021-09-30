@@ -1,4 +1,4 @@
-#' Gráficos de dispersion de un modelo
+#' Graficos de dispersion de un modelo
 #'
 #' Graficar la sobredispersion de un modelo poisson, binomial negativo y Quasipoison de la paqueteria lme4,
 #' glmer, glmmTMB, etc. GLMM y GLM. Más detalles en:  https://github.com/glmmTMB/glmmTMB/issues/224

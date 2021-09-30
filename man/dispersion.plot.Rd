@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{dispersion.plot}
 \alias{dispersion.plot}
-\title{Gráficos de dispersion de un modelo}
+\title{Graficos de dispersion de un modelo}
 \usage{
 dispersion.plot(modelo, type = "pearson", overdispersion.term = NULL)
 }

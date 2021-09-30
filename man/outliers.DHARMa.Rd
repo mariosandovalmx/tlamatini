@@ -14,7 +14,7 @@ outliers.DHARMa(Modelo)
 Un grafico de outliers y una lista con los outliers detectados.
 }
 \description{
-Encontrar outliers con paqueteria DHARMa.
+Encontrar outliers con paqueteria DHARMa. Esta función comprueba si el número de observaciones fuera de la simulación es mayor o menor de lo esperado. Ver función "testOutliers" de la paquetería DHARMa para más detalles.
 }
 \examples{
 #datos <- datasets::ChickWeight

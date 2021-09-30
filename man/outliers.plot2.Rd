@@ -3,24 +3,24 @@
 \encoding{UTF-8}
 \name{outliers.plot2}
 \alias{outliers.plot2}
-\title{Encontrar los outliers de un GLM, LM}
+\title{Encontrar los outliers de un LM, GLM}
 \usage{
 outliers.plot2(model, fill = "white", outline = "black", size = 30)
 }
 \arguments{
 \item{model}{Modelo GLM, o LM.}
 
-\item{fill}{color}
+\item{fill}{Color predefinido}
 
-\item{outline}{outline}
+\item{outline}{Outline predefinido}
 
-\item{size}{tamaño}
+\item{size}{tamaño predefinido}
 }
 \value{
 Encontrar los outliers de un modelo y graficarlos.
 }
 \description{
-Encontrar los outliers de un GLM.
+Encontrar los outliers de un LM, GLM.
 }
 \examples{
 data(iris)

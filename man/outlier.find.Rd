@@ -16,7 +16,7 @@ outlier.find(data, cutoff = 3)
 Una lista de los outliers.
 }
 \description{
-Encuentra los outliers de un dataframe.
+Encuentra los outliers de un dataframe. Identifique las celdas con un valor superior al límite * sd (por columnas)
 }
 \examples{
 outlier.find(iris)

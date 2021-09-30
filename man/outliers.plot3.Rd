@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{outliers.plot3}
 \alias{outliers.plot3}
-\title{Encontrar los outliers de un GLM, LM}
+\title{Encontrar los outliers de un LM, LMM, GLM}
 \usage{
 outliers.plot3(model)
 }
@@ -14,7 +14,7 @@ outliers.plot3(model)
 Encontrar los outliers de un modelo y graficarlos.
 }
 \description{
-Encontrar los outliers de un GLM, GLMM, etc.
+Encontrar los outliers de un LM, LMM, GLM, GLMM.
 }
 \examples{
 data(iris)

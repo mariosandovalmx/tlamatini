@@ -1,6 +1,6 @@
 #' Encuentra los outliers de un dataframe
 #'
-#' Encuentra los outliers de un dataframe.
+#' Encuentra los outliers de un dataframe. Identifique las celdas con un valor superior al límite * sd (por columnas)
 #' @param data dataframe
 #' @param cutoff Parametro de tolerancia para oultiers.
 #'

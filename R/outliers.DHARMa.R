@@ -1,6 +1,6 @@
 #' Encontrar outliers de un modelo con paqueteria DHARMa
 #'
-#' Encontrar outliers con paqueteria DHARMa.
+#' Encontrar outliers con paqueteria DHARMa. Esta función comprueba si el número de observaciones fuera de la simulación es mayor o menor de lo esperado. Ver función "testOutliers" de la paquetería DHARMa para más detalles.
 #' @param Modelo Modelo con lme4, glmer, glmmTMB, etc. GLMM, GLM y GAM.
 #'
 #' @return Un grafico de outliers y una lista con los outliers detectados.

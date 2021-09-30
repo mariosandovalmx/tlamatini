@@ -8,13 +8,13 @@
 table_ANOVA3(modelo)
 }
 \arguments{
-\item{modelo}{Un modelo LM,GLM, GLMM, LMM, etc.}
+\item{modelo}{Un modelo GLM, GLMM, LMM, etc.}
 }
 \value{
 Tabla ANOVA similar a la que se obtiene con la paqueteria car::Anova.
 }
 \description{
-Extraer tabla de ANOVA Tipo III de un modelo.
+Extraer tabla de ANOVA Tipo III de un modelo. Extraer la tabla como HTML con formato publicable. Puede ser que algunos modelos no sean soportados y deberían llamarse directamente con la función Anova de la paquetería car.
 }
 \examples{
 data(iris)

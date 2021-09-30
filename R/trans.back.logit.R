@@ -1,4 +1,4 @@
-#' #' Re-transformar variable con transformación logit
+#' Re-transformar variable con transformación logit
 #'
 #' Permite la re-transformación de una variable previamente transformada con logit . Aplicar la transformación logit seguida de una regresión por mínimos cuadrados no lineales sobre  las variables transformadas (Warton & Hui, 2011). Este metodo se ha sugerido por mucho tiempo como un  método para tratar con proporciones/porcentajes. Ver: Warton, D. I., & Hui, F. K. C. (2011). The arcsine is asinine: The analysis of proportions in ecology. Ecology, 92(1), 3–10. https://doi.org/10.1890/10‐0340.1
 #' @param x vector que contiene las proporciones transformadas con logit.

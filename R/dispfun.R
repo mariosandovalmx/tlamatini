@@ -1,4 +1,4 @@
-#' Parámetro de dispersión de un modelo poisson, o binomial negativo
+#' Parametro de dispersion de un modelo poisson, o binomial negativo
 #'
 #' Calcular parametro de dispersión para poisson, binomial negativo y Quasipoison de la paqueteria lme4,
 #' glmer, glmmTMB, etc. GLMM y GLM. Más detalles en:  https://github.com/glmmTMB/glmmTMB/issues/224

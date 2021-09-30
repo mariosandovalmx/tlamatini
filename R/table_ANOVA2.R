@@ -1,7 +1,7 @@
 #' Extraer tabla de ANOVA Tipo II
 #'
-#' Extraer tabla de ANOVA Tipo II de un modelo. Extraer la tabla como HTML con formato publicable.
-#' @param modelo Un modelo LM,GLM, GLMM, LMM, etc.
+#' Extraer tabla de ANOVA Tipo II de un modelo. Extraer la tabla como HTML con formato publicable. Puede ser que algunos modelos no sean soportados y deberían llamarse directamente con la función Anova de la paquetería car.
+#' @param modelo Un modelo GLM, GLMM, LMM, etc.
 #'
 #' @return Tabla ANOVA tipo II similar a la que se obtiene con la paqueteria car::Anova.
 #' @export
