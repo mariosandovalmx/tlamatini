@@ -4,8 +4,8 @@
 
 <br />
 <p align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="tlamatini Logo.jpg" alt="Logo" width="1500" height="400">
+  <a href="https://github.com/mariosandovalmx/tlamatini">
+    <img src="https://github.com/mariosandovalmx/ecology/blob/3f7a8cf7100d008de02c081a63d65e7bc3aadd13/images/tlamatini-logo.jpg" alt="Logo" width="1500" height="400">
   </a>
 </p>
 
