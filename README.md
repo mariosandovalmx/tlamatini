@@ -1,6 +1,14 @@
 
 # Tlamatini
-Funciones utiles para el analisis de datos Biologicos/Ecologicos
+
+
+<br />
+<p align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="tlamatini Logo.jpg" alt="Logo" width="1500" height="400">
+  </a>
+</p>
+
 
 Paquete ***Tlamatini***. Este paquete contiene funciones útiles para el análisis de datos biológicos/ecológicos. 
 Es una compilación de funciones útiles creadas por mi o por alguien más, pero que facilitan el análisis de datos y ajuste de modelos LM, LMM, GLM, GLMM, GAM, etc. 
