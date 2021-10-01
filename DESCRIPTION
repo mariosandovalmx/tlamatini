@@ -1,7 +1,7 @@
 Package: tlamatini
 Title: Funciones utiles para el analisis de datos en Ciencias Biológicas. Principalmente modelos lineales (LM, GLM, GLMM, GAM). 
 Version: 0.1
-Date: 27-09-2021
+Date: 2021-09-30
 Authors@R: 
     person(given = "Mario A.",
            family = "Sandoval Molina",
