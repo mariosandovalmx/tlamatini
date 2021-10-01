@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' iris$Sepal.Length[c(1,3,5,7,9)] <- NA
-#' iris.sinNA = data.frame(sapply(iris,NA.to.zero))
+#' iris.sinNA = data.frame(sapply(iris,NA.cero))
 #' @encoding UTF-8
-NA.to.zero=function(x){
+NA.cero=function(x){
   ifelse(is.na(x),0,as.numeric(x))}

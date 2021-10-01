@@ -15,7 +15,7 @@ Un gráfico de correlación con valores de correlación, valores de p y lineas d
 regresión lineal y no lineal de cada relación.
 }
 \description{
-Matriz de correlación basada en ggpairs con lineas de regresion lineal y no lineal. Matriz de correlación #' de variables numéricas. Esta función selecciona solo las variables numéricas y aplica la función ggpairs
+Matriz de correlación basada en ggpairs con lineas de regresion lineal y no lineal. Matriz de correlación de variables numéricas. Esta función selecciona solo las variables numéricas y aplica la función ggpairs
 de la paqueteria GGally.
 }
 \examples{

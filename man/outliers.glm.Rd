@@ -16,7 +16,7 @@ outliers.glm(model, dataframe)
 Un grafico de outliers y una lista con los outliers detectados.
 }
 \description{
-Encontrar outliers de un GLM. Basandonos en las distancias de Cook identifica los outliers.
+Encontrar outliers de un GLM. Usa las distancias de Cook e identifica los outliers. Ver la funcion cooks.distance, para mas detalles.
 }
 \examples{
 data(iris)

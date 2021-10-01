@@ -10,10 +10,10 @@
 #' @examples
 #' data(iris)
 #' iris$Sepal.Width[c(1,3,5,7)] <- NA
-#' iris<-NA.to.anything(iris,c(22.22))
+#' iris<-NA.cualquiera(iris,c(22.22))
 #' head(iris)
 #' @encoding UTF-8
-NA.to.anything <- function(x, reemplazo) {
+NA.cualquiera <- function(x, reemplazo) {
   is_miss <- is.na(x)
   x[is_miss] <- reemplazo
 

@@ -1,5 +1,5 @@
 Package: tlamatini
-Title: Funciones utiles para el analisis de datos Biologicos/Ecologicos 
+Title: Funciones utiles para el analisis de datos en Ciencias Biológicas. Principalmente modelos lineales (LM, GLM, GLMM, GAM). 
 Version: 0.1
 Date: 27-09-2021
 Authors@R: 
@@ -8,7 +8,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "sandoval.m@hotmail.com",
            comment = c(ORCID = "https://orcid.org/0000-0002-8536-6006"))
-Description: Este paquete contiene funciones utiles para el análisis de datos biológicos/ecológicos. Es una compilación de funciones utiles creadas por mi o creadas por alguien más, pero que facilitan el analisis de datos y ajuste de modelos LM, LMM, GLM, GLMM, GAM, etc. Tlamatini fue creada con la finalidad de proporcionar herramientas estadísticas a hablantes del Español. El nombre de la paquetería proviene del Náhuatl, Tlamatini (los que saben algo o los que saben cosas), traducido como hombres sabios, era el equivalente a los filósofos en la época de los Mexicas. Los científicos al igual que ellos "sabemos cosas". 
+Description: Este paquete contiene funciones utiles para el análisis de datos en Ciencias Biológicas, principalmente para modelos lineales (LM, GLM, GLMM, GAM). Es una compilación de funciones utiles creadas por mi o creadas por alguien más, pero que facilitan el analisis de datos y ajuste de modelos LM, LMM, GLM, GLMM, GAM, etc.  El nombre de la paquetería proviene del Náhuatl, Tlamatini (los que saben algo o los que saben cosas), traducido como hombres sabios, era el equivalente a los filósofos en la época de los Mexicas. Quienes nos dedicamos a las Ciencias Naturales, al igual que un Tlamatini, "sabemos cosas", cosas del mundo natural. El paquete está todavía en su etapa de desarrollo, puede haber errores en algunas funciones y pueden cambiar.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

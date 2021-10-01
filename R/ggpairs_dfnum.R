@@ -1,6 +1,6 @@
 #' ggpairs_dfnum
 #'
-#' Matriz de correlación basada en ggpairs con lineas de regresion lineal y no lineal. Matriz de correlación #' de variables numéricas. Esta función selecciona solo las variables numéricas y aplica la función ggpairs
+#' Matriz de correlación basada en ggpairs con lineas de regresion lineal y no lineal. Matriz de correlación de variables numéricas. Esta función selecciona solo las variables numéricas y aplica la función ggpairs
 #' de la paqueteria GGally.
 #' @param dataframe Dataframe
 #'

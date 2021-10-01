@@ -1,6 +1,6 @@
 #' Encontrar outliers de un GLM
 #'
-#' Encontrar outliers de un GLM. Basandonos en las distancias de Cook identifica los outliers.
+#' Encontrar outliers de un GLM. Usa las distancias de Cook e identifica los outliers. Ver la funcion cooks.distance, para mas detalles.
 #' @param model Modelo con GLM y LM.
 #' @param dataframe Dataframe con el cual se ajustó el modelo.
 #'

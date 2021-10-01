@@ -14,7 +14,7 @@
 #' @encoding UTF-8
 #' @importFrom stats pchisq
 dispfun2 <- function(modelo) {
-  message("Si el valor de ratio es mayor indica que los datos estan sobredispersos, es mejor usar un modelo quasipoisson o binomial negativo.",  "\n")
+  message("Si el valor de ratio es mayor indica que los datos estan sobredispersos.",  "\n")
   rdf <- df.residual(modelo)
   rp <- residuals(modelo,type="pearson")
   Pearson.chisq <- sum(rp^2)

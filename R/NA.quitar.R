@@ -11,11 +11,11 @@
 #' data("iris")
 #' iris$Sepal.Width[c(1,3,5,7,9)] <- NA
 #' iris$Petal.Width[c(1,3,5,7,9)] <- NA
-#' iris2<- NA.remover(iris, c("Petal.Width","Sepal.Width"))
-#' iris3<- NA.remover(iris, "Sepal.Width")
+#' iris2<- NA.quitar(iris, c("Petal.Width","Sepal.Width"))
+#' iris3<- NA.quitar(iris, "Sepal.Width")
 #' @encoding UTF-8
 #' @importFrom stats complete.cases
-NA.remover <- function(data, columnas) {
+NA.quitar <- function(data, columnas) {
   completeVec <- complete.cases(data[, columnas])
   return(data[completeVec, ])
 }

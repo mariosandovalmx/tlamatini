@@ -16,7 +16,7 @@ outliers.lme(modelo, random = NULL)
 encontrar los outliers de un modelo lme.
 }
 \description{
-Encontrar outliers de un LMM Linear mixed model de la paqueteria nlme, basandonos en las distancias de
+Encontrar outliers de un LMM Linear mixed model de la paqueteria nlme, usa las distancias de
 Cook.
 }
 \examples{

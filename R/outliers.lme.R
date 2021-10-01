@@ -1,6 +1,6 @@
 #' Encontrar outliers de un modelo LMM
 #'
-#' Encontrar outliers de un LMM Linear mixed model de la paqueteria nlme, basandonos en las distancias de
+#' Encontrar outliers de un LMM Linear mixed model de la paqueteria nlme, usa las distancias de
 #' Cook.
 #' @param modelo Modelo ajustado con la función lme de paqueteria nlme.
 #' @param random Componente aleatorio del modelo a graficar.
