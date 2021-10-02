@@ -4,7 +4,7 @@ Version: 0.1
 Date: 2021-09-30
 Authors@R: 
     person(given = "Mario A.",
-           family = "Sandoval Molina",
+           family = "Sandoval-Molina",
            role = c("aut", "cre"),
            email = "sandoval.m@hotmail.com",
            comment = c(ORCID = "https://orcid.org/0000-0002-8536-6006"))
