@@ -14,23 +14,25 @@
 #' df.sc <- scale_data(iris, ex_variables = c("Petal.Width","Petal.Length"))
 #' @encoding UTF-8
 
+
+
 scale_data <- function(df, ex_variables, center = TRUE, scale=TRUE){
-  subset_colclasses <- function(df, colclasses="numeric") {
-    df[,sapply(df, function(vec, test) class(vec) %in% test, test=colclasses)]
+
+  num       <- vector(mode = "character")
+  char      <- vector(mode = "character")
+  for (var in 1:ncol(df)) {
+    if (class(df[[var]])=="numeric" || class(df[[var]])=="integer") {
+      num   <- c(num,names(df[var]))
+    }else if (class(df[[var]])=="factor" || class(df[[var]])=="character") {
+      char  <- c(char,names(df[var]))
+    }
   }
 
+  dfnum     <- subset(df,select=num)
+  dfchar     <- subset(df,select=char)
 
-  dfnum<- subset_colclasses(df, c("numeric","integer"))
-
-  dfnum2<- as.data.frame(dfnum)
-  dfnum2 <- select(dfnum, -ex_variables) # sin ciertas columnas
-
-  dfnum3 <- select(dfnum, ex_variables)
-  dfchar<- subset_colclasses(df, c("factor","character"))
-  dfchar<- as.data.frame(dfchar)
-
-  p <- MuMIn::stdize(dfnum2,omit.cols=ex_variables,prefix="",center = TRUE, scale=TRUE)
-  df2 <- cbind(p,dfchar,dfnum3)
+  p <- MuMIn::stdize(dfnum, omit.cols=ex_variables,prefix="",center = TRUE, scale=TRUE)
+  df2 <- cbind(p, dfchar)
   return(df2)
 }
 
