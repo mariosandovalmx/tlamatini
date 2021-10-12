@@ -5,16 +5,10 @@
 \alias{table_contrasts2}
 \title{Exportar tabla de contrastes post hoc. Tres variables en interacción}
 \usage{
-table_contrasts2(cont.emmeans, title, digs, sort = FALSE)
+table_contrasts2(cont.emmeans)
 }
 \arguments{
 \item{cont.emmeans}{Contrastes hechos con emmeans de un modelo LM,GLM, GLMM, GAM, LMM, etc.}
-
-\item{title}{Titulo opcional.}
-
-\item{digs}{número de digitos a mostrar.}
-
-\item{sort}{Argumento TRUE o FALSE, permite decidir si se ordenan los valores de P.}
 }
 \value{
 Tabla de contrastes.

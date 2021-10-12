@@ -5,14 +5,10 @@
 \alias{table_contrasts}
 \title{Exportar tabla de contrastes post hoc}
 \usage{
-table_contrasts(cont.emmeans, title = NULL, sort = FALSE)
+table_contrasts(cont.emmeans)
 }
 \arguments{
 \item{cont.emmeans}{Contrastes hechos con emmeans de un modelo LM,GLM, GLMM, GAM, LMM, etc.}
-
-\item{title}{Titulo opcional}
-
-\item{sort}{Argumento TRUE o FALSE, permite decidir si se ordenan los valores de P.}
 }
 \value{
 Tabla de contrastes.
@@ -28,6 +24,4 @@ modelo <- glm(Petal.Width ~ Petal.Length+Species, family = gaussian("log"), data
 library(emmeans)
 cont <- emmeans(modelo,pairwise ~ Species,adjust="tukey",type="response")$contrasts
 table_contrasts(cont)
-#PARA ORDENAR DE MENOR A MAYOR P-VALUE:
-table_contrasts(cont, sort = TRUE)
 }
