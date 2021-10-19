@@ -1,0 +1,102 @@
+---
+title: "Ejemplo_1"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Ejemplo_1}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+## Ejemplo de uso
+
+**Este paquete contiene funciones útiles para el análisis de datos, principalmente para modelos lineales (LM, GLM, GLMM). Aunque está pensado para usarse en Ciencias Biológicas, su aplicación se extiende a cualquier área del conocimiento que requiera análisis estadísticos. Es una compilación de funciones útiles creadas por mi o por alguien más, que facilitan el análisis de datos: exploración y transformaciones de datos, revisión de los supuestos de los modelos lineales (LM, LMM, GLM, GLMM), exportación de tablas, entre otros.**
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+*Cargamos la paqueteria*
+
+```{r setup}
+library(tlamatini)
+
+```
+
+*Vamos a usar la base ded datos "iris", que contiene las medidas en centímetros del largo y ancho de los sepalos y petalos de 50 flores de cada una de las 3 especies de iris: Iris setosa, I. versicolor e I. virginica.*
+
+
+```{r}
+data(iris)
+
+
+
+```
+
+*Primero vamos a explorar los datos, en busca de datos faltantes.*
+
+```{r}
+numSummary(iris)
+
+```
+
+*Tambien nos interesa saber como se relacionan las variables con nuestra variable de respuesta, Petal.Width.*
+
+
+```{r fig1, fig.width = 5, fig.asp = .62}
+ggpairs_dfnum(iris)
+
+
+```
+
+*Como vemos en la grafica, Petal.Length y  Sepal.Length se relacionan positivamente con Petal.Width. Podemos ajustar un modelo lineal generalizado (GLM). Con esta base de datos vamos a ajustar dos modelos lineales generalizados, el primero con la distribucion gaussiana y logaritmo como funcion de liga. El segundo con distribucion gaussiana y funcion de liga identity. Usaremos el ancho de los petalos como variable de respuesta. Además usaremos la variable Species y la longitud de los petalos como variables explicativas.*
+
+
+```{r}
+
+modelo <- glm(Petal.Width ~ Petal.Length+ Species, family = gaussian("log"), data=iris)
+modelo2 <- glm(Petal.Width ~ Petal.Length+ Species, family = gaussian("identity"), data=iris)
+AIC(modelo, modelo2)
+
+
+```
+
+
+
+*De acuerdo con el Criterio de informacion de Akaike, el modelo 2 es mejor. El summary del modelo:*
+
+```{r}
+
+summary(modelo2)
+
+```
+
+
+
+*Vamos a revisar el ajuste del modelo. En la primera grafica, la linea roja es horizontal y aplanada sobre la linea punteada, indica buen ajuste. El QQPlot se ve bien, la mayoria de los puntos se ajustan a la linea punteada, lo cual indica que los residuales se aproximan a la distribucion normal.*
+
+```{r fig2, fig.width = 10, fig.asp = .62}
+par(mfrow=c(2,2))
+plot(modelo2)
+
+```
+
+*Vamos a graficar los efectos del modelo:*
+
+```{r fig3, fig.width = 10, fig.asp = .62}
+
+plot_effects2(modelo2, lineas=T, puntos=F)
+
+```
+
+
+*Exportar la tabla del modelo:*
+
+```{r}
+
+table.models(modelo2)
+
+```

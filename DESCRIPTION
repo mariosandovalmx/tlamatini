@@ -37,10 +37,14 @@ Imports:
     MuMIn (>= 1.43.17),
     nlme,
     predictmeans,
+    qpdf,
     reshape,
-    sjPlot(>= 2.8.9),
+    sjPlot (>= 2.8.9),
     usdm
 Suggests: 
     utils,
     stats,
-    base
+    base,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

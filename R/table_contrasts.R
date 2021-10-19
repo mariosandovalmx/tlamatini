@@ -19,32 +19,65 @@
 
 
 table_contrasts <- function(cont.emmeans){
+  if( length(cont.emmeans@levels) == 1){
+    conts<- cont.emmeans
+    conts<- as.data.frame(conts)
+    contrastes<- as.data.frame(conts)
 
-  contrastes<- as.data.frame(cont.emmeans)
-  contrastes<- contrastes#[,c(1:4,5,6)]
+    if("ratio" %in% colnames(contrastes))
+    { contrastes$ratio <-as.numeric(substr(contrastes$ratio, start = 1, stop = 5));
+    } else if("odds.ratio" %in% colnames(contrastes)){
+      contrastes$odds.ratio <-as.numeric(substr(contrastes$odds.ratio, start = 1, stop = 5))
+    } else {
+      contrastes$estimate <-as.numeric(substr(contrastes$estimate, start = 1, stop = 5))
+    }
 
-  if("ratio" %in% colnames(contrastes))
-  { contrastes$ratio <-as.numeric(substr(contrastes$ratio, start = 1, stop = 5));
-  } else{
-    contrastes$estimate <-as.numeric(substr(contrastes$estimate, start = 1, stop = 5))
-  }
-  contrastes$SE<- as.numeric(substr(contrastes$SE, start = 1, stop = 5))
-  if("t.ratio" %in% colnames(contrastes))
-  { contrastes$t.ratio <- as.numeric(substr(contrastes$t.ratio, start = 1, stop = 5));
-  } else{
-    contrastes$z.ratio <-as.numeric(substr(contrastes$z.ratio, start = 1, stop = 5))
-  }
-  contrastes$p.value<-format(contrastes$p.value, scientific = FALSE)
-  contrastes$p.value <- as.numeric(substr(contrastes$p.value, start = 1, stop = 5))
-  contrastes$p.value[contrastes$p.value <= 0.000] <- "<0.001"
-  contrastes<- na.omit(contrastes)
+    contrastes$SE<- as.numeric(substr(contrastes$SE, start = 1, stop = 5))
+
+    if("t.ratio" %in% colnames(contrastes))
+    { contrastes$t.ratio <- as.numeric(substr(contrastes$t.ratio, start = 1, stop = 5));
+    } else{
+      contrastes$z.ratio <-as.numeric(substr(contrastes$z.ratio, start = 1, stop = 5))
+    }
+
+    contrastes$p.value<-format(contrastes$p.value, scientific = FALSE)
+    contrastes$p.value <- as.numeric(substr(contrastes$p.value, start = 1, stop = 5))
+    contrastes$p.value[contrastes$p.value <= 0.000] <- "<0.001"
+    contrastes<- na.omit(contrastes)
+    contrastes<- contrastes[,-grep("null",colnames(contrastes))]
+    #contrastes2<- contrastes[ , -which(names(contrastes) %in% c("null"))]
+
+    sjPlot::tab_df(contrastes,digits = 3)
+
+
+  } else {
+
+    contrastes<- as.data.frame(cont.emmeans)
+    contrastes<- contrastes#[,c(1:4,5,6)]
+
+    if("ratio" %in% colnames(contrastes))
+    { contrastes$ratio <-as.numeric(substr(contrastes$ratio, start = 1, stop = 5));
+    } else if("odds.ratio" %in% colnames(contrastes)){
+      contrastes$odds.ratio <-as.numeric(substr(contrastes$odds.ratio, start = 1, stop = 5))
+    } else {
+      contrastes$estimate <-as.numeric(substr(contrastes$estimate, start = 1, stop = 5))
+    }
+
+    contrastes$SE<- as.numeric(substr(contrastes$SE, start = 1, stop = 5))
+    if("t.ratio" %in% colnames(contrastes))
+    { contrastes$t.ratio <- as.numeric(substr(contrastes$t.ratio, start = 1, stop = 5));
+    } else{
+      contrastes$z.ratio <-as.numeric(substr(contrastes$z.ratio, start = 1, stop = 5))
+    }
+    contrastes$p.value<-format(contrastes$p.value, scientific = FALSE)
+    contrastes$p.value <- as.numeric(substr(contrastes$p.value, start = 1, stop = 5))
+    contrastes$p.value[contrastes$p.value <= 0.000] <- "<0.001"
+    contrastes<- na.omit(contrastes)
 
 
 
-  #contrastes2<- contrastes[ , -which(names(contrastes) %in% c("null"))]
+    #contrastes2<- contrastes[ , -which(names(contrastes) %in% c("null"))]
 
-  sjPlot::tab_df(contrastes,digits = 3)
+    sjPlot::tab_df(contrastes,digits = 3)}
 
 }
-
-
