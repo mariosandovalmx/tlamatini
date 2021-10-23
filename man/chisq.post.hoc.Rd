@@ -10,7 +10,8 @@ chisq.post.hoc(
   test = c("fisher.test"),
   popsInRows = TRUE,
   control = c("fdr", "BH", "BY", "bonferroni", "holm", "hochberg", "hommel"),
-  digits = 4
+  digits = 4,
+  simulate.p.value = NULL
 )
 }
 \arguments{
@@ -24,9 +25,11 @@ chisq.post.hoc(
 \item{control}{Indica el método de control a utilizar.}
 
 \item{digits}{Número de digitos a mostrar.}
+
+\item{simulate.p.value}{Si argumento es TRUE, indica que se calculan los valores p mediante la simulación de Monte Carlo y 5000 replicas. Para más información consulta la funcion 'chisq.test'.}
 }
 \value{
-Contrastes post hoc de chi cuadrada.
+Contrastes 'post-hoc' de chi cuadrada para dos niveles usando Fisher.test.
 }
 \description{
 Muestra las comparaciones post-hoc por pares de una prueba Chi cuadrada. Calcula los contrastes si hay
