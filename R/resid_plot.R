@@ -15,16 +15,20 @@
 #' @encoding UTF-8
 #' @importFrom sjPlot plot_model
 #' @importFrom ggpubr ggarrange
+
+
 resid_plot <- function(Modelo){
-  dev.new()
-  plot_list<- sjPlot::plot_model(Modelo, type = "diag")
 
+  plot_list<- sjPlot::plot_model(modelo2, type = "diag")
   x= length(plot_list)
-  cols=round(sqrt(x),0)
-  rows=ceiling(x/cols)
+  nm<- as.character(seq(1:x))
 
- return(ggpubr::ggarrange(plotlist = plot_list, ncol = cols, nrow = rows))
+  names(plot_list) <- nm
 
+  graphs <- lapply(names(plot_list),function(x){
+    return(plot_list[[x]])
+  })
+  do.call(ggpubr::ggarrange,graphs)
 
 }
 

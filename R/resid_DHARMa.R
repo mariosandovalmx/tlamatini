@@ -17,13 +17,11 @@
 #' #resid_DHARMa(modelo)
 #' @encoding UTF-8
 #' @importFrom DHARMa simulateResiduals
+#'
+
 resid_DHARMa <- function(Modelo){
 
-  res.mod <-DHARMa::simulateResiduals(Modelo,n = 5000)
-
   base::message(c("Kolmogorov-Smirnov test (KS test) p < 0.05, entonces no hay normalidad en los residuales. Outlier test: p < 0.05, no hay outliers. Grafico de la derecha muestra la distribucin esperada de los resiudales, mediante simulaciones. Esto es util cuando no sabemos cual es la distribucion nula de los residuales. El grafico de la derecha muestra los residuales contra los valores esperados (ajustados). Estas lineas pueden no ajustarse debido a un tamano de muestra reducido."))
-
-  dev.new()
-  plot(res.mod, rank = T)
+  res.mod <-DHARMa::simulateResiduals(Modelo,n = 5000)
+  return(plot(res.mod, rank = T))
 }
-

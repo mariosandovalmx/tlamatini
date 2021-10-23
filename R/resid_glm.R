@@ -14,9 +14,8 @@
 #' @encoding UTF-8
 #' @importFrom grDevices dev.new
 resid_glm <- function(Modelo){
-  dev.new()
+
   par(mfrow=c(2,2))
-  plot(Modelo)
+  return(plot(Modelo))
 
 }
-

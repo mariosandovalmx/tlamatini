@@ -1,6 +1,6 @@
 #' Graficar effectos de un LM, LMM, GLM, GLMM
 #'
-#' Graficar effectos de un LM, LMM, GLM, GLMM, etc. Permite hacer una observación rápida de las variables explicativas en el modelo y su influencia en la variable de respuesta. Gráficos generados con paqueteria "effects".
+#' Graficar effectos de un LM, LMM, GLM, GLMM, etc. Permite hacer una observación rápida de las variables explicativas en el modelo y su influencia en la variable de respuesta. Gráficos generados con paqueteria "effects", mas detalles en la función allEffects.
 #' @param modelo Modelo LM, GLM, GLMM, etc.
 #'
 #' @return Grafica todas las variables explicativas del modelo.
@@ -19,9 +19,7 @@ plot_effects<- function(modelo){
   ###
   #indx <- base::grepl(':', names(alleff))
   #graphics::plot(alleff[indx])
-  graphics::plot(alleff)
-
-
+  graphics::plot(alleff,lines=list(col=c("black")))
 }
 
 
