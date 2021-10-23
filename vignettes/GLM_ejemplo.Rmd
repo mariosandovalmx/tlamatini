@@ -13,6 +13,15 @@ vignette: >
 
 **Este paquete contiene funciones útiles para el análisis de datos, principalmente para modelos lineales (LM, GLM, GLMM). Aunque está pensado para usarse en Ciencias Biológicas, su aplicación se extiende a cualquier área del conocimiento que requiera análisis estadísticos. Es una compilación de funciones útiles creadas por mi o por alguien más, que facilitan el análisis de datos: exploración y transformaciones de datos, revisión de los supuestos de los modelos lineales (LM, LMM, GLM, GLMM), exportación de tablas, entre otros.**
 
+**Si quieres más información sobre el paquete y las actualizaciones, visita la página: https://mariosandovalmx.github.io/tlamatini-website/ **
+
+
+**Para citar este paquete:** 
+*Mario A. Sandoval-Molina (2021). tlamatini: Funciones utiles para biologxs y ecologxs confundidos con los modelos lineales. R package version 0.1.*
+
+**Si quieres conocer más de mi trabajo, visita mi pagina web: https://mariosandovalmx.github.io/ecology/**
+
+
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -248,9 +257,4 @@ table.models(modelo3)
 ```
 
 
-**Si quieres más información sobre el paquete y las actualizaciones, visita la página:https://mariosandovalmx.github.io/tlamatini-website/ **
 
-
-**Para citar este paquete: Mario A. Sandoval-Molina (2021). tlamatini: Funciones utiles para biologxs y ecologxs confundidos con los modelos lineales. R package version 0.1.**
-
-*Si quieres conocer más de mi trabajo, visita mi pagina web: https://mariosandovalmx.github.io/ecology/*
