@@ -1,14 +1,15 @@
 ---
-title: "Ejemplo_1"
+title: "GLM ejemplo de uso de Tlamatini"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Ejemplo_1}
+  %\VignetteIndexEntry{GLM ejemplo de uso de Tlamatini}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
+![](logo.jpg)
 
-## Ejemplo de uso
+## Modelos lineales generalizados (GLM)
 
 **Este paquete contiene funciones útiles para el análisis de datos, principalmente para modelos lineales (LM, GLM, GLMM). Aunque está pensado para usarse en Ciencias Biológicas, su aplicación se extiende a cualquier área del conocimiento que requiera análisis estadísticos. Es una compilación de funciones útiles creadas por mi o por alguien más, que facilitan el análisis de datos: exploración y transformaciones de datos, revisión de los supuestos de los modelos lineales (LM, LMM, GLM, GLMM), exportación de tablas, entre otros.**
 
@@ -43,7 +44,7 @@ set.seed(5)
 # crear la matriz de covarianza de la varianza
 sigma<-rbind(c(1,-0.8,-0.7), c(-0.8,1, 0.9), c(-0.7,0.9,1))
 # creamos un vector con las medias
-mu<-c(10, 5, 2) 
+mu<-c(10, 5, 7.5) 
 # generar la distribución normal multivariante
 df<-as.data.frame(mvrnorm(n=100, mu=mu, Sigma=sigma))
 
@@ -55,12 +56,13 @@ df<-df%>%mutate(Localidad = case_when(V1<quantile(V1,0.25)~"Localidad_A",
                                     TRUE~"Localidad_D"))
 df$Localidad<- as.factor(df$Localidad)
 
+
 #cambiar nombre de una columna específica
 #usando R
 names(df)[names(df) == "V1"] <- "LHC"
 names(df)[names(df) == "V2"] <- "Velocidad"
 names(df)[names(df) == "V3"] <- "Tiempo"
-
+df$LHC[22]<- 13.1
 ```
 
 
@@ -95,11 +97,11 @@ charSummary(df)
 
 
 ```{r fig1, fig.width = 5, fig.asp = .62}
-ggpairs_dfnum(df)
+ggpairs_dfnum(df, var.response = "LHC")
 
 ```
 
-*Como vemos en la grafica, la velocidad de desplazamiento de las lagartijas se relacionan negativamente con la longitud hocico cloaca. También vemos que el tiempo de reacción se relaciona negativamente con la LHC. *
+*Como vemos en la gráfica, la velocidad de desplazamiento de las lagartijas se correlaciona negativamente con la longitud hocico cloaca. También vemos que el tiempo de reacción se correlaciona negativamente con la LHC.*
 
 *Ahora vamos a graficar la LHC por Localidad:*
 
@@ -124,15 +126,19 @@ var.distr(df$LHC)
 
 ```
 
-*La distribución que mas se ajusta es la distribución uniforme y normal*
+*La distribución que mas se ajusta es la distribución uniforme y normal. Lo podemos ver más claramente en el histograma de frecuencuas y en el qqplot.*
+```{r, fig4, fig.width = 7, fig.height=7}
+hist_curva(df$LHC)
+```
+
 
 *Podemos ajustar un modelo lineal generalizado (GLM). Con esta base de datos vamos a ajustar dos modelos lineales generalizados, el primero con la distribucion gaussiana y logaritmo como funcion de liga. El segundo con distribucion gaussiana y funcion de liga identity. Usaremos el ancho de los petalos como variable de respuesta. Además usaremos la variable Species y la longitud de los petalos como variables explicativas.*
 
 
 ```{r}
 
-modelo <- glm(LHC ~ Velocidad  + Localidad, family = gaussian("log"), data= df)
-modelo2 <- glm(LHC ~ Velocidad + Localidad, family = gaussian("identity"), data= df)
+modelo  <- glm(LHC ~ Velocidad  + Localidad, family = gaussian("log"), data= df)
+modelo2 <- glm(LHC ~ Velocidad  + Localidad, family = gaussian("identity"), data= df)
 AIC(modelo, modelo2)
 
 
@@ -150,27 +156,93 @@ summary(modelo2)
 
 *La velocidad es altamente significativa p<0.001, pero la variable tiempo no es significativa.*
 
-*Vamos a revisar el ajuste del modelo. En la primera grafica, la linea roja es horizontal y aplanada sobre la linea punteada, indica buen ajuste. El QQPlot se ve bien, la mayoria de los puntos se ajustan a la linea punteada, lo cual indica que los residuales se aproximan a la distribucion normal.*
-
-```{r fig4, fig.width = 7, fig.asp = .62}
-par(mfrow=c(2,2))
-plot(modelo2)
-
-```
-
-*Vamos a graficar los efectos del modelo:*
+*Vamos a revisar el ajuste del modelo. En la primera gráfica, la linea roja es horizontal y aplanada sobre la linea punteada, indica buen ajuste, homocedasticidad. El QQPlot se ve bien, la mayoria de los puntos se ajustan a la linea punteada, lo cual indica que los residuales se aproximan a la distribucion normal. *
 
 ```{r fig5, fig.width = 7, fig.asp = .62}
+resid_glm(modelo2)
 
-plot_effects2(modelo2, lineas=T, puntos=F)
+```
+*Otra forma de explorar los residuales se muestra en la siguiente gráfica. Esta función prueba la multicolinearidad de las variables,  la normalidad de residuales y la homocedasticidad.*
+```{r fig6, fig.width = 7, fig.asp = .62}
+resid_plot(modelo2)
+
+```
+*Y otra forma de explorar los residuales del modelo es usando la paqueteria DHARMa, que muestra la normalidad, la dispersion y los outliers. En la segunda gráfica se muestra la homocedasticidad:*
+```{r fig7, fig.width = 7, fig.asp = .62}
+resid_DHARMa(modelo2)
+
+```
+
+*Pero tenemos un posible outlier (22). Vamos a comprobarlo:*
+
+```{r fig8, fig.width = 7, fig.asp = .62}
+outliers.plot(modelo2)
+
+```
+*Vamos a suponer que es un error de medición y no podemos confiar en este dato.Lo vamos a remover y volver a ajustar el modelo:*
+
+datos.ct <- slice(datos.ct, -c(149))
+```{r}
+library(dplyr)
+df2 <- slice(df, -c(22))
+modelo3 <- glm(LHC ~ Velocidad  + Localidad, family = gaussian("identity"), data= df2)
+summary(modelo3)
+
+```
+
+*Revisamos los residuales...*
+
+```{r fig9, fig.width = 7, fig.asp = .62}
+resid_DHARMa(modelo3)
+
+```
+
+*Comprobamos los outliers nuevamente:*
+
+```{r fig10, fig.width = 7, fig.asp = .62}
+outliers.plot(modelo3)
 
 ```
 
 
-*Exportar la tabla del modelo:*
+*Ya no tenemos outliers y el modelo tiene buen ajuste. Ahora vamos a obtener la tabla de ANOVA tipo III:*
+
+```{r}
+table_ANOVA3(modelo3)
+
+```
+
+*Y vamos a graficar los efectos del modelo:*
+
+```{r fig11, fig.width = 10, fig.height=5}
+
+plot_effects(modelo3)
+
+```
+
+
+*Si queremos hacer los contrastes post-hoc Tuckey, usamos la paquetería 'emmeans'. Primero se muestran las medias, error estandar y los intervalos de confianza. Luego se muestran los contrastes entre localidades, con el valor del estadistico y el valor de p:*
+
+```{r}
+library(emmeans)
+emmeans(modelo3, pairwise ~ Localidad,adjust="tukey",type="response")
+
+```
+
+
+*Si queremos hacer exportar estos contrastes como una tabla en Word:*
 
 ```{r}
 
-table.models(modelo2)
+cont1 <- emmeans(modelo3, pairwise ~ Localidad,adjust="tukey",type="response")$contrasts
+table_contrasts(cont1)
+```
+
+
+*Por último si queremos exportar la tabla del modelo en Word:*
+
+```{r}
+
+table.models(modelo3)
 
 ```

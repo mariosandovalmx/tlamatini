@@ -23,7 +23,7 @@ resid_plot <- function(Modelo){
   cols=round(sqrt(x),0)
   rows=ceiling(x/cols)
 
-  ggpubr::ggarrange(plotlist = plot_list, ncol = cols, nrow = rows)
+ return(ggpubr::ggarrange(plotlist = plot_list, ncol = cols, nrow = rows))
 
 
 }

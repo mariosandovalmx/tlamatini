@@ -24,8 +24,10 @@ table_contrasts2 <- function(cont.emmeans){
 
 
   if("ratio" %in% colnames(contrastes))
-  { contrastes$ratio <-as.numeric(substr(contrastes$ratio, start = 1, stop = 5));}
-  else{
+  { contrastes$ratio <-as.numeric(substr(contrastes$ratio, start = 1, stop = 5));
+  } else if("odds.ratio" %in% colnames(contrastes)){
+    contrastes$odds.ratio <-as.numeric(substr(contrastes$odds.ratio, start = 1, stop = 5))
+  } else {
     contrastes$estimate <-as.numeric(substr(contrastes$estimate, start = 1, stop = 5))
   }
   contrastes$SE<- as.numeric(substr(contrastes$SE, start = 1, stop = 5))
