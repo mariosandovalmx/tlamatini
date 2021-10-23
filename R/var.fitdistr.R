@@ -1,4 +1,4 @@
-#' Ajustar una variable a cierta distribución de nuestro interes.
+#' Ajustar una variable a cierta distribucion de nuestro interes.
 #'
 #' Permite conocer ajustar una variable a cierta distribución de nuestro interes.
 #' @param variable Variable de interes.

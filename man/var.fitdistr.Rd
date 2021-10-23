@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{var.fitdistr}
 \alias{var.fitdistr}
-\title{Ajustar una variable a cierta distribución de nuestro interes.}
+\title{Ajustar una variable a cierta distribucion de nuestro interes.}
 \usage{
 var.fitdistr(variable, distr)
 }

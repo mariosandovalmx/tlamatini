@@ -1,4 +1,4 @@
-#' Convierte celdas vacías en NA
+#' Convierte celdas vacias en NA
 #'
 #' Datos faltantes en blanco por NA.
 #' @param x Dataframe con los datos faltantes no codificados como NA.

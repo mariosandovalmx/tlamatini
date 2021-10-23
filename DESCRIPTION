@@ -33,6 +33,7 @@ Imports:
     htmltools,
     lme4,
     magrittr (>= 2.0.1),
+    MASS,
     multcomp,
     MuMIn (>= 1.43.17),
     nlme,

@@ -5,10 +5,12 @@
 \alias{ggpairs_dfnum}
 \title{ggpairs_dfnum}
 \usage{
-ggpairs_dfnum(dataframe)
+ggpairs_dfnum(dataframe, var.response = NULL)
 }
 \arguments{
 \item{dataframe}{Dataframe}
+
+\item{var.response}{Si se proporciona el nombre de la variable de respuesta, esta se coloca al final, para mostrarla en el eje Y. Para facilitar la observación de la relación entre las variables explicativas y la variable de respuesta.}
 }
 \value{
 Un gráfico de correlación con valores de correlación, valores de p y lineas de
@@ -20,4 +22,5 @@ de la paqueteria GGally.
 }
 \examples{
 ggpairs_dfnum(iris)
+ggpairs_dfnum(iris, var.response = "Petal.Length")
 }

@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{vacio.as.NA}
 \alias{vacio.as.NA}
-\title{Convierte celdas vacías en NA}
+\title{Convierte celdas vacias en NA}
 \usage{
 vacio.as.NA(x)
 }

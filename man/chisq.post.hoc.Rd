@@ -36,12 +36,14 @@ Muestra las comparaciones post-hoc por pares de una prueba Chi cuadrada. Calcula
 más de dos grupos en una chisq. Las pruebas post-hoc para saber que pares de poblaciones difieren tras
 una prueba de chi-cuadrado significativa pueden construirse realizando todas las pruebas de chi-cuadrado
 para todos los pares de poblaciones y ajustando después los valores p resultantes. Los valores p
-ajustados pueden calcularse con una amplia variedad de métodos: fdr, BH, BY, bonferroni, holm, hochberg y #' hommel. Esta función funciona básicamente como una función envolvente que envía los valores p "brutos" no #' ajustados de cada prueba de chi-cuadrado por pares a la función p.adjust en el programa R base. La
-función p.adjust debe ser consultada para una mayor descripción de los métodos utilizados.
-Función tomada de la paqueteria fifer. https://www.rdocumentation.org/packages/fifer/versions/1.1
+ajustados pueden calcularse con una amplia variedad de métodos: fdr, BH, BY, bonferroni, holm, hochberg y hommel. Funciona básicamente como una función envolvente que envía los valores p "brutos" no ajustados de cada prueba de chi-cuadrado por pares a la función p.adjust en el programa R base. La función p.adjust debe ser consultada para una mayor descripción de los métodos utilizados. Función tomada de la paqueteria fifer. https://www.rdocumentation.org/packages/fifer/versions/1.1
 }
 \examples{
 table <- as.table(rbind(c(14, 43), c(23, 47)))
 rownames(table) <- c("females", "males")
 chisq.post.hoc(table,test = c("fisher.test"))
+# con más filas:
+M <- as.table(rbind(c(762, 327, 468), c(484, 239, 477)))
+dimnames(M) <- list(gender = c("F", "M"), party = c("Especie1","Especie2", "Especie3"))
+chisq.post.hoc(M,test = c("fisher.test"))
 }

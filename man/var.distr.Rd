@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{var.distr}
 \alias{var.distr}
-\title{Graficar la distribución de una variable numerica.}
+\title{Graficar la distribucion de una variable numerica.}
 \usage{
 var.distr(variable)
 }
