@@ -93,7 +93,7 @@ charSummary(df)
 ```
 
 
-*Tambien nos interesa saber como se relacionan la variables peso con nuestra variable de respuesta, la longitud hocico cloaca. Para ello usamos la función:*
+*Tambien nos interesa saber cómo se relacionan la variables peso con nuestra variable de respuesta, la longitud hocico cloaca. Para ello usamos la función ggpairs_dfnum, que nos da el valor de correlación y el valor de p:*
 
 
 ```{r fig1, fig.width = 5, fig.asp = .62}
@@ -132,7 +132,7 @@ hist_curva(df$LHC)
 ```
 
 
-*Podemos ajustar un modelo lineal generalizado (GLM). Con esta base de datos vamos a ajustar dos modelos lineales generalizados, el primero con la distribucion gaussiana y logaritmo como funcion de liga. El segundo con distribucion gaussiana y funcion de liga identity. Usaremos el ancho de los petalos como variable de respuesta. Además usaremos la variable Species y la longitud de los petalos como variables explicativas.*
+*Podemos ajustar un modelo lineal generalizado (GLM). Con esta base de datos vamos a ajustar dos modelos lineales generalizados, el primero con la distribucion gaussiana y logaritmo como funcion de liga. El segundo con distribucion gaussiana y funcion de liga identity. Usaremos el la longitud hocico-cloaca como variable de respuesta. Además usaremos la variable Velocidad y Localidad como variables explicativas.*
 
 
 ```{r}
@@ -179,7 +179,7 @@ resid_DHARMa(modelo2)
 outliers.plot(modelo2)
 
 ```
-*Vamos a suponer que es un error de medición y no podemos confiar en este dato.Lo vamos a remover y volver a ajustar el modelo:*
+*Vamos a suponer que es un error de medición y no podemos confiar en este dato. Lo vamos a remover y volver a ajustar el modelo:*
 
 datos.ct <- slice(datos.ct, -c(149))
 ```{r}
@@ -246,3 +246,11 @@ table_contrasts(cont1)
 table.models(modelo3)
 
 ```
+
+
+**Si quieres más información sobre el paquete y las actualizaciones, visita la página:https://mariosandovalmx.github.io/tlamatini-website/ **
+
+
+**Para citar este paquete: Mario A. Sandoval-Molina (2021). tlamatini: Funciones utiles para biologxs y ecologxs confundidos con los modelos lineales. R package version 0.1.**
+
+*Si quieres conocer más de mi trabajo, visita mi pagina web: https://mariosandovalmx.github.io/ecology/*
