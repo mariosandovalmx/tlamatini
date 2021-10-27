@@ -8,9 +8,11 @@
 my_theme_ggplot(axis.size = NULL, legend.size = NULL)
 }
 \arguments{
-\item{axis.size}{Tamaño de los ejes}
+\item{axis.size}{Tamaño de los ejes, obligatorio}
 
-\item{legend.size}{Tamaño de la leyenda}
+\item{legend.size}{Tamaño de la leyenda, obligatorio}
+
+\item{title.plot}{Titulo del gráfico}
 }
 \value{
 Un grafico de ggplot con el tema predefinido.

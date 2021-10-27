@@ -11,6 +11,8 @@ my_theme_ggplot2(axis.size = NULL, legend.size = NULL)
 \item{axis.size}{Tamaño de los ejes}
 
 \item{legend.size}{Tamaño de la leyenda}
+
+\item{title.plot}{Titulo del gráfico}
 }
 \value{
 Un grafico de ggplot con el tema predefinido.

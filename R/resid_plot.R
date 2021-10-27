@@ -19,7 +19,7 @@
 
 resid_plot <- function(Modelo){
 
-  plot_list<- sjPlot::plot_model(modelo2, type = "diag")
+  plot_list<- sjPlot::plot_model(Modelo, type = "diag")
   x= length(plot_list)
   nm<- as.character(seq(1:x))
 
