@@ -39,7 +39,7 @@ library(tlamatini)
 *Vamos a usar una base ded datos que contiene la longitud hocico-cloaca de lagartijas de la especie Sceloporus torquatus en cuatro localidades distintas, que vamos a llamar A, B, C y D. Además contiene la velocidad de desplazamiento y el tiempo de reacción de cada lagartija.*
 
 *La base de datos se puede descargar del siguiente enlace: *
-*https://mega.nz/file/WwBBCYYC#I99j3sEvTJpsKoi-nTf7_OohESLr1rPVlxhng1NxU0Q*
+*https://mega.nz/file/n9xTVKQa#7ymfumLrYp-CfD8Bd9diW42cDjdzPP6xAWJuf7cSu4s*
 
 *Así luce nuestra base de datos:*
 
