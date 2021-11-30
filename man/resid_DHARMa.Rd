@@ -5,17 +5,21 @@
 \alias{resid_DHARMa}
 \title{Grafico de residuales de un modelo LM, LMM, GLM, GLMM, GAM, etc}
 \usage{
-resid_DHARMa(Modelo)
+resid_DHARMa(Modelo, nsim = NULL)
 }
 \arguments{
-\item{Modelo}{Un modelo LM, GLM, GLMM, GAM,}
+\item{Modelo}{Un modelo LM, GLM, GLMM, GAM.}
+
+\item{nsim}{Número de simulaciones. Cuanto menor sea el número, mayor será el error estocástico en los residuales.
+Además, para n muy pequeño, los artefactos de discretización pueden influir en las pruebas. Por defecto es 250, que
+es un valor relativamente seguro. Puede considerar aumentar a 1000 para estabilizar los valores simulados.}
 }
 \value{
 Grafica los residuales de un modelo.
 }
 \description{
 Muestra el ajuste del modelo LM, GLM, GLMM, GAM, etc. Esta función crea residuos escalados
-mediante la simulación del modelo ajustado, 5000 simulaciones por default. Los residuos pueden ser extraídos con residuals.DHARMa. Ver
+mediante la simulación del modelo ajustado, 250 simulaciones por default. Los residuos pueden ser extraídos con residuals.DHARMa. Ver
 testResiduals para una visión general de las pruebas de residuos, plot.DHARMa para una visión general de
 los gráficos disponibles. Esta función fue creada para explorar el ajuste, normalidad y homogeneidad de
 varianzas entre los grupos.

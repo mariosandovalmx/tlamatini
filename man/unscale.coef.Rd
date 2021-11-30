@@ -10,16 +10,26 @@ unscale.coef(coef, scaled_covariate)
 \arguments{
 \item{coef}{Coeficientes del modelo.}
 
-\item{scaled_covariate}{variable escalada que contiene la media y la desviación estandar como atributos.}
+\item{scaled_covariate}{variable escalada que contiene la media y la desviaci?n estandar como atributos.}
 }
 \value{
 coeficientes o medias reconvertidas en su escala original
 }
 \description{
 Permite desescalar y descentrar los coeficientes de un modelo ajustado con las variables
-escaladas.
+escaladas. Esta funci?n tambien permite graficar las variables del eje X en su escala original.
 }
 \examples{
 #unscale.coef(-0.3440, using_scale)
 #unscale.coef(coefs, df_scaled)
+#
+#
+#Si lo que se quiere es graficar los efectos de un modelo en el que se usaron variables escaladas y se desea graficar en su escala original:
+#Primero se escala la variable y se guarda en un objeto que contrandr? los atributos de la media y SD
+#alt.sc<- scale(DataR$Altitud, center = TRUE, scale = TRUE)
+#library(ggeffects)
+#dat<- ggeffect(m, c("Altitud", "Monta?a"))
+#luego se retransforman los valores predichos por el modelo a su escala original usando la variable escalada.
+#dat$x <- unscale.coef(dat$x, alt.sc)
+#plot(dat)
 }

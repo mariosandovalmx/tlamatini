@@ -21,7 +21,7 @@
 #' @importFrom DHARMa testOutliers
 resid_DHARMa2 <- function(Modelo){
   dev.new()
-  res <- DHARMa::simulateResiduals(fittedModel = Modelo, n = 1000)
+  res <- DHARMa::simulateResiduals(fittedModel = Modelo, n = 250)
   par(mfrow=c(1,2))
 
   message(c("Para saber si hay outliers, Outlier test: p > 0.05, no hay outliers:"))
