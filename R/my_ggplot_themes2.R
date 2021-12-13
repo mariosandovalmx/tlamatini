@@ -5,7 +5,6 @@
 #'
 #' @param axis.size Tamaño de los ejes
 #' @param legend.size Tamaño de la leyenda
-#' @param title.plot Titulo del gráfico
 #'
 #' @return Un grafico de ggplot con el tema predefinido.
 #'

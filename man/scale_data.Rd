@@ -3,21 +3,21 @@
 \encoding{UTF-8}
 \name{scale_data}
 \alias{scale_data}
-\title{Estandarizar las variables de un dataframe, excluyendo algunas}
+\title{Estandarizar las variables de un dataframe}
 \usage{
-scale_data(df, ex_variables, center = TRUE, scale = TRUE)
+scale_data(df, ex_variables = NULL, center = TRUE, scale = TRUE)
 }
 \arguments{
 \item{df}{Un dataframe}
 
-\item{ex_variables}{Variables a excluir del dataframe. Esto si no queremos aplicar la escalada a dichas variables.}
+\item{ex_variables}{Variables a excluir del dataframe, si no queremos aplicar la escalada a dichas variables.}
 
 \item{center}{centrado}
 
 \item{scale}{escalado}
 }
 \value{
-vector escalado
+Dataframe escalado y centrado
 }
 \description{
 Estandariza las todas las variables de un dataframe mediante el centrado y el escalado. Para cada valor de una
@@ -34,4 +34,6 @@ el modelo. Ver la funci?n "stdize" de MuMIn package para m?s detalles.
 \examples{
 data(iris)
 df.sc <- scale_data(iris, ex_variables = c("Petal.Width","Petal.Length"))
+# Si no se especifica que variables excluir, se aplicará a todas las columnas numericas del dataframe.
+df.sc2 <- scale_data(iris)
 }
