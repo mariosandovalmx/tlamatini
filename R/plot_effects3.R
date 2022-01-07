@@ -25,16 +25,16 @@ plot_effects3<- function(modelo, show.data=NULL) {
 
   if(is.null(show.data)){
 
-    sjPlot::set_theme(base = ggplot2::theme_classic(),axis.textsize.x = 1,axis.textsize.y = 1,axis.title.color="black")
+    sjPlot::set_theme(base = ggplot2::theme_classic(),axis.textsize.x = 1,axis.textsize.y = 1,axis.title.color="black",title.color = "white")
     p.eff<- sjPlot::plot_model(modelo, type="eff",colors = "bw")
     return(sjPlot::plot_grid(p.eff,tags=TRUE))
   } else if(isTRUE(show.data)){
 
-    sjPlot::set_theme(base = ggplot2::theme_classic(),axis.textsize.x = 1,axis.textsize.y = 1,axis.title.color="black")
+    sjPlot::set_theme(base = ggplot2::theme_classic(),axis.textsize.x = 1,axis.textsize.y = 1,axis.title.color="black",title.color = "white")
     p.eff<- sjPlot::plot_model(modelo, type="eff",colors = "bw",show.data = TRUE, jitter = 0.05)
     return(sjPlot::plot_grid(p.eff,tags=TRUE))
   } else{
-    sjPlot::set_theme(base = ggplot2::theme_classic(),axis.textsize.x = 1,axis.textsize.y = 1,axis.title.color="black")
+    sjPlot::set_theme(base = ggplot2::theme_classic(),axis.textsize.x = 1,axis.textsize.y = 1,axis.title.color="black",title.color = "white")
     p.eff<- sjPlot::plot_model(modelo, type="eff",colors = "bw")
     return(sjPlot::plot_grid(p.eff,tags=TRUE))
 
@@ -42,4 +42,3 @@ plot_effects3<- function(modelo, show.data=NULL) {
   }
 
 }
-

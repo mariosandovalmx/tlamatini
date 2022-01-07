@@ -5,7 +5,7 @@
 \alias{plot_effects2}
 \title{Graficar effectos de un LM, LMM, GLM, GLMM}
 \usage{
-plot_effects2(modelo, lineas, puntos)
+plot_effects2(modelo, lineas = NULL, puntos = NULL)
 }
 \arguments{
 \item{modelo}{Modelo LM, GLM, GLMM, etc.}

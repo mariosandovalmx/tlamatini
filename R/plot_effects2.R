@@ -21,9 +21,24 @@
 #' @importFrom ggeffects ggeffect
 #' @importFrom ggpubr ggarrange
 #' @importFrom graphics plot
-plot_effects2<- function(modelo, lineas, puntos ) {
+#' @importFrom ggpubr grids
+plot_effects2<- function(modelo, lineas=NULL, puntos=NULL) {
+  if(is.null(lineas) & is.null(puntos)){
+    th<- ggplot2::theme(axis.text=ggplot2::element_text(size=15,color="black"),axis.title=ggplot2::element_text(size=15,face="bold",color="black"))+ ggplot2::theme_light(base_size = 17)+ ggpubr::grids(linetype = "dashed", color = "grey85")
+    #graficar efectos paqueteria ggeffects
+    dat<- ggeffects::ggeffect(modelo)
 
-  if( lineas == T & puntos ==  T ){
+    # graficar los efectos y agruparlos en una sola grafica ggpubr
+
+    graphs <- lapply(names(dat),function(x){
+      graphics::plot(dat[[x]], connect.lines = FALSE, add.data=FALSE, colors = "bw", alpha = 0.15, dot.alpha = 0.15,jitter = 0.2,line.size = 1, show.title = FALSE)+th
+
+
+    })
+    do.call(ggpubr::ggarrange,graphs)
+
+  } else if( lineas == T & puntos ==  T ){
+    th<- ggplot2::theme(axis.text=ggplot2::element_text(size=15,color="black"),axis.title=ggplot2::element_text(size=15,face="bold",color="black"))+ ggplot2::theme_light(base_size = 17)+ ggpubr::grids(linetype = "dashed", color = "grey85")
 
     #graficar efectos paqueteria ggeffects
     dat<- ggeffects::ggeffect(modelo)
@@ -31,48 +46,48 @@ plot_effects2<- function(modelo, lineas, puntos ) {
     # graficar los efectos y agruparlos en una sola grafica ggpubr
 
     graphs <- lapply(names(dat),function(x){
-      graphics::plot(dat[[x]], connect.lines = TRUE, add.data=TRUE, colors = "bw", alpha = 0.15, dot.alpha = 0.15,jitter = 0.2,line.size = 1)
+      graphics::plot(dat[[x]], connect.lines = TRUE, add.data=TRUE, colors = "bw", alpha = 0.15, dot.alpha = 0.15,jitter = 0.2,line.size = 1, show.title = FALSE)+th
 
 
     })
     do.call(ggpubr::ggarrange,graphs)
   } else if( lineas ==  F & puntos == F) {
-
+    th<- ggplot2::theme(axis.text=ggplot2::element_text(size=15,color="black"),axis.title=ggplot2::element_text(size=15,face="bold",color="black"))+ ggplot2::theme_light(base_size = 17)+ ggpubr::grids(linetype = "dashed", color = "grey85")
     #graficar efectos paqueteria ggeffects
     dat2<- ggeffects::ggeffect(modelo)
 
     # graficar los efectos y agruparlos en una sola grafica ggpubr
 
     graphs2 <- lapply(names(dat2),function(x){
-      graphics::plot(dat2[[x]],connect.lines = FALSE, add.data=FALSE, colors = "bw", alpha = 0.15, dot.alpha = 0.15,jitter = 0.2,line.size = 1)
+      graphics::plot(dat2[[x]],connect.lines = FALSE, add.data=FALSE, colors = "bw", alpha = 0.15, dot.alpha = 0.15,jitter = 0.2,line.size = 1, show.title = FALSE)+th
 
 
     })
     do.call(ggpubr::ggarrange,graphs2)
 
   } else if( lineas == T & puntos == F) {
-
+    th<- ggplot2::theme(axis.text=ggplot2::element_text(size=15,color="black"),axis.title=ggplot2::element_text(size=15,face="bold",color="black"))+ ggplot2::theme_light(base_size = 17)+ ggpubr::grids(linetype = "dashed", color = "grey85")
     #graficar efectos paqueteria ggeffects
     dat2<- ggeffects::ggeffect(modelo)
 
     # graficar los efectos y agruparlos en una sola grafica ggpubr
 
     graphs2 <- lapply(names(dat2),function(x){
-      graphics::plot(dat2[[x]],connect.lines = TRUE, add.data=FALSE, colors = "bw", alpha = 0.15, dot.alpha = 0.15,jitter = 0.2,line.size = 1)
+      graphics::plot(dat2[[x]],connect.lines = TRUE, add.data=FALSE, colors = "bw", alpha = 0.15, dot.alpha = 0.15,jitter = 0.2,line.size = 1, show.title = FALSE) + th
 
 
     })
     do.call(ggpubr::ggarrange,graphs2)
 
   } else if( lineas == F & puntos == T) {
-
+    th<- ggplot2::theme(axis.text=ggplot2::element_text(size=15,color="black"),axis.title=ggplot2::element_text(size=15,face="bold",color="black"))+ ggplot2::theme_light(base_size = 17)+ ggpubr::grids(linetype = "dashed", color = "grey85")
     #graficar efectos paqueteria ggeffects
     dat2<- ggeffects::ggeffect(modelo)
 
     # graficar los efectos y agruparlos en una sola grafica ggpubr
 
     graphs2 <- lapply(names(dat2),function(x){
-      graphics::plot(dat2[[x]],connect.lines = FALSE, add.data=TRUE, colors = "bw", alpha = 0.15, dot.alpha = 0.15,jitter = 0.2,line.size = 1)
+      graphics::plot(dat2[[x]],connect.lines = FALSE, add.data=TRUE, colors = "bw", alpha = 0.15, dot.alpha = 0.15,jitter = 0.2,line.size = 1, show.title = FALSE) + th
 
 
     })
