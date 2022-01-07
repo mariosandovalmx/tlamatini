@@ -31,7 +31,8 @@ table_ANOVA3F <- function(modelo) {
     # redondear valor de p
     anovas[,4]  = ifelse(anovas[,4] > 0.001,  format(round(anovas[,4] ,3),nsmall=3),  "<0.001" )
     anovas3<- rbind(anovas, anovas2)
-    sjPlot::tab_df(anovas3, title = "Analysis of Deviance Table (Type III tests)")
+    tab<- sjPlot::tab_df(anovas3, title = "Analysis of Deviance Table (Type III tests)")
+    return(tab)
     options(scipen = -999)
   } else if(modelo[["call"]][[1]]== "lme.formula"){
 
@@ -45,7 +46,8 @@ table_ANOVA3F <- function(modelo) {
     # redondear valor de p
     anovas[,4] = ifelse(anovas[,4] > 0.001,  format(round(anovas[,4] ,3),nsmall=3),  "<0.001" )
 
-    sjPlot::tab_df(anovas, title = "Analysis of Deviance Table (Type III tests)")
+    tab<- sjPlot::tab_df(anovas, title = "Analysis of Deviance Table (Type III tests)")
+    return(tab)
     options(scipen=0)
 
 
