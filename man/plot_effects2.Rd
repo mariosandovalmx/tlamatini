@@ -5,7 +5,7 @@
 \alias{plot_effects2}
 \title{Graficar effectos de un LM, LMM, GLM, GLMM}
 \usage{
-plot_effects2(modelo, lineas = NULL, puntos = NULL)
+plot_effects2(modelo, lineas = NULL, puntos = NULL, grids = NULL)
 }
 \arguments{
 \item{modelo}{Modelo LM, GLM, GLMM, etc.}
@@ -13,6 +13,8 @@ plot_effects2(modelo, lineas = NULL, puntos = NULL)
 \item{lineas}{Argumento logico TRUE o FALSE, que indica si se agregan las lineas o no.}
 
 \item{puntos}{Argumento logico TRUE o FALSE, que indica si se agregan los puntos o no.}
+
+\item{grids}{Si se especifica F o FALSE, se eliminan las rejillas del grafico.}
 }
 \value{
 Grafica todas las variables explicativas del modelo.
@@ -25,7 +27,14 @@ explicativas en el modelo y su influencia en la variable de respuesta.
 data(iris)
 modelo <- glm(Petal.Width ~ Petal.Length*Species+ Sepal.Length, family = gaussian("log"), data=iris)
 plot_effects2(modelo, lineas = TRUE, puntos=TRUE)
-#plot_effects2(modelo, lineas = FALSE, puntos=FALSE)
-#plot_effects2(modelo, lineas = TRUE, puntos=FALSE)
-#plot_effects2(modelo, lineas = FALSE, puntos=TRUE)
+#plot_effects2(modelo)
+#plot_effects2(modelo, grids = F)
+#plot_effects2(modelo, lineas = T, puntos = T)
+#plot_effects2(modelo, lineas = T, puntos = T, grids = F)
+#plot_effects2(modelo, lineas=F, puntos = F)
+#plot_effects2(modelo, lineas=F, puntos = F, grids = F)
+#plot_effects2(modelo, lineas = T, puntos = F)
+#plot_effects2(modelo, lineas = T, puntos = F, grids = F)
+#plot_effects2(modelo, lineas = F, puntos = T)
+#plot_effects2(modelo, lineas = F, puntos = T, grids = F)
 }
