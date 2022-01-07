@@ -262,6 +262,12 @@ emmeans(modelo3, pairwise ~ Localidad,adjust="tukey",type="response")
 cont1 <- emmeans(modelo3, pairwise ~ Localidad,adjust="tukey",type="response")$contrasts
 table_contrasts(cont1)
 ```
+*Si queremos exportar la tabla de ANOVA tipo III:*
+
+```{r}
+
+table_ANOVA3(modelo3)
+```
 
 
 *Por último si queremos exportar la tabla del modelo en Word:*
