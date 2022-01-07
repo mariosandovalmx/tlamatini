@@ -129,7 +129,7 @@ var.distr(df$LHC)
 
 ```
 
-*La distribución que mas se ajusta es la distribución uniforme y normal. Lo podemos ver más claramente en el histograma de frecuencuas y en el qqplot. Además nos dice que hay dos datos extremos, el 22 y 38.*
+*La distribución que mas se ajusta es la distribución uniforme y normal. Lo podemos ver más claramente en el histograma de frecuencuas y en el qqplot. La prueba de Kolmogorov-Smirnov indica que no la distribución es parecida a la normal. Además nos dice que hay dos datos extremos, el 22 y 38.*
 ```{r, fig4, fig.width = 7, fig.height=7}
 hist_curva(df$LHC)
 ```
@@ -234,8 +234,18 @@ table_ANOVA3(modelo3)
 plot_effects(modelo3)
 
 ```
+*o bien:*
+```{r fig13, fig.width = 10, fig.height=5}
 
+plot_effects2(modelo3)
 
+```
+*con otra función:*
+```{r fig14, fig.width = 5, fig.height=10}
+
+plot_effects3(modelo3)
+
+```
 *Si queremos hacer los contrastes post-hoc Tuckey, usamos la paquetería 'emmeans'. Primero se muestran las medias, error estandar y los intervalos de confianza. Luego se muestran los contrastes entre localidades, con el valor del estadistico y el valor de p:*
 
 ```{r}

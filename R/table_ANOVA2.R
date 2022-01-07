@@ -18,15 +18,20 @@
 
 table_ANOVA2 <- function(modelo) {
 
+
   options(scipen = 999)
   anovas<- car::Anova(modelo,type="II")
   anovas<- data.table::setDT(anovas, keep.rownames = TRUE)[]
   names(anovas)[names(anovas) == "rn"] <- "Variables"
   anovas<- as.data.frame(anovas)
-  # redondear valor de p
-  anovas$`Pr(>Chisq)`= ifelse(anovas$`Pr(>Chisq)`> 0.001,  format(round(anovas$`Pr(>Chisq)`,3),nsmall=3),  "<0.001" )
-
+  anovas[,4] <- format(anovas[,4], scientific = FALSE)
+  #anovas[,4] <- as.numeric(substr(anovas[,4] , start = 1, stop = 5))
+  anovas[,4][anovas[,4]  < 0.001] <- "<0.001"
+  colnames(anovas)[4] <- "P.value"
   sjPlot::tab_df(anovas, title = "Analysis of Deviance Table (Type II tests)")
+  options(scipen=0)
+
+
 
 
 }

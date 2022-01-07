@@ -29,9 +29,10 @@ table_ANOVA3F <- function(modelo) {
     anovas2 <- anovas[is.na(anovas$`F values`),]
     anovas<- na.omit(anovas)
     # redondear valor de p
-    anovas$`Pr(>F)` = ifelse(anovas$`Pr(>F)`> 0.001,  format(round(anovas$`Pr(>F)` ,3),nsmall=3),  "<0.001" )
+    anovas[,4]  = ifelse(anovas[,4] > 0.001,  format(round(anovas[,4] ,3),nsmall=3),  "<0.001" )
     anovas3<- rbind(anovas, anovas2)
     sjPlot::tab_df(anovas3, title = "Analysis of Deviance Table (Type III tests)")
+    options(scipen = -999)
   } else if(modelo[["call"]][[1]]== "lme.formula"){
 
 
@@ -42,9 +43,10 @@ table_ANOVA3F <- function(modelo) {
     names(anovas)[names(anovas) == "rn"] <- "Variables"
     anovas<- as.data.frame(anovas)
     # redondear valor de p
-    anovas$`Pr(>Chisq)`= ifelse(anovas$`Pr(>Chisq)`> 0.001,  format(round(anovas$`Pr(>Chisq)`,3),nsmall=3),  "<0.001" )
+    anovas[,4] = ifelse(anovas[,4] > 0.001,  format(round(anovas[,4] ,3),nsmall=3),  "<0.001" )
 
     sjPlot::tab_df(anovas, title = "Analysis of Deviance Table (Type III tests)")
+    options(scipen=0)
 
 
   } else {
