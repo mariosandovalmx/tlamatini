@@ -18,12 +18,14 @@
 #'
 #' @examples
 #' table <- as.table(rbind(c(14, 43), c(23, 47)))
-#' rownames(table) <- c("females", "males")
+#' rownames(table) <- c("Hembras", "Machos")
 #' chisq.post.hoc(table,test = c("fisher.test"))
-#' # con más filas:
-#' M <- as.table(rbind(c(762, 327, 468), c(484, 239, 477)))
-#' dimnames(M) <- list(gender = c("F", "M"), party = c("Especie1","Especie2", "Especie3"))
-#' chisq.post.hoc(M,test = c("fisher.test"))
+#'
+#' # con más de dos filas:
+#' table2 <- as.table(t(rbind(c(14, 23, 468), c(43, 47, 477))))
+#' colnames(table2) <- c("Hembras", "Machos")
+#' rownames(table2)<- c("Especie1","Especie2", "Especie3")
+#' chisq.post.hoc(table2,test = c("fisher.test"))
 #' @encoding UTF-8
 #'
 
