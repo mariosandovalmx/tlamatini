@@ -87,7 +87,7 @@ numSummary <- function(df){
     ux[which.max(tabulate(match(x, ux)))]
   }
   mode      <- sapply(dfnum, function(x) Mode(x) )
-  mode      <- as.data.frame(mode)
+  moda      <- as.data.frame(mode)
 
   n1        <- nrow(dfnum)
   c1        <- ncol(dfnum)
@@ -97,7 +97,7 @@ numSummary <- function(df){
   #missing value computation
   faltantes <- sapply(dfnum, function(x) sum(is.na(x)) )
   faltantes      <- as.data.frame(faltantes)
-  d3        <- cbind(d2,mode,faltantes)
+  d3        <- cbind(d2,moda,faltantes)
   missPer   <- (faltantes/n1)*100
   d3        <- cbind(d3,missPer)
   colnames(d3)[ncol(d3)] <- "%faltantes"
