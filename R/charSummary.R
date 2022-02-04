@@ -50,9 +50,9 @@ charSummary <- function(df){
       topfivelevelcount <- paste0(names(topfive), ":", topfive)
     }
 
-    unique     <- sapply(EE, function(x) length(unique(x)))
+    unicos     <- sapply(EE, function(x) length(unicos(x)))
     unique_val <- sapply(EE, function(x) paste0(topfivelevel(x), collapse = ", "))
-    m4         <- cbind.data.frame(m3, unique, "top5:conteos" = unique_val)
+    m4         <- cbind.data.frame(m3, unicos, "top5:conteos" = unique_val)
 
     return(m4)
   }
