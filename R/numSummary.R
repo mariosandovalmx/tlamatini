@@ -46,7 +46,7 @@ numSummary <- function(df){
     res     <- ((m4 / m2^2 - 3) + 3) * (1 - 1 / x_count)^2 - 3
   }
 
-  #skewness calculation
+  #asimetría
   skewness <- function(x,na.rm = TRUE){
     if(na.rm){
       x     <- x[which(!is.na(x))]
@@ -79,7 +79,7 @@ numSummary <- function(df){
   kurtosis_val        <- sapply(DD, function(x) kurtosis(x))
   skewness_val        <- sapply(DD, function(x) skewness(x))
   d2                  <- cbind.data.frame(n,mean,sd,max,min,range,nunique,nzero,outliersummary,kurtosis_val,skewness_val)
-  colnames(d2)        <- c("n","mean","sd","max","min","range","nunique","nzeros","iqr","lowerbound","upperbound","noutlier","kurtosis","skewness")
+  colnames(d2)        <- c("n","media","sd","max","min","rango","nunicos","nceros","iqr","limitinferior","limitesuperior","noutlier","kurtosis","asimetria")
 
   #mode computation
   Mode <- function(x) {
