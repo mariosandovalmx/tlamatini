@@ -35,13 +35,13 @@ charSummary <- function(df){
 
     n1       <- nrow(df)
 
-    #missing value computation
+    #valores perdidos
     miss     <- sapply(EE, function(x) sum(is.na(x)))
     miss     <- as.data.frame(miss)
     g3       <- cbind(n, miss)
     perc     <- (miss/n1)*100
     m3       <- cbind(g3, perc)
-    colnames(m3)[ncol(m3)] <- "miss%"
+    colnames(m3)[ncol(m3)] <- "%faltantes"
 
     #top-5 level count
     topfivelevel <- function(x){
@@ -52,7 +52,7 @@ charSummary <- function(df){
 
     unique     <- sapply(EE, function(x) length(unique(x)))
     unique_val <- sapply(EE, function(x) paste0(topfivelevel(x), collapse = ", "))
-    m4         <- cbind.data.frame(m3, unique, "top5levels:count" = unique_val)
+    m4         <- cbind.data.frame(m3, unique, "top5:conteos" = unique_val)
 
     return(m4)
   }

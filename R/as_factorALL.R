@@ -1,6 +1,6 @@
 #' Convertir a factor todas las variables tipo caracter de un dataframe
 #'
-#' Convierte a factor todas las columnas tipo caracter.
+#' Convierte a factor todas las columnas tipo caracter de un dataframe.
 #' @param dataframe Dataframe
 #'
 #' @return Un dataframe con todas las variables tipo caracter convertidas a factor.
@@ -16,5 +16,4 @@ as_factorALL<- function(dataframe){
                                          as.factor)
   return(df)
 }
-
 
