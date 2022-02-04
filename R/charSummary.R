@@ -36,10 +36,10 @@ charSummary <- function(df){
     n1       <- nrow(df)
 
     #valores perdidos
-    miss     <- sapply(EE, function(x) sum(is.na(x)))
-    miss     <- as.data.frame(miss)
-    g3       <- cbind(n, miss)
-    perc     <- (miss/n1)*100
+    faltantes     <- sapply(EE, function(x) sum(is.na(x)))
+    faltantes     <- as.data.frame(faltantes)
+    g3       <- cbind(n, faltantes)
+    perc     <- (faltantes/n1)*100
     m3       <- cbind(g3, perc)
     colnames(m3)[ncol(m3)] <- "%faltantes"
 
