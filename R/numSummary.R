@@ -95,12 +95,12 @@ numSummary <- function(df){
   numb      <- data.frame(numb)
 
   #missing value computation
-  miss      <- sapply(dfnum, function(x) sum(is.na(x)) )
-  miss      <- as.data.frame(miss)
-  d3        <- cbind(d2,mode,miss)
-  missPer   <- (miss/n1)*100
+  faltantes <- sapply(dfnum, function(x) sum(is.na(x)) )
+  faltantes      <- as.data.frame(faltantes)
+  d3        <- cbind(d2,mode,faltantes)
+  missPer   <- (faltantes/n1)*100
   d3        <- cbind(d3,missPer)
-  colnames(d3)[ncol(d3)] <- "miss%"
+  colnames(d3)[ncol(d3)] <- "%faltantes"
 
   #percentile value computation
   q         <- sapply(DD, function(x) quantile(x, c(.01,.05,.25,.5,.75,.95, .99),na.rm=TRUE) )
