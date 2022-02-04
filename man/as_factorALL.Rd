@@ -14,7 +14,7 @@ as_factorALL(dataframe)
 Un dataframe con todas las variables tipo caracter convertidas a factor.
 }
 \description{
-Convierte a factor todas las columnas tipo caracter.
+Convierte a factor todas las columnas tipo caracter de un dataframe.
 }
 \examples{
 #iris2<- as_factorALL(iris)
