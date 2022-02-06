@@ -1,15 +1,10 @@
 #' Contrastes post hoc de una matriz de datos con chi-cuadrada
 #'
-#' Muestra las comparaciones post-hoc por pares de una prueba Chi cuadrada. Calcula los contrastes si hay
-#' más de dos grupos en una chisq. Las pruebas post-hoc para saber que pares de poblaciones difieren tras
-#' una prueba de chi-cuadrado significativa pueden construirse realizando todas las pruebas de chi-cuadrado
-#' para todos los pares de poblaciones y ajustando después los valores p resultantes. Los valores p
-#' ajustados pueden calcularse con una amplia variedad de métodos: fdr, BH, BY, bonferroni, holm, hochberg y hommel. Funciona básicamente como una función envolvente que envía los valores p "brutos" no ajustados de cada prueba de chi-cuadrado por pares a la función p.adjust en el programa R base. La función p.adjust debe ser consultada para una mayor descripción de los métodos utilizados. Función tomada de la paqueteria fifer. https://www.rdocumentation.org/packages/fifer/versions/1.1
-#' @param tbl Una tabla o matriz usada para la función chisq.test
+#' Muestra las comparaciones post-hoc por pares de una prueba Chi cuadrada significativa. Calcula los contrastes si hay más de dos grupos. Se aplica una prueba de fisher individual para saber que grupos difieren. Los valores p ajustados pueden calcularse con una amplia variedad de métodos: fdr, BH, BY, bonferroni, holm, hochberg y hommel. Funciona básicamente como una función envolvente que envía los valores p "brutos" no ajustados de cada prueba de chi-cuadrado por pares a la función p.adjust en el programa R base. La función p.adjust debe ser consultada para una mayor descripción de los métodos utilizados. Función tomada y modificada de la paqueteria fifer. https://www.rdocumentation.org/packages/fifer/versions/1.1
+#' @param tabla Una tabla o matriz usada para la función chisq.test
 #' @param test Método usado para ajustar el valor de P.
-#' @param  popsInRows Un argumento lógico que indica si las poblaciones forman las filas (por defecto; =TRUE
-#' ) de la tabla o no (=FALSE).
-#' @param control Indica el método de control a utilizar.
+#' @param  popsInRows Un argumento lógico que indica si las poblaciones forman las filas de la tabla (por defecto =TRUE) o no (=FALSE).
+#' @param control Indica el método de control a utilizar. fdr, BH, BY, bonferroni, holm, hochberg y hommel.
 #' @param digits Número de digitos a mostrar.
 #' @param simulate.p.value Si argumento es TRUE, indica que se calculan los valores p mediante la simulación de Monte Carlo y 5000 replicas. Para más información consulta la funcion 'chisq.test'.
 #'
@@ -21,15 +16,19 @@
 #' rownames(table) <- c("Hembras", "Machos")
 #' chisq.post.hoc(table,test = c("fisher.test"))
 #'
-#' # con más de dos filas:
-#' table2 <- as.table(t(rbind(c(14, 23, 468), c(43, 47, 477))))
-#' colnames(table2) <- c("Hembras", "Machos")
-#' rownames(table2)<- c("Especie1","Especie2", "Especie3")
-#' chisq.post.hoc(table2,test = c("fisher.test"))
+#' xtab <- as.table(rbind(c(180, 145), c(179, 106),c(510, 196), c(862, 23)))
+#' dimnames(xtab) <- list(
+#' Tratamiento = c("1st", "2nd", "3rd", "Control"),
+#' Genero = c("hembra", "macho"))
+#' chisq.post.hoc(xtab)
+#' chisq.post.hoc(xtab,control = c("fdr"))
+#' chisq.post.hoc(xtab,control = c("BY"))
+#' chisq.post.hoc(xtab,control = c("bonferroni"))
+#' chisq.post.hoc(xtab,control = c("bonferroni"), simulate.p.value = TRUE)
 #' @encoding UTF-8
 #'
 
-chisq.post.hoc <- function(tbl,test=c("fisher.test"), popsInRows=TRUE,control=c("fdr","BH","BY","bonferroni","holm","hochberg","hommel"),digits=4, simulate.p.value= NULL) {
+chisq.post.hoc <- function(tabla,test=c("fisher.test"), popsInRows=TRUE,control=c("fdr","BH","BY","bonferroni","holm","hochberg","hommel"),digits=4, simulate.p.value= NULL) {
   if(is.null(simulate.p.value)){
 
     #### extract correction method
@@ -39,11 +38,11 @@ chisq.post.hoc <- function(tbl,test=c("fisher.test"), popsInRows=TRUE,control=c(
     test = match.fun(test)
 
     #### test rows or columns
-    if (!popsInRows) tbl <- t(tbl)
-    popsNames <- rownames(tbl)
+    if (!popsInRows) tabla <- t(tabla)
+    popsNames <- rownames(tabla)
 
     #### come up with all possible comparisons
-    prs <- utils::combn(1:nrow(tbl),2)
+    prs <- utils::combn(1:nrow(tabla),2)
 
     #### preallocate
     tests <- ncol(prs)
@@ -54,7 +53,7 @@ chisq.post.hoc <- function(tbl,test=c("fisher.test"), popsInRows=TRUE,control=c(
     x <- tryCatch(
       { # AQUI VA LA FUNCIÓN QUE VAMOS A PROBAR SI TIENE ERROR
         for (i in 1:tests) {
-          pvals[i] <- test(tbl[prs[,i],])$p.value
+          pvals[i] <- test(tabla[prs[,i],])$p.value
           lbls[i] <- paste(popsNames[prs[,i]],collapse=" vs. ")
         }
       },
@@ -64,9 +63,17 @@ chisq.post.hoc <- function(tbl,test=c("fisher.test"), popsInRows=TRUE,control=c(
     )
     adj.pvals <- stats::p.adjust(pvals,method=control)
     cat("Adjusted p-values used the",control,"method.\n\n")
-    data.frame(comparison=lbls,raw.p=round(pvals,digits),adj.p=round(adj.pvals,digits))
+    dfs<- data.frame(Comparar=lbls,p=round(pvals,digits),p.ajust=round(adj.pvals,digits))
+    dfs[,3]  <- format(dfs[,3], scientific = FALSE)
+    dfs[,3]  <- as.numeric(substr(dfs[,3]  , start = 1, stop = 5))
+    dfs[,3][dfs[,3]   < 0.001] <- "<0.001"
+    dfs[,2]  <- format(dfs[,2], scientific = FALSE)
+    dfs[,2]  <- as.numeric(substr(dfs[,2]  , start = 1, stop = 5))
+    dfs[,2][dfs[,2]   < 0.001] <- "<0.001"
 
-  } else if (simulate.p.value == TRUE){
+    return(dfs)
+
+  } else if (simulate.p.value == TRUE | T){
 
     #### extract correction method
     control <- match.arg(control)
@@ -75,23 +82,32 @@ chisq.post.hoc <- function(tbl,test=c("fisher.test"), popsInRows=TRUE,control=c(
     test = match.fun(test)
 
     #### test rows or columns
-    if (!popsInRows) tbl <- t(tbl)
-    popsNames <- rownames(tbl)
+    if (!popsInRows) tabla <- t(tabla)
+    popsNames <- rownames(tabla)
 
     #### come up with all possible comparisons
-    prs <- utils::combn(1:nrow(tbl),2)
+    prs <- utils::combn(1:nrow(tabla),2)
 
     #### preallocate
     tests <- ncol(prs)
     pvals <- numeric(tests)
     lbls <- character(tests)
     for (i in 1:tests) {
-      pvals[i] <- test(tbl[prs[,i],], simulate.p.value=TRUE, B=5000)$p.value
+      pvals[i] <- test(tabla[prs[,i],], simulate.p.value=TRUE, B=5000)$p.value
       lbls[i] <- paste(popsNames[prs[,i]],collapse=" vs. ")
     }
     adj.pvals <- stats::p.adjust(pvals,method=control)
     cat("Adjusted p-values used the",control,"method.\n\n")
-    data.frame(comparison=lbls,raw.p=round(pvals,digits),adj.p=round(adj.pvals,digits))
+    dfs<- data.frame(Comparar=lbls,p=round(pvals,digits),p.ajust=round(adj.pvals,digits))
+    dfs[,3]  <- format(dfs[,3], scientific = FALSE)
+    dfs[,3]  <- as.numeric(substr(dfs[,3]  , start = 1, stop = 5))
+    dfs[,3][dfs[,3]   < 0.001] <- "<0.001"
+    dfs[,2]  <- format(dfs[,2], scientific = FALSE)
+    dfs[,2]  <- as.numeric(substr(dfs[,2]  , start = 1, stop = 5))
+    dfs[,2][dfs[,2]   < 0.001] <- "<0.001"
+
+
+    return(dfs)
   } else{
     #### extract correction method
     control <- match.arg(control)
@@ -100,25 +116,33 @@ chisq.post.hoc <- function(tbl,test=c("fisher.test"), popsInRows=TRUE,control=c(
     test = match.fun(test)
 
     #### test rows or columns
-    if (!popsInRows) tbl <- t(tbl)
-    popsNames <- rownames(tbl)
+    if (!popsInRows) tabla <- t(tabla)
+    popsNames <- rownames(tabla)
 
     #### come up with all possible comparisons
-    prs <- utils::combn(1:nrow(tbl),2)
+    prs <- utils::combn(1:nrow(tabla),2)
 
     #### preallocate
     tests <- ncol(prs)
     pvals <- numeric(tests)
     lbls <- character(tests)
     for (i in 1:tests) {
-      pvals[i] <- test(tbl[prs[,i],])$p.value
+      pvals[i] <- test(tabla[prs[,i],])$p.value
       lbls[i] <- paste(popsNames[prs[,i]],collapse=" vs. ")
     }
     adj.pvals <- stats::p.adjust(pvals,method=control)
     cat("Adjusted p-values used the",control,"method.\n\n")
-    data.frame(comparison=lbls,raw.p=round(pvals,digits),adj.p=round(adj.pvals,digits))
+    dfs<- data.frame(Comparar=lbls,p=round(pvals,digits),p.ajust=round(adj.pvals,digits))
+    dfs[,3]  <- format(dfs[,3], scientific = FALSE)
+    dfs[,3]  <- as.numeric(substr(dfs[,3]  , start = 1, stop = 5))
+    dfs[,3][dfs[,3]   < 0.001] <- "<0.001"
+    dfs[,2]  <- format(dfs[,2], scientific = FALSE)
+    dfs[,2]  <- as.numeric(substr(dfs[,2]  , start = 1, stop = 5))
+    dfs[,2][dfs[,2]   < 0.001] <- "<0.001"
+
+
+    return(dfs)
 
   }
 }
-
 

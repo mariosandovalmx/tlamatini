@@ -6,7 +6,7 @@
 \title{Contrastes post hoc de una matriz de datos con chi-cuadrada}
 \usage{
 chisq.post.hoc(
-  tbl,
+  tabla,
   test = c("fisher.test"),
   popsInRows = TRUE,
   control = c("fdr", "BH", "BY", "bonferroni", "holm", "hochberg", "hommel"),
@@ -15,14 +15,13 @@ chisq.post.hoc(
 )
 }
 \arguments{
-\item{tbl}{Una tabla o matriz usada para la función chisq.test}
+\item{tabla}{Una tabla o matriz usada para la función chisq.test}
 
 \item{test}{Método usado para ajustar el valor de P.}
 
-\item{popsInRows}{Un argumento lógico que indica si las poblaciones forman las filas (por defecto; =TRUE
-) de la tabla o no (=FALSE).}
+\item{popsInRows}{Un argumento lógico que indica si las poblaciones forman las filas de la tabla (por defecto =TRUE) o no (=FALSE).}
 
-\item{control}{Indica el método de control a utilizar.}
+\item{control}{Indica el método de control a utilizar. fdr, BH, BY, bonferroni, holm, hochberg y hommel.}
 
 \item{digits}{Número de digitos a mostrar.}
 
@@ -32,20 +31,20 @@ chisq.post.hoc(
 Contrastes 'post-hoc' de chi cuadrada para dos niveles usando Fisher.test.
 }
 \description{
-Muestra las comparaciones post-hoc por pares de una prueba Chi cuadrada. Calcula los contrastes si hay
-más de dos grupos en una chisq. Las pruebas post-hoc para saber que pares de poblaciones difieren tras
-una prueba de chi-cuadrado significativa pueden construirse realizando todas las pruebas de chi-cuadrado
-para todos los pares de poblaciones y ajustando después los valores p resultantes. Los valores p
-ajustados pueden calcularse con una amplia variedad de métodos: fdr, BH, BY, bonferroni, holm, hochberg y hommel. Funciona básicamente como una función envolvente que envía los valores p "brutos" no ajustados de cada prueba de chi-cuadrado por pares a la función p.adjust en el programa R base. La función p.adjust debe ser consultada para una mayor descripción de los métodos utilizados. Función tomada de la paqueteria fifer. https://www.rdocumentation.org/packages/fifer/versions/1.1
+Muestra las comparaciones post-hoc por pares de una prueba Chi cuadrada significativa. Calcula los contrastes si hay más de dos grupos. Se aplica una prueba de fisher individual para saber que grupos difieren. Los valores p ajustados pueden calcularse con una amplia variedad de métodos: fdr, BH, BY, bonferroni, holm, hochberg y hommel. Funciona básicamente como una función envolvente que envía los valores p "brutos" no ajustados de cada prueba de chi-cuadrado por pares a la función p.adjust en el programa R base. La función p.adjust debe ser consultada para una mayor descripción de los métodos utilizados. Función tomada y modificada de la paqueteria fifer. https://www.rdocumentation.org/packages/fifer/versions/1.1
 }
 \examples{
 table <- as.table(rbind(c(14, 43), c(23, 47)))
 rownames(table) <- c("Hembras", "Machos")
 chisq.post.hoc(table,test = c("fisher.test"))
 
-# con más de dos filas:
-table2 <- as.table(t(rbind(c(14, 23, 468), c(43, 47, 477))))
-colnames(table2) <- c("Hembras", "Machos")
-rownames(table2)<- c("Especie1","Especie2", "Especie3")
-chisq.post.hoc(table2,test = c("fisher.test"))
+xtab <- as.table(rbind(c(180, 145), c(179, 106),c(510, 196), c(862, 23)))
+dimnames(xtab) <- list(
+Tratamiento = c("1st", "2nd", "3rd", "Control"),
+Genero = c("hembra", "macho"))
+chisq.post.hoc(xtab)
+chisq.post.hoc(xtab,control = c("fdr"))
+chisq.post.hoc(xtab,control = c("BY"))
+chisq.post.hoc(xtab,control = c("bonferroni"))
+chisq.post.hoc(xtab,control = c("bonferroni"), simulate.p.value = TRUE)
 }
