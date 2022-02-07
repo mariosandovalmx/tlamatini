@@ -62,7 +62,7 @@ chisq.post.hoc <- function(tabla,test=c("fisher.test"), popsInRows=TRUE,control=
       }
     )
     adj.pvals <- stats::p.adjust(pvals,method=control)
-    cat("Adjusted p-values used the",control,"method.\n\n")
+    cat("Los valores de p fueron ajustados con el metodo",control)
     dfs<- data.frame(Comparar=lbls,p=round(pvals,digits),p.ajust=round(adj.pvals,digits))
     dfs[,3]  <- format(dfs[,3], scientific = FALSE)
     dfs[,3]  <- as.numeric(substr(dfs[,3]  , start = 1, stop = 5))
@@ -97,7 +97,7 @@ chisq.post.hoc <- function(tabla,test=c("fisher.test"), popsInRows=TRUE,control=
       lbls[i] <- paste(popsNames[prs[,i]],collapse=" vs. ")
     }
     adj.pvals <- stats::p.adjust(pvals,method=control)
-    cat("Adjusted p-values used the",control,"method.\n\n")
+    cat("Los valores de p fueron ajustados con el metodo",control)
     dfs<- data.frame(Comparar=lbls,p=round(pvals,digits),p.ajust=round(adj.pvals,digits))
     dfs[,3]  <- format(dfs[,3], scientific = FALSE)
     dfs[,3]  <- as.numeric(substr(dfs[,3]  , start = 1, stop = 5))
@@ -131,7 +131,7 @@ chisq.post.hoc <- function(tabla,test=c("fisher.test"), popsInRows=TRUE,control=
       lbls[i] <- paste(popsNames[prs[,i]],collapse=" vs. ")
     }
     adj.pvals <- stats::p.adjust(pvals,method=control)
-    cat("Adjusted p-values used the",control,"method.\n\n")
+    cat("Los valores de p fueron ajustados con el metodo",control)
     dfs<- data.frame(Comparar=lbls,p=round(pvals,digits),p.ajust=round(adj.pvals,digits))
     dfs[,3]  <- format(dfs[,3], scientific = FALSE)
     dfs[,3]  <- as.numeric(substr(dfs[,3]  , start = 1, stop = 5))
