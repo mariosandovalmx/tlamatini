@@ -18,20 +18,21 @@
 shapiro_grupos <- function(formula, datos){
 
   form <- as.formula(formula)
+  resp.var<- as.character(form)[2]
 
   #  calcular el valor de W
-  res<- stats::aggregate(form, data = datos, FUN =
-                           function(x) shapiro.test(x)$statistic)
-
-  names(res)[names(res) == lhsOfFormula] <- "W.statistic"
-
+  res<- aggregate(form, data = datos, FUN =
+                    function(x) shapiro.test(x)$statistic)
+  res
+  names(res)[names(res) == resp.var] <- "W.statistic"
+  res
   #calcular el valor de p
-  resb<- stats::aggregate(form, data = datos, FUN =
-                            function(x) shapiro.test(x)$p.value)
-  names(resb)[names(resb) == lhsOfFormula] <- "p.value"
-
+  resb<- aggregate(form, data = datos, FUN =
+                     function(x) shapiro.test(x)$p.value)
+  names(resb)[names(resb) == resp.var] <- "p.value"
+  resb
   #unir los dos resultados en una tabla
-  results<- base::merge(x = res, y = resb, all.x = TRUE)
+  results<- merge(x = res, y = resb, all.x = TRUE)
   message(c("Prueba de normalidad de Shapiro-Wilk por grupos"))
   return(results)
 }
