@@ -23,7 +23,7 @@ son o no datos influyentes.
 Ver funciones outlierTest
 }
 \examples{
-data(iris)
-modelo <- glm(Petal.Width ~ Petal.Length, family = gaussian("log"), data=iris)
-outliers.plot(modelo)
+#data(iris)
+#modelo <- glm(Petal.Width ~ Petal.Length, family = gaussian("log"), data=iris)
+#outliers.plot(modelo)
 }

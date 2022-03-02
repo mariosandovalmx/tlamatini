@@ -24,21 +24,22 @@
 
 resid_DHARMa <- function(Modelo, nsim=NULL){
   if(is.null(nsim) ){
-
-    base::message(c("Si Kolmogorov-Smirnov test (KS test) p < 0.05, entonces no hay normalidad en los residuales. Sin embargo esta prueba es muy sensible al tamano de muestra, con tamano de muestra grande el valor de p tiene a < 0.05, pero la distribución se apoxima mucho a la normal. Se recomienda ser un poco flexible con esta prueba al momento de examinar los residuales (examinar visualmente). Con tamaños de muestra grandes ≥ 500 el Teorema del Límite Central garantiza que los coeficientes de regresión se distribuyen normalmente en promedio (Ali & Sharma, 1996; Lumley et al., 2002)."))
+    options(encoding = "UTF-8")
+    base::message(c("Si Kolmogorov-Smirnov test (KS test) p < 0.05, entonces no hay normalidad en los residuales. Sin embargo esta prueba es muy sensible al tamano de muestra, con tamano de muestra grande el valor de p tiene a < 0.05, pero la distribuci\\u00f3n se apoxima mucho a la normal. Se recomienda ser un poco flexible con esta prueba al momento de examinar los residuales (examinar visualmente). Con tama\\u00f1os de muestra grandes = 500 el Teorema del L\\u00edmite Central garantiza que los coeficientes de regresi\\u00f3n se distribuyen normalmente en promedio (Ali & Sharma, 1996, Lumley et al., 2002)."))
 
     base::message(c("Outlier test: p < 0.05, no hay outliers. En caso de haber outliers, usar la funcion outliers.DHARMa para saber cuales son los datos influyentes."))
-    base::message(c("Dispersion test: p < 0.05, Indica problemas de sub/sobredispersion. En caso de haber problemas se recomienda ajustar el parametro de dispformula = ~, solo para la paqueteria glmmTMB."))
+    base::message(c("Dispersion test: p < 0.05, Indica problemas de sub/sobredispersion. En caso de haber problemas se recomienda ajustar el parametro dispformula, solo para la paqueteria glmmTMB."))
     base::message(c("Grafico de la derecha muestra la distribucion esperada de los resiudales, mediante simulaciones. Esto es util cuando no sabemos cual es la distribucion nula de los residuales. El grafico de la derecha muestra los residuales contra los valores esperados (ajustados). Estas lineas pueden no ajustarse debido a un tamano de muestra reducido."))
     res.mod <-DHARMa::simulateResiduals(Modelo,n = 250)
     return(plot(res.mod, rank = T))
   } else if(is.numeric(nsim)){
+    options(encoding = "UTF-8")
     n.sim<- nsim
 
-    base::message(c("Si Kolmogorov-Smirnov test (KS test) p < 0.05, entonces no hay normalidad en los residuales. Sin embargo esta prueba es muy sensible al tamano de muestra, con tamano de muestra grande el valor de p tiene a < 0.05, pero la distribución se apoxima mucho a la normal. Se recomienda ser un poco flexible con esta prueba al momento de examinar los residuales (examinar visualmente). Con tamaños de muestra grandes ≥ 500 el Teorema del Límite Central garantiza que los coeficientes de regresión se distribuyen normalmente en promedio (Ali & Sharma, 1996; Lumley et al., 2002)."))
+    base::message(c("Si Kolmogorov-Smirnov test (KS test) p < 0.05, entonces no hay normalidad en los residuales. Sin embargo esta prueba es muy sensible al tamano de muestra, con tamano de muestra grande el valor de p tiene a < 0.05, pero la distribuci\\u00f3n se apoxima mucho a la normal. Se recomienda ser un poco flexible con esta prueba al momento de examinar los residuales (examinar visualmente). Con tama\\u00f1os de muestra grandes = 500 el Teorema del L\\u00edmite Central garantiza que los coeficientes de regresi\\u00f3n se distribuyen normalmente en promedio (Ali & Sharma, 1996, Lumley et al., 2002)."))
 
     base::message(c("Outlier test: p < 0.05, no hay outliers. En caso de haber outliers, usar la funcion outliers.DHARMa para saber cuales son los datos influyentes."))
-    base::message(c("Dispersion test: p < 0.05, Indica problemas de sub/sobredispersion. En caso de haber problemas se recomienda ajustar el parametro de dispformula = ~, solo para la paqueteria glmmTMB."))
+    base::message(c("Dispersion test: p < 0.05, Indica problemas de sub/sobredispersion. En caso de haber problemas se recomienda ajustar el parametro dispformula, solo para la paqueteria glmmTMB."))
     base::message(c("Grafico de la derecha muestra la distribucion esperada de los resiudales, mediante simulaciones. Esto es util cuando no sabemos cual es la distribucion nula de los residuales. El grafico de la derecha muestra los residuales contra los valores esperados (ajustados). Estas lineas pueden no ajustarse debido a un tamano de muestra reducido."))
     base::message(c(paste("Se usaron ", nsim, "simulaciones.")))
     res.mod <-DHARMa::simulateResiduals(Modelo,n = n.sim)

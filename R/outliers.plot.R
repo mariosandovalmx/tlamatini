@@ -10,9 +10,9 @@
 #' @export
 #'
 #' @examples
-#' data(iris)
-#' modelo <- glm(Petal.Width ~ Petal.Length, family = gaussian("log"), data=iris)
-#' outliers.plot(modelo)
+#' #data(iris)
+#' #modelo <- glm(Petal.Width ~ Petal.Length, family = gaussian("log"), data=iris)
+#' #outliers.plot(modelo)
 #' @encoding UTF-8
 #' @importFrom broom augment
 #' @importFrom car outlierTest
@@ -39,7 +39,7 @@ outliers.plot <- function(model,outliers= 3){
   model.realoutliers<- model.data %>%
     filter(abs(model.data$std.resid) > 3)
   message(c(" ################################################################################################"))
-  message(c(" Observaciones con std.resid (residuales estandarizados) > 3, son consideradas valores atipicos. Index = numero de fila donde se encuentra la observacion."))
+  message(c(" Observaciones con std.resid (residuales estandarizados) > 3, son consideradas valores atipicos. Index es numero de fila donde se encuentra la observacion."))
   message(c(" ################################################################################################"))
   print(model.realoutliers)
 
