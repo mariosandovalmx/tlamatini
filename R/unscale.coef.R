@@ -13,12 +13,15 @@
 #' #unscale.coef(coefs, df_scaled)
 #' #
 #' #
-#' #Si lo que se quiere es graficar los efectos de un modelo en el que se usaron variables escaladas y se desea graficar en su escala original:
-#' #Primero se escala la variable y se guarda en un objeto que contrandr? los atributos de la media y SD
+#' #Si lo que se quiere es graficar los efectos de un modelo en el que se
+#' #usaron variables escaladas y se desea graficar en su escala original:
+#' #Primero se escala la variable y se guarda en un objeto con
+#' #los atributos de la media y SD
 #' #alt.sc<- scale(DataR$Altitud, center = TRUE, scale = TRUE)
 #' #library(ggeffects)
 #' #dat<- ggeffect(m, c("Altitud", "Monta?a"))
-#' #luego se retransforman los valores predichos por el modelo a su escala original usando la variable escalada.
+#' #luego se retransforman los valores predichos por el modelo a su escala
+#' #original usando la variable escalada.
 #' #dat$x <- unscale.coef(dat$x, alt.sc)
 #' #plot(dat)
 #' @encoding UTF-8
