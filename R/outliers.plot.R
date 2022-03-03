@@ -19,10 +19,12 @@
 #' @import ggplot2
 outliers.plot <- function(model,outliers= 3){
 
+
   # Extract model results
   model.data <- broom::augment(model) %>%
     mutate(index = 1:n())
 
+  outliers<- 3
   out <- outliers
   if (out < 3) {
     out<- outliers
@@ -32,12 +34,16 @@ outliers.plot <- function(model,outliers= 3){
 
 
   names(model.data)[names(model.data) == '.cooksd'] <- "cooksd"
-  names(model.data)[names(model.data) == '.std.resid'] <- "std.resid"
+  names(model.data)[names(model.data) == '.std.resid'] <- "StdResid"
+  names(model.data)[names(model.data) == 'index'] <- "outlierID"
+  names(model.data)
+
+
   model.outliers <- model.data %>%  top_n(out, model.data$cooksd)
 
 
   model.realoutliers<- model.data %>%
-    filter(abs(model.data$std.resid) > 3)
+    filter(abs(model.data$StdResid) > 3)
   message(c(" ################################################################################################"))
   message(c(" Observaciones con std.resid (residuales estandarizados) > 3, son consideradas valores atipicos. Index es numero de fila donde se encuentra la observacion."))
   message(c(" ################################################################################################"))
@@ -53,12 +59,12 @@ outliers.plot <- function(model,outliers= 3){
   print(test)
   message(c(" ################################################################################################"))
   message(c(" Nota: los acentos fueron removidos intencionalmente."))
-  p1<- ggplot2::ggplot(model.data, aes(index, std.resid)) +
-    ggplot2::geom_point(alpha = .5) +
-    ggplot2::theme_bw()+
-    ggplot2::geom_point(data = model.realoutliers,
-    mapping = aes(x = index, y = std.resid, label=), col= "red", size=3, pch= 12)
 
+
+  p1<- ggplot2::ggplot(model.data, aes(outlierID, StdResid)) +
+    ggplot2::geom_point(alpha = .5) +
+    ggplot2::theme_bw() +
+    ggplot2::geom_point(data = model.realoutliers,aes(x = outlierID, y = StdResid), col= "red", size=3, pch= 12)
 
   p1
 

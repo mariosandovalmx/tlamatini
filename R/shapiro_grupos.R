@@ -13,6 +13,8 @@
 #' #iris$site <- c(rep("A", 75), rep("B", 75))
 #' #shapiro_grupos(Petal.Length~ Species+ site, iris)
 #' @encoding UTF-8
+#' @importFrom stats aggregate
+#' @importFrom stats as.formula
 
 
 shapiro_grupos <- function(formula, datos){
