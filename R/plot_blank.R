@@ -6,7 +6,6 @@
 #' @param message message to write in the middle of the plotting device
 #' @param box logical: draw a box around the plot?
 #' @keywords internal
-#' @noRd
 #' @export
 plot_blank <- function(main=NULL, sub=NULL, message=NULL, box=FALSE) {
   plot(0, type="n", ann=FALSE, xaxt="n", yaxt="n", bty="n", xlim=c(0,1), ylim=c(0,1))

@@ -39,7 +39,7 @@ norm.shapiro.grupos <- function(formula, datos){
   auto_mfrow(nrow(res), setup = TRUE)
   # graficar qqplot
   aggregate(form, data = datos, FUN =
-              function(x) car::qqPlot(x,glab=deparse(substitute(groups)), ylab=deparse(substitute(x))))
+              function(x) car::qqPlot(x))
   message(c("Las graficas se muestran en orden de aparicion como se muestran las filas."))
 
 
