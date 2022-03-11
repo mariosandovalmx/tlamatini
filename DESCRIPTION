@@ -28,7 +28,6 @@ Imports:
     ggeffects (>= 1.1.1),
     ggplot2,
     ggpubr,
-    graphics,
     grDevices,
     htmltools,
     lme4,
@@ -36,6 +35,7 @@ Imports:
     MASS,
     multcomp,
     MuMIn (>= 1.43.17),
+    nortest,
     nlme,
     predictmeans,
     qpdf,
@@ -44,6 +44,7 @@ Imports:
     sjPlot (>= 2.8.9),
     usdm
 Suggests: 
+    graphics,
     utils,
     stats,
     base,

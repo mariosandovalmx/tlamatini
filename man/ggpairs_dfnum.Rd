@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{ggpairs_dfnum}
 \alias{ggpairs_dfnum}
-\title{ggpairs_dfnum}
+\title{ggpairs_dfnum Matriz de correlación}
 \usage{
 ggpairs_dfnum(dataframe, var.response = NULL)
 }
@@ -21,6 +21,6 @@ Matriz de correlación basada en ggpairs con lineas de regresion lineal y no lin
 de la paqueteria GGally.
 }
 \examples{
-ggpairs_dfnum(iris)
-ggpairs_dfnum(iris, var.response = "Petal.Length")
+#ggpairs_dfnum(iris)
+#ggpairs_dfnum(iris, var.response = "Petal.Length")
 }
