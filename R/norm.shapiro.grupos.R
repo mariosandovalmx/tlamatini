@@ -36,14 +36,16 @@ norm.shapiro.grupos <- function(formula, datos){
   #unir los dos resultados en una tabla
   results<- merge(x = res, y = resb, all.x = TRUE)
   message(c("Prueba de normalidad de Shapiro-Wilk por grupos"))
+  auto_mfrow(nrow(res), setup = TRUE)
+  # graficar qqplot
+  aggregate(form, data = datos, FUN =
+              function(x) car::qqPlot(x,glab=deparse(substitute(groups)), ylab=deparse(substitute(x))))
+  message(c("Las graficas se muestran en orden de aparicion como se muestran las filas."))
+
+
   return(results)
 
 
-  tlamatini:::auto_mfrow(nrow(res), setup = TRUE)
-  # graficar qqplot
-  plots<- aggregate(form, data = datos, FUN =
-                      function(x) car::qqPlot(x,glab=deparse(substitute(groups)), ylab=deparse(substitute(x))))
-  message(c("Las graficas se muestran en orden de aparicion como se muestran las filas."))
 
 
 }
