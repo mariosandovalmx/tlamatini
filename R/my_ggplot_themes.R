@@ -13,5 +13,14 @@
 #' @encoding UTF-8
 #' @import ggplot2
 my_theme_ggplot<-  function( axis.size=NULL,  legend.size=NULL){
-  my_theme_ggplot  <- ggplot2::theme(legend.position = "top",legend.text=ggplot2::element_text(size=legend.size), axis.text=ggplot2::element_text(size=axis.size,color="black"),axis.title=ggplot2::element_text(size=axis.size,face="bold",color="black"))+ ggplot2::theme_classic(base_size = axis.size)
+
+  if(is.null(axis.size) & is.null(legend.size)){
+
+  my_theme_ggplot  <- ggplot2::theme(legend.position = "top",legend.text=ggplot2::element_text(size=12), axis.text=ggplot2::element_text(size=12,color="black"), axis.title=ggplot2::element_text(size=12,face="bold",color="black"))+ ggplot2::theme_classic(base_size = 12)
+  } else {
+
+    my_theme_ggplot  <- ggplot2::theme(legend.position = "top",legend.text=ggplot2::element_text(size=legend.size), axis.text=ggplot2::element_text(size=axis.size,color="black"),axis.title=ggplot2::element_text(size=axis.size,face="bold",color="black"))+ ggplot2::theme_classic(base_size = axis.size)
+
+
+  }
 }
