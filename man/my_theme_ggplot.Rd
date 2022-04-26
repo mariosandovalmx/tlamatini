@@ -5,12 +5,12 @@
 \alias{my_theme_ggplot}
 \title{Tema 1 de ggplot predefinidos por mi para publicaciones}
 \usage{
-my_theme_ggplot(axis.size = NULL, legend.size = NULL)
+my_theme_ggplot(axis.size = NULL, axis.title.size = NULL)
 }
 \arguments{
-\item{axis.size}{Tamaño de los ejes, obligatorio}
+\item{axis.size}{Tamaño de los ejes.}
 
-\item{legend.size}{Tamaño de la leyenda, obligatorio}
+\item{axis.title.size}{Tamaño de la leyenda del eje.}
 }
 \value{
 Un grafico de ggplot con el tema predefinido.
