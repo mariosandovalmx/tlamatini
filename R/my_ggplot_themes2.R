@@ -17,12 +17,10 @@ my_theme_ggplot2<-  function( axis.size=NULL,  axis.title.size=NULL){
   if(is.null(axis.size) & is.null(axis.title.size)){
 
   my_theme_ggplot_2 <- ggplot2::theme_light() + ggplot2::theme(legend.position = "top",legend.text=ggplot2::element_text(size=12),title = ggplot2::element_blank(), axis.text=ggplot2::element_text(size=12,color="black"),axis.title=element_text(size=12,face="bold",color="black"))
+
   } else {
 
     my_theme_ggplot_2 <- ggplot2::theme_light() + ggplot2::theme(legend.position = "top",legend.text=ggplot2::element_text(size=axis.title.size),title = ggplot2::element_blank(), axis.text=ggplot2::element_text(size=axis.size,color="black"),axis.title=element_text(size=axis.title.size,face="bold",color="black"))
 
   }
-
-
-
-  }
+}
