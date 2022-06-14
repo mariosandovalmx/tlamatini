@@ -5,10 +5,12 @@
 \alias{table_contrasts}
 \title{Exportar tabla de contrastes post hoc}
 \usage{
-table_contrasts(cont.emmeans)
+table_contrasts(cont.emmeans, digs = NULL)
 }
 \arguments{
 \item{cont.emmeans}{Contrastes hechos con emmeans de un modelo LM,GLM, GLMM, GAM, LMM, etc.}
+
+\item{digs}{Numero de digitos a mostrar en la tabla.}
 }
 \value{
 Tabla de contrastes.

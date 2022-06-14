@@ -7,8 +7,8 @@
 #' @export
 #'
 #' @examples
-#' variable <- seq(1,99, 3)
-#' trans.logit(variable)
+#' #variable <- seq(1,99, 3)
+#' #trans.logit(variable)
 #' @encoding UTF-8
 #' @importFrom car logit
 trans.logit <- function(p) {

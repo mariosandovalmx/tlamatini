@@ -5,12 +5,14 @@
 \alias{table.models}
 \title{Exportar tabla de un modelo}
 \usage{
-table.models(..., transformar = NULL)
+table.models(..., transformar = NULL, digs = NULL)
 }
 \arguments{
 \item{...}{Uno o más modelos LM, GLM, GLMM, GAM, LMM, etc.}
 
 \item{transformar}{Si es TRUE, se aplicara la transformacion inversa de la funcion de liga del modelo. Si no se proporciona un argumento, se mostraran los estimados y el std.error en la escala de la función de liga. La transformación solo se aplica al primer modelo, no se puede aplicar a multiples modelos a la vez.}
+
+\item{digs}{Numero de digitos a mostrar en la tabla.}
 }
 \value{
 Tabla del summary del modelo, con formato agradable lista para publicacion.
