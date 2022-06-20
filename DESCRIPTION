@@ -42,7 +42,8 @@ Imports:
     reshape,
     rstatix (>= 0.7.0),
     sjPlot (>= 2.8.9),
-    usdm
+    usdm,
+    stringr
 Suggests: 
     graphics,
     utils,
