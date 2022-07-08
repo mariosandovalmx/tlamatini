@@ -2,6 +2,9 @@
 #'
 #' Encontrar outliers con paqueteria DHARMa. Esta función comprueba si el número de observaciones fuera de la simulación es mayor o menor de lo esperado. Ver función "testOutliers" de la paquetería DHARMa para más detalles.
 #' @param Modelo Modelo con lme4, glmer, glmmTMB, etc. GLMM, GLM y GAM.
+#' @param nsim Número de simulaciones. Cuanto menor sea el número, mayor será el error estocástico en los residuales.
+#' Además, para n muy pequeño, los artefactos de discretización pueden influir en las pruebas. Por defecto es 250, que
+#' es un valor relativamente seguro. Puede considerar aumentar a 1000 para estabilizar los valores simulados.
 #'
 #' @return Un grafico de outliers y una lista con los outliers detectados.
 #' @export
@@ -15,8 +18,9 @@
 #' @importFrom DHARMa simulateResiduals
 #' @importFrom DHARMa testOutliers
 #' @importFrom DHARMa testQuantiles
-outliers.DHARMa <- function(Modelo){
-  res.mod <-DHARMa::simulateResiduals(Modelo,n = 20000)
+outliers.DHARMa <- function(Modelo, nsim){
+  if(is.null(nsim) ){
+  res.mod <-DHARMa::simulateResiduals(Modelo,n = 250)
 
   message(c("Si el valor de p < 0.05, entonces hay observaciones influyentes en nuestros datos. Que hacer con los outlieres? algunos investigadores sugieren remover algunos outliers (no todos), de esta forma se puede lograr un mejor ajuste del modelo."))
 
@@ -33,5 +37,24 @@ outliers.DHARMa <- function(Modelo){
   which(residuals(res.mod) == 1 | residuals(res.mod) == 0)
   #print(c("Siendo menos estrictos con la definici?n de outlier:"))
   #which(residuals(res.mod) >0.99 | residuals(res.mod) < 0.01)
+  } else if(is.numeric(nsim)){
+    n.sim<- nsim
+    res.mod <-DHARMa::simulateResiduals(Modelo,n = n.sim)
 
+    message(c("Si el valor de p < 0.05, entonces hay observaciones influyentes en nuestros datos. Que hacer con los outlieres? algunos investigadores sugieren remover algunos outliers (no todos), de esta forma se puede lograr un mejor ajuste del modelo."))
+
+
+    par(mfrow=c(1,2))
+    pl1<- DHARMa::testOutliers(res.mod)
+    print(pl1)
+    pl2<- DHARMa::testQuantiles(res.mod)
+
+
+    message(c("Esta funcion usa bootstrap para simular los outliers (posibles) basandose en la simulacion de los valores atipicos. Las observaciones mas influyentes son:
+  "))
+    #los outlieres son estos
+    which(residuals(res.mod) == 1 | residuals(res.mod) == 0)
+    #print(c("Siendo menos estrictos con la definici?n de outlier:"))
+    #which(residuals(res.mod) >0.99 | residuals(res.mod) < 0.01)
+  }
 }

@@ -5,10 +5,14 @@
 \alias{outliers.DHARMa}
 \title{Encontrar outliers de un modelo con paqueteria DHARMa}
 \usage{
-outliers.DHARMa(Modelo)
+outliers.DHARMa(Modelo, nsim)
 }
 \arguments{
 \item{Modelo}{Modelo con lme4, glmer, glmmTMB, etc. GLMM, GLM y GAM.}
+
+\item{nsim}{Número de simulaciones. Cuanto menor sea el número, mayor será el error estocástico en los residuales.
+Además, para n muy pequeño, los artefactos de discretización pueden influir en las pruebas. Por defecto es 250, que
+es un valor relativamente seguro. Puede considerar aumentar a 1000 para estabilizar los valores simulados.}
 }
 \value{
 Un grafico de outliers y una lista con los outliers detectados.
