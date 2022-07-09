@@ -18,7 +18,7 @@
 #' @importFrom DHARMa simulateResiduals
 #' @importFrom DHARMa testOutliers
 #' @importFrom DHARMa testQuantiles
-outliers.DHARMa <- function(Modelo, nsim){
+outliers.DHARMa <- function(Modelo, nsim=NULL){
   if(is.null(nsim) ){
   res.mod <-DHARMa::simulateResiduals(Modelo,n = 250)
 

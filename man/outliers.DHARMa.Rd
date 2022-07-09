@@ -5,7 +5,7 @@
 \alias{outliers.DHARMa}
 \title{Encontrar outliers de un modelo con paqueteria DHARMa}
 \usage{
-outliers.DHARMa(Modelo, nsim)
+outliers.DHARMa(Modelo, nsim = NULL)
 }
 \arguments{
 \item{Modelo}{Modelo con lme4, glmer, glmmTMB, etc. GLMM, GLM y GAM.}
