@@ -7,9 +7,9 @@
 #' @export
 #'
 #' @examples
-#' #detachAllPackages()
+#' #detach_paquetes()
 #' @encoding UTF-8
-detachAllPackages <- function() {
+detach_paquetes <- function() {
 
   basic.packages <- c("package:stats","package:graphics","package:grDevices","package:utils","package:datasets","package:methods","package:base")
 
@@ -18,6 +18,8 @@ detachAllPackages <- function() {
   package.list <- setdiff(package.list,basic.packages)
 
   if (length(package.list)>0)  for (package in package.list) detach(package, character.only=TRUE)
+  insight::print_color("Todos los paquetes desmontados.", "green")
+
 
 }
 

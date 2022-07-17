@@ -14,6 +14,8 @@ sin_cerosDF <- function(dataframe){
   data.sc<- dataframe
   data.sc[data.sc==0] <- NA
   data2.sc<-data.sc[complete.cases(data.sc),]
+  insight::print_color("Ceros removidos exitosamente.", "green")
+
   print(data2.sc)
 }
 

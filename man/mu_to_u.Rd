@@ -13,7 +13,7 @@ mu_to_u
 \description{
 Se trata de un vector de caracteres con los nombres de todos los puntos de codigo Unicode
 conocidos que se parecen al simbolo griego mu o al micro y a los valores de "u".  Esto es
-destinado a simplificar el mapeo de mu o micro en Unicode al caracter "u" con \code{limpiar_nombres()} y \code{make_clean_names()}.
+destinado a simplificar el mapeo de mu o micro en Unicode al caracter "u" con \code{limpiar_nombres()} y \code{limpiar_nombres2()}.
 }
 \details{
 Mirar la ayuda de \code{limpiar_nombres()} para saber como usarla.
@@ -23,4 +23,4 @@ Other Set names:
 \code{\link{limpiar_nombres}()}
 }
 \concept{Set names}
-\keyword{datasets}
+\keyword{internal}

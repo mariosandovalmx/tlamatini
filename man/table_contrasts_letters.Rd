@@ -21,7 +21,9 @@ emmeans.
 }
 \examples{
 #ejemplo, no correr:
-#library(emmeans)
-#cont2 <- emmeans(m4,pairwise ~ Sex,adjust="tukey",type="response")$emmeans
-#table_contrasts_letters(cont2)
+data(iris)
+modelo <- glm(Petal.Width ~ Petal.Length+Species, family = gaussian("log"), data=iris)
+library(emmeans)
+cont2 <- emmeans(modelo, pairwise ~ Species, type = "response")
+table_contrasts_letters(cont2)
 }

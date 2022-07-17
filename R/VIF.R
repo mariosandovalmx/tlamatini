@@ -11,27 +11,19 @@
 #' VIF(iris)
 #' VIF(mtcars)
 #' @encoding UTF-8
-#' @importFrom usdm vif
+VIF <- function (df) {
+  num_cols <- unlist(lapply(df, is.numeric))         # Identify numeric columns
+  num_cols
+  dfnum <- df[ , num_cols]                        # Subset numeric columns of data
 
-VIF <- function(df){
-  num       <- vector(mode = "character")
-  char      <- vector(mode = "character")
-  for (var in 1:ncol(df)) {
-    if (class(df[[var]])=="numeric" || class(df[[var]])=="integer") {
-      num   <- c(num,names(df[var]))
-    }else if (class(df[[var]])=="factor" || class(df[[var]])=="character") {
-      char  <- c(char,names(df[var]))
-    }
+  VIF <- rep(NA, ncol(dfnum))
+  names(VIF) <- colnames(dfnum)
+  for (i in 1:ncol(dfnum)) {
+    VIF[i] <- 1/(1 - summary(lm(dfnum[, i] ~ ., data = dfnum[-i]))$r.squared)
   }
-  dfnum     <- subset(df,select=num)
-
-  dfnum2<- as.data.frame(dfnum)
-  D         <- sapply(dfnum2, function(x) as.numeric(x,na.rm=TRUE))
-  DD        <- as.data.frame(D)
+  insight::print_color("# Comprobaci\u00f3n de la multicolinealidad\n", "blue")
+  dfvif<- as.data.frame(VIF)
+  return(dfvif)
 
 
-
-  vif.table <- usdm::vif(DD)
-  resultados <- print(vif.table)
 }
-

@@ -3,29 +3,20 @@
 \encoding{UTF-8}
 \name{limpiar_nombres}
 \alias{limpiar_nombres}
-\alias{limpiar_nombres.default}
-\alias{limpiar_nombres.sf}
-\alias{limpiar_nombres.tbl_graph}
 \title{Limpia los nombres de un objeto (normalmente un data.frame).}
 \usage{
 limpiar_nombres(dat, ...)
-
-\method{limpiar_nombres}{default}(dat, ...)
-
-\method{limpiar_nombres}{sf}(dat, ...)
-
-\method{limpiar_nombres}{tbl_graph}(dat, ...)
 }
 \arguments{
 \item{dat}{data.frame.}
 
 \item{...}{
-  Arguments passed on to \code{\link[=make_clean_names]{make_clean_names}}
+  Arguments passed on to \code{\link[=limpiar_nombres2]{limpiar_nombres2}}
   \describe{
     \item{\code{case}}{Preferencias de mayusculas}
     \item{\code{replace}}{Un vector de caracteres con nombre en el que el nombre se sustituye por el
 value.}
-    \item{\code{ascii}}{Convertir los nombres a ASCII (\code{TRUE}, por defecto) o no}
+    \item{\code{ascii}}{Convertir los nombres a ASCII (TRUE, por defecto) o no (FALSE).}
     \item{\code{use_make_names}}{¿Deberia aplicarse el codigo {make.names()} para asegurar que la
 sea utilizable como un nombre sin comillas?  (Evitar \code{make.names()}
 asegura que la salida es independiente de la localizacion, pero las comillas pueden ser necesarias).}
@@ -77,7 +68,7 @@ Esta funcion fue tomada del paquete janitor: \code{link[janitor]{clean_names}}.
 \details{
 \code{limpiar_nombres()} esta destinado a ser utilizado en \code{data.frames}
 y objetos similares a un \code{data.frame}. Para limpiar otros objetos con nombre como listas con
-nombre y vectores, use \code{make_clean_names()}.
+nombre y vectores, use \code{limpiar_nombres2()}.
 }
 \examples{
 

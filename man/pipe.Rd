@@ -2,19 +2,19 @@
 % Please edit documentation in R/utils-pipe.R
 \name{\%>\%}
 \alias{\%>\%}
-\title{Pipe operator}
+\title{Pipe}
 \usage{
 lhs \%>\% rhs
 }
 \arguments{
-\item{lhs}{A value or the magrittr placeholder.}
+\item{lhs}{Un valor o el marcador de posicion magrittr.}
 
-\item{rhs}{A function call using the magrittr semantics.}
+\item{rhs}{Una llamada a una función que utiliza la semantica de magrittr.}
 }
 \value{
-The result of calling \code{rhs(lhs)}.
+El resultado de llamar a \code{rhs(lhs)}.
 }
 \description{
-See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
+Ver \code{magrittr::\link[magrittr:pipe]{\%>\%}} para mas detalles.
 }
 \keyword{internal}

@@ -13,28 +13,19 @@
 #' #ggpairs_dfnum(iris)
 #' #ggpairs_dfnum(iris, var.response = "Petal.Length")
 #' @encoding UTF-8
-#' @importFrom ggplot2 ggplot
-#' @importFrom ggplot2 geom_point
-#' @importFrom ggplot2 geom_smooth
-#' @importFrom GGally ggpairs
+#' @import ggplot2
+#' @import GGally
 #' @importFrom stats lm
 
 
 
 ggpairs_dfnum <- function(dataframe, var.response=NULL){
   if(is.null(var.response)){
-    num       <- vector(mode = "character")
-    char      <- vector(mode = "character")
-    for (var in 1:ncol(dataframe)) {
-      if (class(dataframe[[var]])=="numeric" || class(dataframe[[var]])=="integer") {
-        num   <- c(num,names(dataframe[var]))
-      }else if (class(dataframe[[var]])=="factor" || class(dataframe[[var]])=="character") {
-        char  <- c(char,names(dataframe[var]))
-      }
-    }
-    dfnum     <- dataframe[, c(num)]
-    D         <- sapply(dfnum, function(x) as.numeric(x,na.rm=TRUE))
-    DD        <- as.data.frame(D)
+    #seleccionar solo variables numericas
+    num_cols <- unlist(lapply(dataframe, is.numeric))         # Identify numeric columns
+    num_cols
+    dfnum <- dataframe[ , num_cols]                        # Subset numeric columns of data
+    DD        <- as.data.frame(dfnum)
 
 
     ### Si calculamos lo mismo pero a?adimos una linea de regresi?n lineal y una no lineal
@@ -53,18 +44,10 @@ ggpairs_dfnum <- function(dataframe, var.response=NULL){
   }else if(isTRUE(is.character(var.response))){
     var.resp <-var.response
 
-    num       <- vector(mode = "character")
-    char      <- vector(mode = "character")
-    for (var in 1:ncol(dataframe)) {
-      if (class(dataframe[[var]])=="numeric" || class(dataframe[[var]])=="integer") {
-        num   <- c(num,names(dataframe[var]))
-      }else if (class(dataframe[[var]])=="factor" || class(dataframe[[var]])=="character") {
-        char  <- c(char,names(dataframe[var]))
-      }
-    }
-    dfnum     <- dataframe[, c(num)]
-    D         <- sapply(dfnum, function(x) as.numeric(x,na.rm=TRUE))
-    DD        <- as.data.frame(D)
+    num_cols <- unlist(lapply(dataframe, is.numeric))         # Identify numeric columns
+    num_cols
+    dfnum <- dataframe[ , num_cols]                        # Subset numeric columns of data
+    DD        <- as.data.frame(dfnum)
     DD <- DD %>% select(-all_of(var.resp), everything())
 
     ### Si calculamos lo mismo pero a?adimos una linea de regresi?n lineal y una no lineal

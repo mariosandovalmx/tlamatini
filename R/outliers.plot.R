@@ -14,10 +14,21 @@
 #' #modelo <- glm(Petal.Width ~ Petal.Length, family = gaussian("log"), data=iris)
 #' #outliers.plot(modelo)
 #' @encoding UTF-8
-#' @importFrom broom augment
 #' @importFrom car outlierTest
 #' @import ggplot2
+#' @importFrom broom augment
+
 outliers.plot <- function(model,outliers= 3){
+
+  if (!requireNamespace("car", quietly = TRUE)) { # nocov start
+    stop(
+      "Se necesita el paquete \'car\' para que esta funcion funcione. Por favor, inst\u00e1lelo.",
+      call. = FALSE
+    )
+  } # nocov end
+
+
+
 
 
   # Extract model results
@@ -45,20 +56,21 @@ outliers.plot <- function(model,outliers= 3){
   model.realoutliers<- model.data %>%
     filter(abs(model.data$StdResid) > 3)
   message(c(" ################################################################################################"))
-  message(c(" Observaciones con std.resid (residuales estandarizados) > 3, son consideradas valores atipicos. Index es numero de fila donde se encuentra la observacion."))
+  insight::print_color("Observaciones con std.resid (residuales estandarizados) > 3, son consideradas valores at\u00edpicos. Index es n\u00famero de fila donde se encuentra la observaci\u00f3n.", "green")
   message(c(" ################################################################################################"))
   print(model.realoutliers)
 
 
   message(c(" ################################################################################################"))
-  message(c("No todos los outliers son observaciones influyentes. Para revisar que los datos contienen potenciales datos influyentes, se puede inspeccionar los residuales estandarizados. Datos con residuales estandarizados absolutos mayores a 3 representan posibles outliers y merecen atencion. Sugerencia: 1) remover, 2)transformar los datos, 3) usar metodos no parametricos. A continuacion se hace una prueba Bonferroni para cada dato identificado como outlier."))
+  insight::print_color("En el gr\u00e1fico de la derecha se marcan en rojo las observaciones influyentes.", "green")
+  insight::print_color("No todos los outliers son observaciones influyentes. Para revisar que los datos contienen potenciales datos influyentes, se puede inspeccionar los residuales estandarizados. Datos con residuales estandarizados absolutos mayores a 3 representan posibles outliers y merecen atenci\u00f3n. Sugerencia: 1) remover, 2)transformar los datos, 3) usar m\u00e9todos no param\u00e9tricos. A continuaci\u00f3n se hace una prueba Bonferroni para cada dato identificado como outlier.", "green")
+
   message(c(" ################################################################################################"))
   ######
 
   test <- car::outlierTest(model)
   print(test)
   message(c(" ################################################################################################"))
-  message(c(" Nota: los acentos fueron removidos intencionalmente."))
 
 
   p1<- ggplot2::ggplot(model.data, aes(outlierID, StdResid)) +
@@ -71,3 +83,4 @@ outliers.plot <- function(model,outliers= 3){
 
 
 }
+

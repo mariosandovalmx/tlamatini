@@ -21,7 +21,10 @@ Quitar NA de una sola columna o de varias columnas a la vez.
 \examples{
 data("iris")
 iris$Sepal.Width[c(1,3,5,7,9)] <- NA
-iris$Petal.Width[c(1,3,5,7,9)] <- NA
-iris2<- NA.quitar(iris, c("Petal.Width","Sepal.Width"))
-iris3<- NA.quitar(iris, "Sepal.Width")
+iris$Petal.Width[c(2,5,6,7,9)] <- NA
+head(iris)
+iris.sinNA2 <- NA.quitar(iris, "Sepal.Width")
+head(iris.sinNA2)
+iris.sinNA3 <- NA.quitar(iris, c("Petal.Width","Sepal.Width"))
+head(iris.sinNA3)
 }

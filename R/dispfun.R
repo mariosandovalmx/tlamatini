@@ -14,13 +14,16 @@
 #' @encoding UTF-8
 #' @importFrom stats residuals
 #' @importFrom stats df.residual
-dispfun <- function(modelo) {
-  message("Si el valor es mayor a 1 indica que el modelo presenta sobredispersion.", "\n")
+#' @importFrom insight export_table
 
+dispfun <- function(modelo) {
+  insight::print_color("Si el valor es mayor a 1 indica que el modelo presenta sobredispersi\u00f3n. Si es menor a uno podr\u00eda indicar subdispersi\u00f3n", "green")
   r <- residuals(modelo,type="pearson")
   n <- df.residual(modelo)
   dsq <- sum(r^2)
-  c(dsq=dsq,n=n,dispersion=dsq/n)
+  df<- data.frame(dsq=dsq,n=n,dispersion=dsq/n)
+
+  cat(insight::export_table(df, title ="."))
 
 }
-# dispfun(m4)
+

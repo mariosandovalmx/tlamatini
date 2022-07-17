@@ -25,7 +25,7 @@ explicativas en el modelo y su influencia en la variable de respuesta.
 }
 \examples{
 data(iris)
-modelo <- glm(Petal.Width ~ Petal.Length*Species+ Sepal.Length, family = gaussian("log"), data=iris)
+modelo <- glm(Petal.Width ~ Petal.Length+Species, family = gaussian("log"), data=iris)
 plot_effects2(modelo, lineas = TRUE, puntos=TRUE)
 #plot_effects2(modelo)
 #plot_effects2(modelo, grids = F)

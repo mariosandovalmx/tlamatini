@@ -10,11 +10,12 @@
 #' @export
 #'
 #' @examples
-#' data(iris)
-#' modelo <- glm(Petal.Width ~ Petal.Length+Species, family = gaussian("log"), data=iris)
-#' library(emmeans)
-#' cont <- emmeans(modelo,pairwise ~ Species,adjust="tukey",type="response")$contrasts
-#' table_contrasts(cont)
+#' #data(iris)
+#' #modelo <- glm(Petal.Width ~ Petal.Length+Species, family = gaussian("log"), data=iris)
+#' #instalar y cargar paquete "emmeans"
+#' #library(emmeans)
+#' #cont <- emmeans(modelo,pairwise ~ Species,adjust="tukey",type="response")$contrasts
+#' #table_contrasts(cont)
 #' @encoding UTF-8
 #' @importFrom sjPlot tab_df
 

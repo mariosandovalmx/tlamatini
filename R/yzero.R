@@ -6,6 +6,14 @@
 #' @return Un grafico de ggplot con el tema predefinido.
 #'
 #' @export
+#' @examples
+#' #Para usar el tema predefinido
+#' #library(ggplot)
+#' #data(iris)
+#' #ggplot(iris, aes(x=Petal.Length, y=Petal.Width)) +
+#' #geom_point() +
+#' #geom_smooth(method=lm , color="red", fill="#69b3a2", se=TRUE) +
+#' #yzero()
 #'
 #' @encoding UTF-8
 #' @import ggplot2

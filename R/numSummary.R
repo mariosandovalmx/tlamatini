@@ -17,18 +17,9 @@
 #' @importFrom stats IQR
 #' @importFrom stats quantile
 numSummary <- function(df){
-
-  num       <- vector(mode = "character")
-  char      <- vector(mode = "character")
-  for (var in 1:ncol(df)) {
-    if (class(df[[var]])=="numeric" || class(df[[var]])=="integer") {
-      num   <- c(num,names(df[var]))
-    }else if (class(df[[var]])=="factor" || class(df[[var]])=="character") {
-      char  <- c(char,names(df[var]))
-    }
-  }
-
-  dfnum     <- subset(df,select=num)
+  num_cols <- unlist(lapply(df, is.numeric))         # columnas numericas
+  num_cols
+  dfnum <- df[ , num_cols]
   D         <- sapply(dfnum, function(x) as.numeric(x,na.rm=TRUE))
   DD        <- as.data.frame(D)
 
@@ -111,34 +102,4 @@ numSummary <- function(df){
 
   return(d3)
 }
-
-#'Replaces special characters in your data frame to NA
-#'@param df name of your data frame
-#'@param vec vector containing the special characters you want to replace with NA
-#'@return Returns the modified data frame
-#'@examples
-#'data(iris)
-#'iris[1,2]<-"?"
-#'iris[2,2]<-"@@"
-#'iris[3,2]<-"???"
-#'iris<-removeSpecial(iris,c("@@","???"))
-#'head(iris)
-#'@export
-removeSpecial<-function(df,vec){
-  df[ df == "NaN" ] = NA
-  df[ df == "<NA>" ] = NA
-  df[ df == "?" ] = NA
-  df[ df == "@" ] = NA
-  df[ df== "" ] = NA
-  df[ df == " " ] = NA
-  df[ df == "N/A" ] = NA
-  for (i in 1:length(vec)){df[ df == vec[i] ] =
-    NA}
-  return(df)
-}
-
-
-
-
-
 

@@ -19,3 +19,12 @@ Un grafico de ggplot con el tema predefinido.
 Usa parámetros de ggplot predefinidos para una publicación científica, se basa en mis criterios y gustos
 personales. Se puede especificar tamaño de los ejes X y Y, negritas y sin fondo.
 }
+\examples{
+#Para usar el tema predefinido
+#require(ggplot2)
+#data(iris)
+#ggplot(iris, aes(x=Petal.Length, y=Petal.Width)) +
+#geom_point() +
+#geom_smooth(method=lm , color="red", fill="#69b3a2", se=TRUE) +
+#my_theme_ggplot(axis.size= 10, axis.title.size= 12)
+}

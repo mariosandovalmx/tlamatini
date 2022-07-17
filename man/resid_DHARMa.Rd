@@ -11,8 +11,9 @@ resid_DHARMa(Modelo, nsim = NULL)
 \item{Modelo}{Un modelo LM, GLM, GLMM, GAM.}
 
 \item{nsim}{Número de simulaciones. Cuanto menor sea el número, mayor será el error estocástico en los residuales.
-Además, para n muy pequeño, los artefactos de discretización pueden influir en las pruebas. Por defecto es 250, que
-es un valor relativamente seguro. Puede considerar aumentar a 1000 para estabilizar los valores simulados.}
+Además, para n muy pequeño, los artefactos de discretización pueden influir en las pruebas. Por defecto
+es 250, que es un valor relativamente seguro. Puede considerar aumentar a 1000 para estabilizar
+los valores simulados.}
 }
 \value{
 Grafica los residuales de un modelo.
@@ -26,7 +27,15 @@ varianzas entre los grupos.
 }
 \examples{
 #datos <- datasets::ChickWeight
-#library(lme4)
-#modelo <- glmer(weight ~ Diet +(1|Chick), family=gaussian("log"), data = datos)
+#library(glmmTMB)
+#modelo <- glmmTMB(weight ~ Diet +(1|Chick), family=gaussian("log"), data = datos)
 #resid_DHARMa(modelo)
+}
+\references{
+\itemize{
+\item Ali MM, Sharma SC (1996) Robustness to nonnormality of regression F-tests. J Econom71, 175–205.
+
+\item Lumley T, Diehr P, Emerson S, Chen L (2002) The importance of the normality assumption in
+large public health data sets. Annu Rev Public Health23, 151–169.
+}
 }

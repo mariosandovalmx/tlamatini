@@ -12,7 +12,7 @@ dispersion.plot(modelo, type = "pearson", overdispersion.term = NULL)
 
 \item{type}{Tipo "pearson" por default.}
 
-\item{overdispersion.term}{Parámetro de sobredispersión.}
+\item{overdispersion.term}{Parámetro de sobredispersion.}
 }
 \value{
 Gráficos de dispersion de un modelo.

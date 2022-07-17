@@ -25,47 +25,31 @@
 #'
 #' @examples
 #' data(iris)
-#' df.sc <- scale_data(iris, ex_variables = c("Petal.Width","Petal.Length"))
+#' #' #numericas del dataframe.
 #' # Si no se especifica que variables excluir, se aplicara a todas las columnas
-#' #numericas del dataframe.
-#' df.sc2 <- scale_data(iris)
+#' df.sc2 <- escalar_datos(iris)
+#' # si se especifica que variables excluir
+#' df.sc <- escalar_datos(iris, ex_variables = c("Petal.Width","Petal.Length"))
 #' @encoding UTF-8
+#' @importFrom dplyr mutate_at
 
-scale_data <- function(df, ex_variables= NULL, center = TRUE, scale=TRUE){
+
+escalar_datos <- function(df, ex_variables= NULL, center = NULL, scale=NULL){
   if(is.null(ex_variables)){
-    num       <- vector(mode = "character")
-    char      <- vector(mode = "character")
-    for (var in 1:ncol(df)) {
-      if (class(df[[var]])=="numeric" || class(df[[var]])=="integer") {
-        num   <- c(num,names(df[var]))
-      }else if (class(df[[var]])=="factor" || class(df[[var]])=="character") {
-        char  <- c(char,names(df[var]))
-      }
-    }
 
-    dfnum     <- subset(df,select=num)
-    dfchar     <- subset(df,select=char)
+    df[] <- lapply(df, function(x) if(is.numeric(x)){
+      scale(x, center=TRUE, scale=TRUE)
+    } else x)
 
-    p <- MuMIn::stdize(dfnum, omit.cols=NULL,prefix="",center = TRUE, scale=TRUE)
-    df2 <- cbind(dfchar,p)
-    return(df2)
-  }else if(isTRUE(is.character(ex_variables))){
-    num       <- vector(mode = "character")
-    char      <- vector(mode = "character")
-    for (var in 1:ncol(df)) {
-      if (class(df[[var]])=="numeric" || class(df[[var]])=="integer") {
-        num   <- c(num,names(df[var]))
-      }else if (class(df[[var]])=="factor" || class(df[[var]])=="character") {
-        char  <- c(char,names(df[var]))
-      }
-    }
 
-    dfnum     <- subset(df,select=num)
-    dfchar     <- subset(df,select=char)
+    return(df)
+  } else if(isTRUE(is.character(ex_variables))){
 
-    p <- MuMIn::stdize(dfnum, omit.cols=ex_variables,prefix="",center = TRUE, scale=TRUE)
-    df2 <- cbind(dfchar,p)
-    return(df2)
+    drops <- ex_variables
+    dat2 <- df %>% mutate_at(c(drops), ~(scale(.) %>% as.vector))
+
+
+    return(dat2)
   }
 
 }

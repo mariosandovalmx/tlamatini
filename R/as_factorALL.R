@@ -14,6 +14,7 @@ as_factorALL<- function(dataframe){
   df<- dataframe
   df[sapply(df, is.character)] <- lapply(df[sapply(df, is.character)],
                                          as.factor)
+  insight::print_color("Todas las columnas tipo caracter convertidas a factores", "green")
   return(df)
 }
 

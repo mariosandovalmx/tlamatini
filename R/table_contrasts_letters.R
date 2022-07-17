@@ -11,23 +11,23 @@
 #'
 #' @examples
 #' #ejemplo, no correr:
-#' #library(emmeans)
-#' #cont2 <- emmeans(m4,pairwise ~ Sex,adjust="tukey",type="response")$emmeans
-#' #table_contrasts_letters(cont2)
+#' data(iris)
+#' modelo <- glm(Petal.Width ~ Petal.Length+Species, family = gaussian("log"), data=iris)
+#' library(emmeans)
+#' cont2 <- emmeans(modelo, pairwise ~ Species, type = "response")
+#' table_contrasts_letters(cont2)
 #' @encoding UTF-8
 #' @importFrom sjPlot tab_df
 #' @importFrom multcomp cld
 
 table_contrasts_letters <- function(df.emmeans){
 
-
-  contrastes<-multcomp::cld(df.emmeans, Letters = c( letters))
-  contrastes<- contrastes
-  names(contrastes)
-  names(contrastes)[names(contrastes) == "response"] <- "Mean"
+  contrastes<- multcomp::cld(df.emmeans[[1]], Letters = letters,  alpha = 0.05)
+  matchme <- c('emmean', 'response')
+  names(contrastes)[names(contrastes) %in% matchme] <- "Medias"
   contrastes2<-contrastes[ , -which(names(contrastes) %in% c("df"))]
-
   sjPlot::tab_df(contrastes2,digits = 3)
+
 
 
 }

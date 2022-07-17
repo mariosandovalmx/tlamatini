@@ -8,8 +8,8 @@
 #'
 #' Cuando \code{ascii=TRUE} (el valor predeterminado), los caracteres acentuados se transliteran
 #' a ASCII.  Por ejemplo, una "o" con dieresis alemana se convierte en "o", y
-#' el caracter español "ñ" se convierte en "n".
-#' Esta funcion fue tomada del paquete janitor: \code{link[janitor]{make_clean_names}}.
+#' el caracter español "enye" se convierte en "n".
+#' Esta funcion fue tomada del paquete janitor.
 #'
 #'
 #'
@@ -19,8 +19,7 @@
 #'
 #' @param replace Un vector de caracteres con nombre en el que el nombre se sustituye por el
 #'   value.
-#' @param ascii Convertir los nombres a ASCII (\code{TRUE}, por defecto) o no
-# (\code{FALSE}).
+#' @param ascii Convertir los nombres a ASCII (TRUE, por defecto) o no (FALSE).
 #' @param use_make_names ¿Deberia aplicarse el codigo {make.names()} para asegurar que la
 #' sea utilizable como un nombre sin comillas?  (Evitar \code{make.names()}
 #' asegura que la salida es independiente de la localizacion, pero las comillas pueden ser necesarias).
@@ -33,27 +32,20 @@
 #' @examples
 #'
 #' # limpiar los nombres de un vector:
-#' x <- structure(1:3, names = c("name with space", "TwoWords", "total $ (2009)"))
+#' x <- structure(1:3, names = c("nombre con espacio", "DosPalabras", "total $ (2009)"))
 #' x
-#' names(x) <- make_clean_names(names(x))
-#' x # now has cleaned names
-#'
-#' #
-#' make_clean_names(names(x), "small_camel")
-#'
-#' # similar to janitor::clean_names(poorly_named_df):
-#' # not run:
-#' # make_clean_names(names(poorly_named_df))
+#' names(x) <- limpiar_nombres2(names(x))
+#' x # Ya tiene los nombres limpios
 #'
 #' @importFrom stringi stri_trans_general
 #' @importFrom stringr str_replace str_replace_all
 #' @importFrom snakecase to_any_case
 #' @encoding UTF-8
-make_clean_names <- function(string,
+limpiar_nombres2  <- function(string,
                              case = "snake",
                              replace=
                                c(
-                                 "'"="",
+                                 "\'"="",
                                  "\""="",
                                  "%"="_percent_",
                                  "#"="_number_"
@@ -149,11 +141,11 @@ make_clean_names <- function(string,
   cased_names
 }
 
-#' Warn if micro or mu are going to be replaced with make_clean_names()
+#' Avisa si el micro o el mu van a ser sustituidos por limpiar_nombres2()
 #'
-#' @inheritParams make_clean_names
-#' @param character Which character should be tested for ("micro" or "mu", or both)?
-#' @return TRUE if a warning was issued or FALSE if no warning was issued
+#' @inheritParams limpiar_nombres2
+#' @param character Que caracter debe comprobarse ("micro" o "mu", o ambos)
+#' @return TRUE si se emitio una advertencia o FALSE si no se emitio ninguna advertencia
 #' @keywords Internal
 #' @noRd
 warn_micro_mu <- function(string, replace) {
@@ -207,9 +199,9 @@ warn_micro_mu <- function(string, replace) {
   if (!is.null(warning_message_general) | !is.null(warning_message_specific)) {
     warning_message <- paste(c(warning_message_general, warning_message_specific), collapse="\n")
     warning(
-      "¡Cuidado!  ",
-      "El simbolo mu o micro esta en el vector de entrada, y puede haber sido convertido a 'm' mientras que 'u' puede haber sido esperado.  ",
-      "Considere añadir lo siguiente al argumento `replace`:\n",
+      "Cuidado",
+      "El simbolo mu o micro esta en el vector de entrada, y puede haber sido convertido a \'m\' mientras que \'u\' puede haber sido esperado.  ",
+      "Considere a\u00f1adir lo siguiente al argumento `replace`:\n",
       warning_message
     )
   }
@@ -222,7 +214,7 @@ old_make_clean_names <- function(string) {
   # Takes a data.frame, returns the same data frame with cleaned names
   old_names <- string
   new_names <- old_names %>%
-    gsub("'", "", .) %>% # remove quotation marks
+    gsub("\'", "", .) %>% # remove quotation marks
     gsub("\"", "", .) %>% # remove quotation marks
     gsub("%", "percent", .) %>%
     gsub("^[ ]+", "", .) %>%
@@ -255,22 +247,18 @@ available_transliterators <- function(wanted) {
   desired_available <- intersect(wanted, stringi::stri_trans_list())
   if (!identical(wanted, desired_available) & getOption("janitor_warn_transliterators", default=TRUE)) {
     warning(
-      "Some transliterators to convert characters in names are not available \n",
-      "on this system.  Results may differ when run on a different system.\n",
-      "The missing transliterators are: ",
+      "Algunos transliteradores para convertir caracteres en nombres no estan disponibles \n",
+      "en este sistema.  Los resultados pueden ser diferentes si se ejecuta en un sistema diferente.\n",
+      "Los transliteradores que faltan son: ",
       paste0(setdiff(wanted, desired_available), collapse=", "),
-      "\n\nThis warning will only be shown once per session.\n",
-      "To suppress it use this:\n `options(janitor_warn_transliterators=FALSE)`\n",
-      "To make all transliterators available on your system, reinstall the stringi with:\n",
-      '`install.packages("stringi", type="source", configure.args="--disable-pkg-config")`'
+      "\n\nEste aviso solo se muestra una vez por sesion.\n",
+      "Para suprimirlo, utilice lo siguiente:\n `options(janitor_warn_transliterators=FALSE)`\n",
+      "Para que todos los transliteradores esten disponibles en su sistema, reinstale el stringi con:\n",
+      '`install.packages(\"stringi\", type=\"source\", configure.args=\"--disable-pkg-config\")`'
     )
     # Only warn once per session
     options(janitor_warn_transliterators=FALSE)
   }
   paste(desired_available, collapse=";")
 }
-#@description Las cadenas resultantes son unicas y estan formadas unicamente por el caracter \code{_}
-#', numeros y letras. Por defecto, las cadenas resultantes solo
-#' constan de caracteres ASCII, pero pueden permitirse caracteres no ASCII (por ejemplo, Unicode)
-#' configurando \code{ascii=FALSE}.  Las preferencias de mayusculas pueden especificarse
-#' utilizando el parametro \code{case}.
+

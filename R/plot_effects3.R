@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' data(iris)
-#' modelo <- glm(Petal.Width ~ Petal.Length*Species+ Sepal.Length, family = gaussian("log"), data=iris)
+#' modelo <- glm(Petal.Width ~ Petal.Length+Species, family = gaussian("log"), data=iris)
 #' plot_effects3(modelo)
 #' plot_effects3(modelo, show.data = TRUE)
 #' plot_effects3(modelo, show.data = FALSE)

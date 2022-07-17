@@ -17,6 +17,7 @@ outliers.glm <- function(model, dataframe){
   cooksd <- stats::cooks.distance(model)
   sample_size <- nrow(dataframe)
   influential <- as.numeric(names(cooksd)[(cooksd > (4/sample_size))])
+  insight::print_color("Las observaciones m\u00e1s influyentes, basandonos en las distancias de Cook son: ", "green")
   print(influential)
 }
 

@@ -1,7 +1,8 @@
 #' Grafica de residuales de un modelo. Version 2
 #'
-#' Muestra el ajuste del modelo LM, GLM o GLMM. Esta función permite la exploración visual de los
-#' residuales de un modelo.
+#' Muestra el ajuste del modelo LM, GLM o GLMM. Esta función permite la exploración
+#' visual de los residuales de un modelo.
+#'
 #' @param Modelo Un modelo LM, GLM o GLMM.
 #'
 #' @return Esta función fue creada para explorar el ajuste, normalidad y homogeneidad de varianzas entre

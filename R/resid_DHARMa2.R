@@ -20,20 +20,18 @@
 #' @importFrom DHARMa simulateResiduals
 #' @importFrom DHARMa testOutliers
 resid_DHARMa2 <- function(Modelo){
-  dev.new()
+
   res <- DHARMa::simulateResiduals(fittedModel = Modelo, n = 250)
   par(mfrow=c(1,2))
+  insight::print_color("Para saber si hay outliers, Outlier test: p > 0.05, no hay outliers:", "green")
 
-  message(c("Para saber si hay outliers, Outlier test: p > 0.05, no hay outliers:"))
   #outlier test
   x<-DHARMa::testOutliers(res,plot = T)  #
   print(x)
   # zero inflado
-  message(c("Para saber si hay evidencia de posible effecto inflado por exceso de ceros. p > 0.05 no hay efecto:"))
+  insight::print_color("Para saber si hay evidencia de posible effecto inflado por exceso de ceros. p > 0.05 no hay efecto:", "green")
 
   print(DHARMa::testZeroInflation(res))
-
-
 
 }
 

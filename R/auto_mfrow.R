@@ -26,7 +26,7 @@ auto_mfrow <- function(nplots, setup=TRUE) {
     else if(nplots <= 56) par(mfrow=c(7,8))
     else if(nplots <= 64) par(mfrow=c(8,8))
     else {
-      stop("Too many plots")
+      stop("Son muchas graficas.")
     }
   }
   else {

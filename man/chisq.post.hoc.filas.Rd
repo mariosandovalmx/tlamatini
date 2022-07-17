@@ -30,12 +30,12 @@ dimnames(xtab) <- list(
 Tratamiento = c("1st", "2nd", "3rd", "Control"),
 Genero = c("hembra", "macho"))
 chisq.post.hoc.filas(xtab)
+#solo hipótesis alternativa
 chisq.post.hoc.filas(xtab, alternative = "less")
 chisq.post.hoc.filas(xtab, alternative = "greater")
 chisq.post.hoc.filas(xtab, alternative = "two.sided")
+#con los dos argumentos
 chisq.post.hoc.filas(xtab, p.adjust.method = "BY", alternative = "less")
 chisq.post.hoc.filas(xtab, p.adjust.method = "BY", alternative = "two.sided")
 chisq.post.hoc.filas(xtab, p.adjust.method = "holm", alternative = "less")
-chisq.post.hoc.filas(xtab, p.adjust.method = "bonferroni")
-chisq.post.hoc.filas(xtab, p.adjust.method = "BY")
 }

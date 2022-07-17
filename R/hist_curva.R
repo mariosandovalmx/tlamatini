@@ -30,7 +30,8 @@ hist_curva <- function(variable){
   graphics::lines(xfit, yfit, col = c("#0C3D7D9F"), lwd = 2)
 
   #
-  message("Prueba de normalidad", "\n")
+  insight::print_color("Prueba de normalidad", "green")
+
 
   if(length(variable)<= 30){
     print(stats::shapiro.test(variable))} else{

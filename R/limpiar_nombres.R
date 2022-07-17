@@ -20,12 +20,12 @@
 #'
 #'
 #' @param dat data.frame.
-#' @inheritDotParams make_clean_names -string
+#' @inheritDotParams limpiar_nombres2 -string
 #' @return Devuelve el data.frame con nombres limpios.
 #'
 #' @details \code{limpiar_nombres()} esta destinado a ser utilizado en \code{data.frames}
 #'   y objetos similares a un \code{data.frame}. Para limpiar otros objetos con nombre como listas con
-#'   nombre y vectores, use \code{make_clean_names()}.
+#'   nombre y vectores, use \code{limpiar_nombres2()}.
 #'
 #'
 #' @export
@@ -63,7 +63,7 @@ limpiar_nombres <- function(dat, ...) {
   UseMethod("limpiar_nombres")
 }
 
-#' @rdname limpiar_nombres
+
 #' @export
 limpiar_nombres.default <- function(dat, ...) {
   if(is.null(names(dat)) && is.null(dimnames(dat))) {
@@ -73,19 +73,18 @@ limpiar_nombres.default <- function(dat, ...) {
     )
   }
   if(is.null(names(dat))) {
-    dimnames(dat) <- lapply(dimnames(dat), make_clean_names, ...)
+    dimnames(dat) <- lapply(dimnames(dat), limpiar_nombres2, ...)
   } else {
-    names(dat) <- make_clean_names(names(dat), ...)
+    names(dat) <- limpiar_nombres2(names(dat), ...)
   }
   dat
 }
 
-#' @rdname limpiar_nombres
 #' @export
 limpiar_nombres.sf <- function(dat, ...) {
   if (!requireNamespace("sf", quietly = TRUE)) { # nocov start
     stop(
-      "Paquete 'sf' es necesario para que la funcion pueda ser usada. Por favor, instalelo.",
+      "Paquete \'sf\' es necesario para que la funcion pueda ser usada. Por favor, inst\u00e1lelo.",
       call. = FALSE
     )
   } # nocov end
@@ -94,24 +93,23 @@ limpiar_nombres.sf <- function(dat, ...) {
   # identify ending column index to clean
   n_cols <- length(dat)-1
   # clean all but last column
-  sf_cleaned <- make_clean_names(sf_names[1:n_cols], ...)
+  sf_cleaned <- limpiar_nombres2(sf_names[1:n_cols], ...)
   # rename original df
   names(dat)[1:n_cols] <- sf_cleaned
 
   return(dat)
 }
 
-#' @rdname limpiar_nombres
 #' @export
 #' @importFrom dplyr rename_all
 limpiar_nombres.tbl_graph <- function(dat, ...) {
   if (!requireNamespace("tidygraph", quietly = TRUE)) { # nocov start
     stop(
-      "Se necesita el paquete 'tidygraph' para que esta funcion funcione. Por favor, instalelo.",
+      "Se necesita el paquete \'tidygraph\' para que esta funcion funcione. Por favor, inst\u00e1lelo.",
       call. = FALSE
     )
   } # nocov end
-  dplyr::rename_all(dat, .funs=make_clean_names, ...)
+  dplyr::rename_all(dat, .funs=limpiar_nombres2, ...)
 }
 
 # TODO: Segun https://www.compart.com/en/unicode/U+03BC revisado el
@@ -123,14 +121,15 @@ limpiar_nombres.tbl_graph <- function(dat, ...) {
 #'
 #' Se trata de un vector de caracteres con los nombres de todos los puntos de codigo Unicode
 #' conocidos que se parecen al simbolo griego mu o al micro y a los valores de "u".  Esto es
-#' destinado a simplificar el mapeo de mu o micro en Unicode al caracter "u" con \code{limpiar_nombres()} y \code{make_clean_names()}.
+#' destinado a simplificar el mapeo de mu o micro en Unicode al caracter "u" con \code{limpiar_nombres()} y \code{limpiar_nombres2()}.
 #'
 #' Mirar la ayuda de \code{limpiar_nombres()} para saber como usarla.
 #'
 #' @family Set names
+#' @keywords internal
 mu_to_u <-
   # setNames is used instead of setting the names directly because it prevents a
-  # warning like "unable to translate '<U+3382>' to native encoding" for several
+  # warning like "unable to translate \'<U+3382>\' to native encoding" for several
   # of the items.
   setNames(
     rep("u", 10),

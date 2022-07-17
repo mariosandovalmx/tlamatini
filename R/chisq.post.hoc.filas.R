@@ -16,42 +16,21 @@
 #' Tratamiento = c("1st", "2nd", "3rd", "Control"),
 #' Genero = c("hembra", "macho"))
 #' chisq.post.hoc.filas(xtab)
+#' #solo hipótesis alternativa
 #' chisq.post.hoc.filas(xtab, alternative = "less")
 #' chisq.post.hoc.filas(xtab, alternative = "greater")
 #' chisq.post.hoc.filas(xtab, alternative = "two.sided")
+#' #con los dos argumentos
 #' chisq.post.hoc.filas(xtab, p.adjust.method = "BY", alternative = "less")
 #' chisq.post.hoc.filas(xtab, p.adjust.method = "BY", alternative = "two.sided")
 #' chisq.post.hoc.filas(xtab, p.adjust.method = "holm", alternative = "less")
-#' chisq.post.hoc.filas(xtab, p.adjust.method = "bonferroni")
-#' chisq.post.hoc.filas(xtab, p.adjust.method = "BY")
 #' @encoding UTF-8
 #' @importFrom rstatix row_wise_fisher_test
-
-
 chisq.post.hoc.filas <- function(tabla, p.adjust.method = NULL, alternative = NULL) {
-
-
-
 
   if(is.null(p.adjust.method) && is.null(alternative)){
 
-
-    #### CAPTURAMOS EL ERROR Y DETENEMOS LA FUNCIÓN
-    #x <- tryCatch(
-    #  { # AQUI VA LA FUNCIÓN QUE VAMOS A PROBAR SI TIENE ERROR
-    #    for (i in 1:tests) {
-    #      pvals[i] <- test(tbl[prs[,i],])$p.value
-    #      lbls[i] <- paste(popsNames[prs[,i]],collapse=" vs. ")
-    #    }
-    #  },
-    #  error = function(e){
-    #    stop("Error: algunas celdas tienen pocas observaciones. Considera ajustar agregando el argumento 'simulate.p.value = TRUE' ")
-    #  }
-    #)
-
-
-
-    tabf <- rstatix::row_wise_fisher_test(tabla, p.adjust.method = "holm", alternative = "two.sided")
+    tabf <- rstatix::row_wise_fisher_test(tabla, p.adjust.method = "bonferroni", alternative = "two.sided")
     names(tabf) <- c("grupo","n","p","p.ajust.","significancia")
     options(scipen = 999)
     tabf2<- as.data.frame(tabf)
@@ -61,27 +40,22 @@ chisq.post.hoc.filas <- function(tabla, p.adjust.method = NULL, alternative = NU
     tabf2[,3]  <- format(tabf2[,3], scientific = FALSE)
     tabf2[,3]  <- as.numeric(substr(tabf2[,3]  , start = 1, stop = 5))
     tabf2[,3][tabf2[,3]   < 0.001] <- "<0.001"
+    tabf2<- tabf2[,-5]
     options(scipen=0)
-    return(tabf2)
+    if (length(tabf2)) {
+      cat("\n")
+      texto<- paste("Los valores de p fueron ajustados con el metodo:", "bonferroni,", "y la hip\u00f3tesis alternativa:", "two.sided")
+      insight::print_color(texto, "green")
+      insight::export_table(tabf2, align= "right", title = "--", format = "markdown")
+      #print.data.frame(dfs, row.names = FALSE)
+    } } else if(is.null(p.adjust.method) && isTRUE(is.character(alternative))) {
+      #### ajuste de valor de p
+      p.adjust <- p.adjust.method
 
+      #### hipotesis alternativa
+      alterhyp =  alternative
 
-
-  } else if (is.null(p.adjust.method) ){
-
-    tabf <- rstatix::row_wise_fisher_test(tabla, p.adjust.method = "holm", alternative = alternative)
-    names(tabf) <- c("grupo","n","p","p.ajust.","significancia")
-    options(scipen = 999)
-    tabf2<- as.data.frame(tabf)
-    tabf2[,4]  <- format(tabf2[,4], scientific = FALSE)
-    tabf2[,4]  <- as.numeric(substr(tabf2[,4]  , start = 1, stop = 5))
-    tabf2[,4][tabf2[,4]   < 0.001] <- "<0.001"
-    tabf2[,3]  <- format(tabf2[,3], scientific = FALSE)
-    tabf2[,3]  <- as.numeric(substr(tabf2[,3]  , start = 1, stop = 5))
-    tabf2[,3][tabf2[,3]   < 0.001] <- "<0.001"
-    options(scipen=0)
-    return(tabf2) } else if (is.null(alternative) ){
-
-      tabf <- rstatix::row_wise_fisher_test(tabla, p.adjust.method = p.adjust.method, alternative = "two.sided")
+      tabf <- rstatix::row_wise_fisher_test(tabla, p.adjust.method = "bonferroni", alternative = alterhyp)
       names(tabf) <- c("grupo","n","p","p.ajust.","significancia")
       options(scipen = 999)
       tabf2<- as.data.frame(tabf)
@@ -91,34 +65,58 @@ chisq.post.hoc.filas <- function(tabla, p.adjust.method = NULL, alternative = NU
       tabf2[,3]  <- format(tabf2[,3], scientific = FALSE)
       tabf2[,3]  <- as.numeric(substr(tabf2[,3]  , start = 1, stop = 5))
       tabf2[,3][tabf2[,3]   < 0.001] <- "<0.001"
+      tabf2<- tabf2[,-5]
       options(scipen=0)
-      return(tabf2) }
+      if (length(tabf2)) {
+        cat("\n")
+        texto<- paste("Los valores de p fueron ajustados con el metodo:", "bonferroni", "y la hip\u00f3tesis alternativa:", alterhyp)
+        insight::print_color(texto, "green")
+        insight::export_table(tabf2, align= "right", title = "--", format = "markdown")
+      }
+    } else if(isTRUE(is.character(p.adjust.method)) && is.null(alternative)) {
+      #### ajuste de valor de p
+      p.adjust <- p.adjust.method
 
+      #### hipotesis alternativa
+      alterhyp =  alternative
 
+      tabf <- rstatix::row_wise_fisher_test(tabla, p.adjust.method = p.adjust, alternative = "two.sided")
+      names(tabf) <- c("grupo","n","p","p.ajust.","significancia")
+      options(scipen = 999)
+      tabf2<- as.data.frame(tabf)
+      tabf2[,4]  <- format(tabf2[,4], scientific = FALSE)
+      tabf2[,4]  <- as.numeric(substr(tabf2[,4]  , start = 1, stop = 5))
+      tabf2[,4][tabf2[,4]   < 0.001] <- "<0.001"
+      tabf2[,3]  <- format(tabf2[,3], scientific = FALSE)
+      tabf2[,3]  <- as.numeric(substr(tabf2[,3]  , start = 1, stop = 5))
+      tabf2[,3][tabf2[,3]   < 0.001] <- "<0.001"
+      tabf2<- tabf2[,-5]
+      options(scipen=0)
+      if (length(tabf2)) {
+        cat("\n")
+        texto<- paste("Los valores de p fueron ajustados con el metodo:", p.adjust, "y la hip\u00f3tesis alternativa:", alterhyp)
+        insight::print_color(texto, "green")
+        insight::export_table(tabf2, align= "right", title = "--", format = "markdown")
+      }
+    } else {
 
-
-  else {
-    #### ajuste de valor de p
-    p.adjust <- c(p.adjust.method)
-
-    #### hipotesis alternativa
-    alterhyp = c(alternative)
-
-    tabf <- rstatix::row_wise_fisher_test(tabla, p.adjust.method = p.adjust, alternative = alterhyp)
-    names(tabf) <- c("grupo","n","p","p.ajust.","significancia")
-    options(scipen = 999)
-    tabf2<- as.data.frame(tabf)
-    tabf2[,4]  <- format(tabf2[,4], scientific = FALSE)
-    tabf2[,4]  <- as.numeric(substr(tabf2[,4]  , start = 1, stop = 5))
-    tabf2[,4][tabf2[,4]   < 0.001] <- "<0.001"
-    tabf2[,3]  <- format(tabf2[,3], scientific = FALSE)
-    tabf2[,3]  <- as.numeric(substr(tabf2[,3]  , start = 1, stop = 5))
-    tabf2[,3][tabf2[,3]   < 0.001] <- "<0.001"
-    options(scipen=0)
-    return(tabf2)
-
-  }
+      tabf <- rstatix::row_wise_fisher_test(tabla, p.adjust.method = p.adjust.method, alternative = alternative)
+      names(tabf) <- c("grupo","n","p","p.ajust.","significancia")
+      options(scipen = 999)
+      tabf2<- as.data.frame(tabf)
+      tabf2[,4]  <- format(tabf2[,4], scientific = FALSE)
+      tabf2[,4]  <- as.numeric(substr(tabf2[,4]  , start = 1, stop = 5))
+      tabf2[,4][tabf2[,4]   < 0.001] <- "<0.001"
+      tabf2[,3]  <- format(tabf2[,3], scientific = FALSE)
+      tabf2[,3]  <- as.numeric(substr(tabf2[,3]  , start = 1, stop = 5))
+      tabf2[,3][tabf2[,3]   < 0.001] <- "<0.001"
+      tabf2<- tabf2[,-5]
+      options(scipen=0)
+      if (length(tabf2)) {
+        cat("\n")
+        texto<- paste("Los valores de p fueron ajustados con el metodo:", p.adjust.method, "y la hip\u00f3tesis alternativa:", alternative)
+        insight::print_color(texto, "green")
+        insight::export_table(tabf2, align= "right", title = "--", format = "markdown")
+      }
+    }
 }
-
-
-

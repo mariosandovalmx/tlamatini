@@ -9,6 +9,14 @@
 #' @return Un grafico de ggplot con el tema predefinido.
 #'
 #' @export
+#' @examples
+#' #Para usar el tema predefinido
+#' #library(ggplot2)
+#' #data(iris)
+#' #ggplot(iris, aes(x=Petal.Length, y=Petal.Width)) +
+#' #geom_point() +
+#' #geom_smooth(method=lm , color="red", fill="#69b3a2", se=TRUE) +
+#' #my_theme_ggplot2(axis.size= 10, axis.title.size= 12)
 #'
 #' @encoding UTF-8
 #' @import ggplot2

@@ -1,6 +1,6 @@
-#' Pipe operator
+#' Pipe
 #'
-#' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
+#' Ver \code{magrittr::\link[magrittr:pipe]{\%>\%}} para mas detalles.
 #'
 #' @name %>%
 #' @rdname pipe
@@ -8,7 +8,7 @@
 #' @export
 #' @importFrom magrittr %>%
 #' @usage lhs \%>\% rhs
-#' @param lhs A value or the magrittr placeholder.
-#' @param rhs A function call using the magrittr semantics.
-#' @return The result of calling `rhs(lhs)`.
+#' @param lhs Un valor o el marcador de posicion magrittr.
+#' @param rhs Una llamada a una función que utiliza la semantica de magrittr.
+#' @return El resultado de llamar a `rhs(lhs)`.
 NULL

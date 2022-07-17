@@ -16,8 +16,8 @@
 NA.cualquiera <- function(x, reemplazo) {
   is_miss <- is.na(x)
   x[is_miss] <- reemplazo
-
+  return(x)
   message(sum(is_miss), " NA sustituidos por el valor ", reemplazo)
-  x
 }
+
 

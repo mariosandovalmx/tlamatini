@@ -10,9 +10,9 @@
 #' @export
 #'
 #' @examples
-#' #datos <- datasets::ChickWeight
-#' #library(lme4)
-#' #modelo <- glmer(weight ~ Diet +(1|Chick), family=gaussian("log"), data = datos)
+#' datos <- datasets::ChickWeight
+#' library(glmmTMB)
+#' modelo <- glmmTMB(weight ~ Diet +(1|Chick), family=gaussian("log"), data = datos)
 #' #outliers.DHARMa(modelo)
 #' @encoding UTF-8
 #' @importFrom DHARMa simulateResiduals
@@ -22,17 +22,15 @@ outliers.DHARMa <- function(Modelo, nsim=NULL){
   if(is.null(nsim) ){
   res.mod <-DHARMa::simulateResiduals(Modelo,n = 250)
 
-  message(c("Si el valor de p < 0.05, entonces hay observaciones influyentes en nuestros datos. Que hacer con los outlieres? algunos investigadores sugieren remover algunos outliers (no todos), de esta forma se puede lograr un mejor ajuste del modelo."))
-
+  insight::print_color("Si el valor de p < 0.05, entonces hay observaciones influyentes en nuestros datos. \u00bfQue hacer con los outlieres? algunos investigadores sugieren remover algunos outliers (no todos), de esta forma se puede lograr un mejor ajuste del modelo.", "green")
 
   par(mfrow=c(1,2))
   pl1<- DHARMa::testOutliers(res.mod)
   print(pl1)
   pl2<- DHARMa::testQuantiles(res.mod)
 
+  insight::print_color("Esta funci\u00f3n usa bootstrap para simular los outliers (posibles) bas\u00e1ndose en la simulaci\u00f3n de los valores at\u00edpicos. Las observaciones mas influyentes son:", "green")
 
-  message(c("Esta funcion usa bootstrap para simular los outliers (posibles) basandose en la simulacion de los valores atipicos. Las observaciones mas influyentes son:
-  "))
   #los outlieres son estos
   which(residuals(res.mod) == 1 | residuals(res.mod) == 0)
   #print(c("Siendo menos estrictos con la definici?n de outlier:"))
@@ -41,7 +39,7 @@ outliers.DHARMa <- function(Modelo, nsim=NULL){
     n.sim<- nsim
     res.mod <-DHARMa::simulateResiduals(Modelo,n = n.sim)
 
-    message(c("Si el valor de p < 0.05, entonces hay observaciones influyentes en nuestros datos. Que hacer con los outlieres? algunos investigadores sugieren remover algunos outliers (no todos), de esta forma se puede lograr un mejor ajuste del modelo."))
+    insight::print_color("Si el valor de p < 0.05, entonces hay observaciones influyentes en nuestros datos. \u00bfQue hacer con los outlieres? algunos investigadores sugieren remover algunos outliers (no todos), de esta forma se puede lograr un mejor ajuste del modelo.", "green")
 
 
     par(mfrow=c(1,2))
@@ -50,8 +48,9 @@ outliers.DHARMa <- function(Modelo, nsim=NULL){
     pl2<- DHARMa::testQuantiles(res.mod)
 
 
-    message(c("Esta funcion usa bootstrap para simular los outliers (posibles) basandose en la simulacion de los valores atipicos. Las observaciones mas influyentes son:
-  "))
+    insight::print_color("Esta funci\u00f3n usa bootstrap para simular los outliers (posibles) bas\u00e1ndose en la simulaci\u00f3n de los valores at\u00edpicos. Las observaciones mas influyentes son:", "green")
+
+
     #los outlieres son estos
     which(residuals(res.mod) == 1 | residuals(res.mod) == 0)
     #print(c("Siendo menos estrictos con la definici?n de outlier:"))

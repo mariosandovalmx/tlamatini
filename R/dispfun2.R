@@ -13,13 +13,18 @@
 #' dispfun2(modelo)
 #' @encoding UTF-8
 #' @importFrom stats pchisq
+#' @importFrom insight export_table
+
 dispfun2 <- function(modelo) {
-  message("Si el valor de ratio es mayor indica que los datos estan sobredispersos.",  "\n")
+  insight::print_color("Si el valor de ratio es mayor indica que los datos estan sobredispersos.", "green")
   rdf <- df.residual(modelo)
   rp <- residuals(modelo,type="pearson")
   Pearson.chisq <- sum(rp^2)
   prat <- Pearson.chisq/rdf
   pval <- pchisq(Pearson.chisq, df=rdf, lower.tail=FALSE)
-  c(chisq=Pearson.chisq,ratio=prat,rdf=rdf,p=pval)
+  df<- data.frame(chisq=Pearson.chisq,ratio=prat,rdf=rdf,p.value=pval)
+
+  cat(insight::export_table(df, title ="."))
+
 
 }

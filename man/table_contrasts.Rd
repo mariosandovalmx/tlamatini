@@ -21,9 +21,10 @@ esta función es necesario crear un objeto con los contrastes previamente hechos
 emmeans.
 }
 \examples{
-data(iris)
-modelo <- glm(Petal.Width ~ Petal.Length+Species, family = gaussian("log"), data=iris)
-library(emmeans)
-cont <- emmeans(modelo,pairwise ~ Species,adjust="tukey",type="response")$contrasts
-table_contrasts(cont)
+#data(iris)
+#modelo <- glm(Petal.Width ~ Petal.Length+Species, family = gaussian("log"), data=iris)
+#instalar y cargar paquete "emmeans"
+#library(emmeans)
+#cont <- emmeans(modelo,pairwise ~ Species,adjust="tukey",type="response")$contrasts
+#table_contrasts(cont)
 }

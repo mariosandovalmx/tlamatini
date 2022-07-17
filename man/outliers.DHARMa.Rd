@@ -21,8 +21,8 @@ Un grafico de outliers y una lista con los outliers detectados.
 Encontrar outliers con paqueteria DHARMa. Esta función comprueba si el número de observaciones fuera de la simulación es mayor o menor de lo esperado. Ver función "testOutliers" de la paquetería DHARMa para más detalles.
 }
 \examples{
-#datos <- datasets::ChickWeight
-#library(lme4)
-#modelo <- glmer(weight ~ Diet +(1|Chick), family=gaussian("log"), data = datos)
+datos <- datasets::ChickWeight
+library(glmmTMB)
+modelo <- glmmTMB(weight ~ Diet +(1|Chick), family=gaussian("log"), data = datos)
 #outliers.DHARMa(modelo)
 }

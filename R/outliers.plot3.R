@@ -20,6 +20,7 @@ outliers.plot3<- function(model){
   graphics::text(x=1:length(cooksd)+1, y=cooksd, labels=ifelse(cooksd>4*mean(cooksd, na.rm=T),names(cooksd),""), col="red")  # add labels
   print(cooksd>4*mean(cooksd, na.rm=T))
 
-  message(c(" Las distancias de Cook, es una medida de como influye la observacion identificada como outlier sobre la estimacion de B (pendiente) al ser retirada del conjunto de datos. Una distancia de Cook grande significa que una observacion tiene un peso grande en la estimacion de la pendiente."))
-  message(c(" Nota: los acentos fueron removidos intencionalmente."))
+
+  insight::print_color("Las distancias de Cook, es una medida de c\u00f3mo influye la observaci\u00f3n identificada como outlier sobre la estimaci\u00f3n de B (pendiente) al ser retirada del conjunto de datos. Una distancia de Cook grande significa que una observaci\u00f3n tiene un peso grande en la estimaci\u00f3n de la pendiente.", "green")
+
 }

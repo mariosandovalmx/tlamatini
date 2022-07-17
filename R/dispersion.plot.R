@@ -3,7 +3,7 @@
 #' Graficar la sobredispersion de un modelo poisson, binomial negativo y Quasipoison de la paqueteria lme4,
 #' glmer, glmmTMB, etc. GLMM y GLM. Más detalles en:  https://github.com/glmmTMB/glmmTMB/issues/224
 #' @param modelo Modelo con distribución Poisson, Quasipoisson, binomial negativo.
-#' @param overdispersion.term Parámetro de sobredispersión.
+#' @param overdispersion.term Parámetro de sobredispersion.
 #' @param type Tipo "pearson" por default.
 #'
 #' @return Gráficos de dispersion de un modelo.
@@ -23,7 +23,6 @@
 #' @importFrom graphics abline
 #' @importFrom graphics points
 #' @importFrom  graphics hist
-#' @importFrom  AICcmodavg fam.link.mer
 dispersion.plot<-function(modelo,type="pearson",overdispersion.term=NULL)
 {
   if(is.null(overdispersion.term))
@@ -34,8 +33,8 @@ dispersion.plot<-function(modelo,type="pearson",overdispersion.term=NULL)
   {
     response<-model.frame(modelo)[[1]]
     od.ranef<-lme4::ranef(modelo)[[overdispersion.term]][[1]]
-    if(length(response)!=length(od.ranef) || AICcmodavg::fam.link.mer(modelo)$family!="poisson" || fam.link.mer(modelo)$link!="log")
-      stop("Model is not lognormal-Poisson. Cannot use overdispersion term.")
+    if(length(response)!=length(od.ranef) || fam_link_mer(modelo)$family!="poisson" || fam_link_mer(modelo)$link!="log")
+      stop("El modelo no es lognormal-Poisson. No se puede utilizar el t\u00e9rmino de sobredispersi\u00f3n.")
     Fitted<-exp(log(fitted(modelo))-od.ranef)
     Residuals<-(response - Fitted)/sqrt(Fitted+(Fitted^2)*c(exp(lme4::VarCorr(modelo)[[overdispersion.term]])-1))
   }

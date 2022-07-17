@@ -9,7 +9,7 @@ norm.ad.grupos(formula, datos)
 }
 \arguments{
 \item{formula}{Formula iniciando por la variable numerica de nuestro interes.
-Puede tomar forma de y ~ x+z. Se pueden usar 2 o más grupos.}
+Puede tomar forma de y ~ x+z. Se pueden usar 2 o mÃ¡s grupos.}
 
 \item{datos}{Base de datos o dataframe.}
 }

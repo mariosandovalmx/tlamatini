@@ -27,8 +27,7 @@
 #' chisq.post.hoc(xtab,control = c("bonferroni"), simulate.p.value = TRUE)
 #' @encoding UTF-8
 #'
-
-chisq.post.hoc <- function(tabla,test=c("fisher.test"), popsInRows=TRUE,control=c("fdr","BH","BY","bonferroni","holm","hochberg","hommel"),digits=4, simulate.p.value= NULL) {
+chisq.post.hoc <- function(tabla, test=c("fisher.test"), popsInRows=TRUE, control=c("fdr","BH","BY","bonferroni","holm","hochberg","hommel"),digits=4, simulate.p.value= NULL) {
   if(is.null(simulate.p.value)){
 
     #### extract correction method
@@ -62,7 +61,6 @@ chisq.post.hoc <- function(tabla,test=c("fisher.test"), popsInRows=TRUE,control=
       }
     )
     adj.pvals <- stats::p.adjust(pvals,method=control)
-    cat("Los valores de p fueron ajustados con el metodo",control)
     dfs<- data.frame(Comparar=lbls,p=round(pvals,digits),p.ajust=round(adj.pvals,digits))
     dfs[,3]  <- format(dfs[,3], scientific = FALSE)
     dfs[,3]  <- as.numeric(substr(dfs[,3]  , start = 1, stop = 5))
@@ -71,8 +69,13 @@ chisq.post.hoc <- function(tabla,test=c("fisher.test"), popsInRows=TRUE,control=
     dfs[,2]  <- as.numeric(substr(dfs[,2]  , start = 1, stop = 5))
     dfs[,2][dfs[,2]   < 0.001] <- "<0.001"
 
-    return(dfs)
-
+    if (length(dfs)) {
+      cat("\n")
+      texto<- paste("Los valores de p fueron ajustados con el metodo:", control)
+      insight::print_color(texto, "green")
+      insight::export_table(dfs, align= "right", title = "--", format = "markdown")
+      #print.data.frame(dfs, row.names = FALSE)
+    }
   } else if (simulate.p.value == TRUE | T){
 
     #### extract correction method
@@ -97,7 +100,7 @@ chisq.post.hoc <- function(tabla,test=c("fisher.test"), popsInRows=TRUE,control=
       lbls[i] <- paste(popsNames[prs[,i]],collapse=" vs. ")
     }
     adj.pvals <- stats::p.adjust(pvals,method=control)
-    cat("Los valores de p fueron ajustados con el metodo",control)
+    message("Los valores de p fueron ajustados con el metodo",control)
     dfs<- data.frame(Comparar=lbls,p=round(pvals,digits),p.ajust=round(adj.pvals,digits))
     dfs[,3]  <- format(dfs[,3], scientific = FALSE)
     dfs[,3]  <- as.numeric(substr(dfs[,3]  , start = 1, stop = 5))
@@ -105,9 +108,15 @@ chisq.post.hoc <- function(tabla,test=c("fisher.test"), popsInRows=TRUE,control=
     dfs[,2]  <- format(dfs[,2], scientific = FALSE)
     dfs[,2]  <- as.numeric(substr(dfs[,2]  , start = 1, stop = 5))
     dfs[,2][dfs[,2]   < 0.001] <- "<0.001"
+    dfs<- dplyr::as_tibble(dfs)
 
-
-    return(dfs)
+    if (length(dfs)) {
+      cat("\n")
+      texto<- paste("Los valores de p fueron ajustados con el metodo:", control, "usando 5000 simulaciones.")
+      insight::print_color(texto, "green")
+      insight::export_table(dfs, align= "right", title = "--", format = "markdown")
+      #print.data.frame(dfs, row.names = FALSE)
+    }
   } else{
     #### extract correction method
     control <- match.arg(control)
@@ -131,7 +140,7 @@ chisq.post.hoc <- function(tabla,test=c("fisher.test"), popsInRows=TRUE,control=
       lbls[i] <- paste(popsNames[prs[,i]],collapse=" vs. ")
     }
     adj.pvals <- stats::p.adjust(pvals,method=control)
-    cat("Los valores de p fueron ajustados con el metodo",control)
+
     dfs<- data.frame(Comparar=lbls,p=round(pvals,digits),p.ajust=round(adj.pvals,digits))
     dfs[,3]  <- format(dfs[,3], scientific = FALSE)
     dfs[,3]  <- as.numeric(substr(dfs[,3]  , start = 1, stop = 5))
@@ -139,10 +148,14 @@ chisq.post.hoc <- function(tabla,test=c("fisher.test"), popsInRows=TRUE,control=
     dfs[,2]  <- format(dfs[,2], scientific = FALSE)
     dfs[,2]  <- as.numeric(substr(dfs[,2]  , start = 1, stop = 5))
     dfs[,2][dfs[,2]   < 0.001] <- "<0.001"
+    dfs<- dplyr::as_tibble(dfs)
 
-
-    return(dfs)
-
+    if (length(dfs)) {
+      cat("\n")
+      texto<- paste("Los valores de p fueron ajustados con el metodo:", control)
+      insight::print_color(texto, "green")
+      insight::export_table(dfs, align= "right", title = "--", format = "markdown")
+      #print.data.frame(dfs, row.names = FALSE)
+    }
   }
 }
-

@@ -11,8 +11,9 @@
 #'data(iris)
 #'iris[2,2]<-"@@"
 #'iris[3,2]<-"???"
-#'iris<-NA.quitarEspecial(iris,c("@@","???"))
 #'head(iris)
+#'iris2<-NA.quitarEspecial(iris,c("@@","???"))
+#'head(iris2)
 #' @encoding UTF-8
 NA.quitarEspecial<-function(df,vec){
   df[ df == "NaN" ] = NA
