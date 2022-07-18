@@ -72,7 +72,7 @@ norm.ad.grupos <- function(formula, datos){
     # graficar qqplot
     pl<-ggpubr::ggqqplot(datos, x = resp.var,
                      facet.by =  "grps")
-    return(pl)
+    print(pl)
 
 
     # tabla resultados
@@ -123,7 +123,7 @@ norm.ad.grupos <- function(formula, datos){
     # graficar qqplot
     pl<- ggpubr::ggqqplot(datos, x = resp.var,
                      facet.by =  "grps")
-    return(pl)
+    print(pl)
 
 
     # tabla resultados
