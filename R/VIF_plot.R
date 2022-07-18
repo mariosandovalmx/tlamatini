@@ -25,7 +25,7 @@ VIF_plot <- function(modelo) {
     vifdf <- VIF_model(modelo)
     plvif<- plot(vifdf)
     plotvif<- plvif +  labs(title = "Multicolinearidad", subtitle = "Un valor alto de VIF puede inflar la incertidumbre de los parametros", y = "Variance Inflation Factor", x = "") + theme_light() + scale_color_manual(labels = c("Baja (<5)", "Moderada (<10)","Alta(>10)"), values = c("chartreuse4","darkgoldenrod1", "firebrick"))
-    plotvif
+    return(plotvif)
 
 
 

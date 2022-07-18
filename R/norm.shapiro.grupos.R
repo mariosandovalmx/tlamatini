@@ -67,9 +67,9 @@ norm.shapiro.grupos <- function(formula, datos){
     ####### grafico
     auto_mfrow(nrow(res), setup = TRUE)
     # graficar qqplot
-    ggpubr::ggqqplot(datos, x = resp.var,
+    pl<- ggpubr::ggqqplot(datos, x = resp.var,
                      facet.by =  "grps")
-
+    return(pl)
     # tabla resultados
     insight::export_table(results, align= "right", title = "--", format = "markdown")
 
@@ -116,8 +116,9 @@ norm.shapiro.grupos <- function(formula, datos){
     ####### grafico
     auto_mfrow(nrow(res), setup = TRUE)
     # graficar qqplot
-    ggpubr::ggqqplot(datos, x = resp.var,
+    pl<-ggpubr::ggqqplot(datos, x = resp.var,
                      facet.by =  "grps")
+    return(pl)
 
     # tabla resultados
     insight::export_table(results, align= "right", title = "--", format = "markdown")
