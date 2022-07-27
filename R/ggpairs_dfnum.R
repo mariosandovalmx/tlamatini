@@ -16,6 +16,7 @@
 #' @import ggplot2
 #' @import GGally
 #' @importFrom stats lm
+#' @importFrom stats loess
 
 
 

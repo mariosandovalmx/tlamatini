@@ -13,6 +13,7 @@
 #' @encoding UTF-8
 #' @importFrom stats cooks.distance
 #' @importFrom graphics text
+#' @importFrom graphics abline
 outliers.plot3<- function(model){
   cooksd <- stats::cooks.distance(model)
   plot(cooksd, pch="*", cex=0.5, main="Datos influyentes seg?n distancias de Cook")  # plot cook's distance

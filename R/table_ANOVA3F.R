@@ -23,15 +23,16 @@ table_ANOVA3F <- function(modelo) {
     options(scipen = 999)
     anovas<- car::Anova(modelo,type="III", test=c("F"))
     anovas<- data.table::setDT(anovas, keep.rownames = TRUE)[]
-    names(anovas)[names(anovas) == "rn"] <- "Variables"
+    names(anovas) <- c("Variables","Sum Sq","DF","F values","P.value")
+    #names(anovas)[names(anovas) == "rn"] <- "Variables"
+    anovas$P.value <- format_p_values(anovas$P.value)
+    anovas[,c(4,5)] <- tlamatini::NA.cualquiera(anovas[,c(4,5)], "-")
     anovas<- as.data.frame(anovas)
-    #quitar fila con NA
-    anovas2 <- anovas[is.na(anovas$`F values`),]
-    anovas<- na.omit(anovas)
-    # redondear valor de p
-    anovas[,4]  = ifelse(anovas[,4] > 0.001,  format(round(anovas[,4] ,3),nsmall=3),  "<0.001" )
-    anovas3<- rbind(anovas, anovas2)
-    tab<- sjPlot::tab_df(anovas3, title = "Analysis of Deviance Table (Type III tests)")
+    strs<- get_signif_stars(0.001)
+    strs2<- as.vector(unlist(attributes(strs)))
+    strs3<- c("<0.001 \u2018***\u2019 0.001 \u2018**\u2019 0.01 \u2018*\u2019 0.05 \u2018.\u2019")
+    tab<- sjPlot::tab_df(anovas, title = "Analysis of Deviance Table (Type III tests)", footnote =strs3, show.footnote = T)
+
     return(tab)
     options(scipen = -999)
   } else if(modelo[["call"]][[1]]== "lme.formula"){
@@ -41,12 +42,14 @@ table_ANOVA3F <- function(modelo) {
     options(scipen = 999)
     anovas<- car::Anova(modelo,type="III", test=c("F"))
     anovas<- data.table::setDT(anovas, keep.rownames = TRUE)[]
-    names(anovas)[names(anovas) == "rn"] <- "Variables"
+    names(anovas) <- c("Variables","Sum Sq","DF","F values","P.value")
     anovas<- as.data.frame(anovas)
-    # redondear valor de p
-    anovas[,4] = ifelse(anovas[,4] > 0.001,  format(round(anovas[,4] ,3),nsmall=3),  "<0.001" )
+    strs<- get_signif_stars(0.001)
+    strs2<- as.vector(unlist(attributes(strs)))
+    strs3<- c("<0.001 \u2018***\u2019 0.001 \u2018**\u2019 0.01 \u2018*\u2019 0.05 \u2018.\u2019")
 
-    tab<- sjPlot::tab_df(anovas, title = "Analysis of Deviance Table (Type III tests)")
+
+    tab<- sjPlot::tab_df(anovas, title = "Analysis of Deviance Table (Type III tests)", footnote =strs3, show.footnote = T)
     return(tab)
     options(scipen=0)
 

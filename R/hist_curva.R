@@ -19,6 +19,7 @@
 #' @importFrom stats ks.test
 #' @importFrom car qqPlot
 #' @importFrom graphics lines
+#' @importFrom graphics hist
 hist_curva <- function(variable){
 
   variable<- stats::na.omit(variable)

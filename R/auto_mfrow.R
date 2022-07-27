@@ -4,9 +4,11 @@
 #' @param nplots an integer in 1 to 49
 #' @param setup if \code{TRUE}, then the graphical parameters (par) is set-up if
 #'   \code{FALSE}, and nplots < the number of spaces for plots in the device, then
+#' @param par par
 #'   blank plots are added to fill in the unused spaces.
 #' @keywords internal
 #' @export
+#' @importFrom graphics par
 #'
 auto_mfrow <- function(nplots, setup=TRUE) {
 

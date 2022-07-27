@@ -18,18 +18,23 @@
 
 table_ANOVA2 <- function(modelo) {
 
-
-
   options(scipen = 999)
   anovas<- car::Anova(modelo,type="II")
   anovas<- data.table::setDT(anovas, keep.rownames = TRUE)[]
-  names(anovas)[names(anovas) == "rn"] <- "Variables"
+  names(anovas) <- c("Variables","LR Chisq","DF","P.value")
+  #names(anovas)[names(anovas) == "rn"] <- "Variables"
+  anovas$P.value<- format_p_values(anovas$P.value)
+
   anovas<- as.data.frame(anovas)
-  anovas[,ncol(anovas)]  <- format(anovas[,ncol(anovas)], scientific = FALSE)
-  anovas[,ncol(anovas)]  <- as.numeric(substr(anovas[,ncol(anovas)]  , start = 1, stop = 5))
-  anovas[,ncol(anovas)][anovas[,ncol(anovas)]   < 0.001] <- "<0.001"
-  colnames(anovas)[ncol(anovas)] <- "P.value"
-  tab<- sjPlot::tab_df(anovas, title = "Analysis of Deviance Table (Type II tests)")
+  strs<- get_signif_stars(0.001)
+  strs2<- as.vector(unlist(attributes(strs)))
+  strs3<- c("<0.001 \u2018***\u2019 0.001 \u2018**\u2019 0.01 \u2018*\u2019 0.05 \u2018.\u2019")
+  #anovas[,ncol(anovas)]  <- format(anovas[,ncol(anovas)], scientific = FALSE)
+  #anovas[,ncol(anovas)]  <- as.numeric(substr(anovas[,ncol(anovas)]  , start = 1, stop = 5))
+  #anovas[,ncol(anovas)][anovas[,ncol(anovas)]   < 0.001] <- "<0.001"
+  tab<- sjPlot::tab_df(anovas, title = "Analysis of Deviance Table (Type II tests)", footnote =strs3, show.footnote = T)
+
+
   return(tab)
   options(scipen=0)
 

@@ -37,9 +37,11 @@ chisq.post.hoc.filas <- function(tabla, p.adjust.method = NULL, alternative = NU
     tabf2[,4]  <- format(tabf2[,4], scientific = FALSE)
     tabf2[,4]  <- as.numeric(substr(tabf2[,4]  , start = 1, stop = 5))
     tabf2[,4][tabf2[,4]   < 0.001] <- "<0.001"
+    tabf2[,4][tabf2[,4]   < 0.001] <- "<0.001"
     tabf2[,3]  <- format(tabf2[,3], scientific = FALSE)
     tabf2[,3]  <- as.numeric(substr(tabf2[,3]  , start = 1, stop = 5))
     tabf2[,3][tabf2[,3]   < 0.001] <- "<0.001"
+
     tabf2<- tabf2[,-5]
     options(scipen=0)
     if (length(tabf2)) {

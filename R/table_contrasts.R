@@ -52,7 +52,8 @@ if(is.null(digs)){
 
     contrastes$p.value<-format(contrastes$p.value, scientific = FALSE)
     contrastes$p.value <- as.numeric(substr(contrastes$p.value, start = 1, stop = 5))
-    contrastes$p.value[contrastes$p.value <= 0.000] <- "<0.001"
+    #contrastes$p.value[contrastes$p.value <= 0.000] <- "<0.001"
+    contrastes$p.value <- format_p_values(contrastes$p.value)
     contrastes<- na.omit(contrastes)
     if("null" %in% colnames(contrastes))
     { contrastes<- contrastes[,-grep("null",colnames(contrastes))]
@@ -60,8 +61,10 @@ if(is.null(digs)){
       contrastes<- contrastes
     }
 
+    strs<- c("<0.001 \u2018***\u2019 0.001 \u2018**\u2019 0.01 \u2018*\u2019 0.05 \u2018.\u2019")
 
-    sjPlot::tab_df(contrastes,digits = 3)
+
+    sjPlot::tab_df(contrastes,digits = 3, footnote =strs, show.footnote = T)
 
 
   } else {
@@ -85,7 +88,8 @@ if(is.null(digs)){
     }
     contrastes$p.value<-format(contrastes$p.value, scientific = FALSE)
     contrastes$p.value <- as.numeric(substr(contrastes$p.value, start = 1, stop = 5))
-    contrastes$p.value[contrastes$p.value <= 0.000] <- "<0.001"
+    #contrastes$p.value[contrastes$p.value <= 0.000] <- "<0.001"
+    contrastes$p.value <- format_p_values(contrastes$p.value)
     contrastes<- na.omit(contrastes)
     if("null" %in% colnames(contrastes))
     { contrastes<- contrastes[,-grep("null",colnames(contrastes))]
@@ -95,8 +99,8 @@ if(is.null(digs)){
 
 
     #contrastes2<- contrastes[ , -which(names(contrastes) %in% c("null"))]
-
-    sjPlot::tab_df(contrastes,digits = 3)}
+    strs<- c("<0.001 \u2018***\u2019 0.001 \u2018**\u2019 0.01 \u2018*\u2019 0.05 \u2018.\u2019")
+    sjPlot::tab_df(contrastes,digits = 3, footnote =strs, show.footnote = T)}
 
 
 
@@ -136,7 +140,8 @@ if(is.null(digs)){
 
     contrastes$p.value<-format(contrastes$p.value, scientific = FALSE)
     contrastes$p.value <- as.numeric(substr(contrastes$p.value, start = 1, stop = 5))
-    contrastes$p.value[contrastes$p.value <= 0.000] <- "<0.001"
+    #contrastes$p.value[contrastes$p.value <= 0.000] <- "<0.001"
+    contrastes$p.value <- format_p_values(contrastes$p.value)
     contrastes<- na.omit(contrastes)
     if("null" %in% colnames(contrastes))
     { contrastes<- contrastes[,-grep("null",colnames(contrastes))]
@@ -144,8 +149,8 @@ if(is.null(digs)){
       contrastes<- contrastes
     }
 
-
-    sjPlot::tab_df(contrastes,digits = digs)
+    strs<- c("<0.001 \u2018***\u2019 0.001 \u2018**\u2019 0.01 \u2018*\u2019 0.05 \u2018.\u2019")
+    sjPlot::tab_df(contrastes,digits = digs, footnote =strs, show.footnote = T)
 
 
   } else {
@@ -169,7 +174,8 @@ if(is.null(digs)){
     }
     contrastes$p.value<-format(contrastes$p.value, scientific = FALSE)
     contrastes$p.value <- as.numeric(substr(contrastes$p.value, start = 1, stop = 5))
-    contrastes$p.value[contrastes$p.value <= 0.000] <- "<0.001"
+    #contrastes$p.value[contrastes$p.value <= 0.000] <- "<0.001"
+    contrastes$p.value <- format_p_values(contrastes$p.value)
     contrastes<- na.omit(contrastes)
     if("null" %in% colnames(contrastes))
     { contrastes<- contrastes[,-grep("null",colnames(contrastes))]
@@ -179,8 +185,8 @@ if(is.null(digs)){
 
 
     #contrastes2<- contrastes[ , -which(names(contrastes) %in% c("null"))]
-
-    sjPlot::tab_df(contrastes,digits = digs)}
+    strs<- c("<0.001 \u2018***\u2019 0.001 \u2018**\u2019 0.01 \u2018*\u2019 0.05 \u2018.\u2019")
+    sjPlot::tab_df(contrastes,digits = digs, footnote =strs, show.footnote = T)}
 
 
 }

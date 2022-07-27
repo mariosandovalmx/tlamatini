@@ -15,6 +15,7 @@
 #' @importFrom graphics boxplot
 #' @importFrom graphics title
 #' @importFrom grDevices boxplot.stats
+#' @importFrom graphics hist
 
 outlierKD <- function(dt, var) {
   var_name <- eval(substitute(var),eval(dt))

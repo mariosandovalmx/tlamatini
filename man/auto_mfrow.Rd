@@ -10,7 +10,9 @@ auto_mfrow(nplots, setup = TRUE)
 \item{nplots}{an integer in 1 to 49}
 
 \item{setup}{if \code{TRUE}, then the graphical parameters (par) is set-up if
-\code{FALSE}, and nplots < the number of spaces for plots in the device, then
+\code{FALSE}, and nplots < the number of spaces for plots in the device, then}
+
+\item{par}{par
 blank plots are added to fill in the unused spaces.}
 }
 \description{
