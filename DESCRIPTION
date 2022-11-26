@@ -8,11 +8,11 @@ Authors@R:
            role = c("aut", "cre"),
            email = "sandoval.m@hotmail.com",
            comment = c(ORCID = "https://orcid.org/0000-0002-8536-6006"))
-Description: Este paquete contiene funciones utiles para el análisis de datos, principalmente para modelos lineales (LM, GLM, GLMM, GAM). Aunque está pensado para usarse en Ciencias Biológicas, su aplicación se extiende a cualquier area del conocimiento que requiera analisis estadisticos. Es una compilación de funciones utiles creadas por mi o creadas por alguien más, pero que facilitan el analisis de datos: transformaciones de datos, ajuste y revision de modelos lineales (LM, LMM, GLM, GLMM, GAM, etc), exportación de tablas, entre otros. El nombre de la paquetería proviene del Náhuatl, Tlamatini (los que saben algo o los que saben cosas), traducido como hombres sabios, era el equivalente a los filósofos en la época de los Mexicas. Quienes nos dedicamos a las Ciencias Naturales, al igual que un Tlamatini, "sabemos cosas", cosas del mundo natural. El paquete está todavía en su etapa de desarrollo, puede haber errores en algunas funciones y pueden cambiar. (Nota: los acentos fueron removidos intencionalmente del paquete por razones de compatibilidad)
+Description: Este paquete contiene funciones utiles para el análisis de datos, principalmente para modelos lineales (LM, GLM, GLMM, GAM). Aunque está pensado para usarse en Ciencias Biológicas, su aplicación se extiende a cualquier area del conocimiento que requiera analisis estadisticos. Es una compilación de funciones utiles creadas por mi o creadas por alguien más, pero que facilitan el analisis de datos: transformaciones de datos, ajuste y revision de modelos lineales (LM, LMM, GLM, GLMM, GAM, etc), exportación de tablas, entre otros. El nombre de la paquetería proviene del Náhuatl, Tlamatini (los que saben algo o los que saben cosas), traducido como hombres sabios, era el equivalente a los filósofos en la época de los Mexicas. Quienes nos dedicamos a las Ciencias Naturales, al igual que un Tlamatini, "sabemos cosas", cosas del mundo natural. El paquete está todavía en su etapa de desarrollo, puede haber errores en algunas funciones y pueden cambiar. (Nota: los acentos fueron removidos intencionalmente del paquete por razones de compatibilidad).
 License: MIT + file LICENSE
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 Imports:
     broom,
     car,
