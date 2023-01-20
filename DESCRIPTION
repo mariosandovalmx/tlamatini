@@ -12,7 +12,7 @@ Description: Este paquete contiene funciones utiles para el análisis de datos, 
 License: MIT + file LICENSE
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.2
 Imports:
     broom,
     car,

@@ -11,11 +11,11 @@
 #'
 #' @examples
 #' #ejemplo, no correr:
-#' data(iris)
-#' modelo <- glm(Petal.Width ~ Petal.Length+Species, family = gaussian("log"), data=iris)
-#' library(emmeans)
-#' cont2 <- emmeans(modelo, pairwise ~ Species, type = "response")
-#' table_contrasts_letters(cont2)
+#' #data(iris)
+#' #modelo <- glm(Petal.Width ~ Petal.Length+Species, family = gaussian("log"), data=iris)
+#' #library(emmeans)
+#' #cont2 <- emmeans(modelo, pairwise ~ Species, type = "response")
+#' #table_contrasts_letters(cont2)
 #' @encoding UTF-8
 #' @importFrom sjPlot tab_df
 #' @importFrom multcomp cld

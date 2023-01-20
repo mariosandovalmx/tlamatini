@@ -28,20 +28,19 @@ norm.shapiro.grupos <- function(formula, datos){
   fac2 <-fac[[1]]
 
 
-  if(length(fac2)<= 1){
+  if(length(fac2)== 1){
     ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ##                            una variables                           ----
     ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-    resp.var<- as.character(form)[2]
-    fac<- c(form[[3]])
-    fac2 <-fac[[1]]
-    fac2
-    cols <- stringr::str_split(fac2,",")
-    cols<- cols[[1]]
-    cols
+    suppressWarnings({
+      resp.var<- as.character(form)[2]
+      fac<- c(form[[3]])
+      fac2 <-fac[[1]]
+      fac2 <- as.character(fac2)
+      cols <- stringr::str_split(fac2,",")
+      cols<- cols[[1]]
+      cols
+    })
     # create a new column `x` with the three columns collapsed together
     #datos$grps <- apply(datos[ , cols ] , 1 , paste , collapse = "-" )
 
@@ -66,12 +65,14 @@ norm.shapiro.grupos <- function(formula, datos){
 
     ####### grafico
     auto_mfrow(nrow(res), setup = TRUE)
-    # graficar qqplot
-    pl<- ggpubr::ggqqplot(datos, x = resp.var,
-                     facet.by =  "grps")
-    print(pl)
+    suppressWarnings({
+      # graficar qqplot
+      pl<- ggpubr::ggqqplot(datos, x = resp.var,
+                            facet.by =  "grps")
+      print(pl)
+    })
     # tabla resultados
-    insight::export_table(results, align= "right", title = "--", format = "markdown")
+    insight::export_table(results, align= "right", title = "Prueba de normalidad de Shapiro-Wilk por grupos", format = "markdown")
 
 
 
@@ -115,11 +116,12 @@ norm.shapiro.grupos <- function(formula, datos){
 
     ####### grafico
     auto_mfrow(nrow(res), setup = TRUE)
-    # graficar qqplot
-    pl<-ggpubr::ggqqplot(datos, x = resp.var,
-                     facet.by =  "grps")
-    print(pl)
-
+    suppressWarnings({
+      # graficar qqplot
+      pl<-ggpubr::ggqqplot(datos, x = resp.var,
+                           facet.by =  "grps")
+      print(pl)
+    })
     # tabla resultados
     insight::export_table(results, align= "right", title = "--", format = "markdown")
 
@@ -128,4 +130,3 @@ norm.shapiro.grupos <- function(formula, datos){
   }
 
 }
-
