@@ -10,7 +10,7 @@
 </p>
 
 
-Paquete ***Tlamatini***. Este paquete contiene funciones útiles para el análisis de datos, principalmente para modelos lineales (LM, GLM, GLMM, GAM). Aunque está pensado para usarse en Ciencias Biológicas, su aplicación se extiende a cualquier área del conocimiento que requiera análisis estadísticos. Es una compilación de funciones útiles creadas por mi o creadas por alguien más, pero que facilitan el análisis de datos: transformaciones de datos, ajuste y revisión de modelos lineales (LM, LMM, GLM, GLMM, GAM, etc.), exportación de tablas, entre otros. 
+Paquete ***Tlamatini***. Este paquete contiene funciones útiles para el análisis de datos, principalmente para modelos lineales (LM, GLM, GLMM, GAM). Aunque está pensado para usarse en Ciencias Biológicas, su aplicación se extiende a cualquier área del conocimiento que requiera análisis estadísticos. Es una compilación de funciones útiles creadas por mi o creadas por alguien más, pero que facilitan el análisis de datos: transformaciones de datos, ajuste y revisión de modelos lineales (LM, LMM, GLM, GLMM, GAM, etc.), exportación de tablas, entre otras funciones. Este paquete surge de la necesidad de disponer de herramientas estadísticas en idioma Español, y pretende proveer de una herramienta estadistica a  los hablantes de lengua hispana.   
 
 Tlamatini fue creada con la finalidad de proporcionar herramientas estadísticas a hablantes del Español. 
 El nombre de la paquetería proviene del Náhuatl, Tlamatini (los que saben algo o los que saben cosas), traducido como hombres sabios, era el equivalente a los filósofos 
