@@ -1,6 +1,6 @@
 
 # Tlamatini
-[![DOI](https://zenodo.org/badge/411068930.svg)](https://zenodo.org/badge/latestdoi/411068930)
+<a href="https://doi.org/10.5281/zenodo.7765347"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7765347.svg" alt="DOI"></a>
 
 <br />
 <p align="center">
