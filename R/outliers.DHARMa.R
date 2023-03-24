@@ -10,9 +10,10 @@
 #' @export
 #'
 #' @examples
-#' datos <- datasets::ChickWeight
-#' library(glmmTMB)
-#' modelo <- glmmTMB(weight ~ Diet +(1|Chick), family=gaussian("log"), data = datos)
+#' #
+#' #datos <- datasets::ChickWeight
+#' #library(glmmTMB)
+#' #modelo <- glmmTMB(weight ~ Diet +(1|Chick), family=gaussian("log"), data = datos)
 #' #outliers.DHARMa(modelo)
 #' @encoding UTF-8
 #' @importFrom DHARMa simulateResiduals

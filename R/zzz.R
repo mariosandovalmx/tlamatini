@@ -14,7 +14,7 @@
               \n  https://mariosandovalmx.github.io/tlamatini-website/\n\n", "Email de contacto: sandoval.m@hotmail.com \n", sep=" ")
   insight::print_color(texto, "cyan")
 
-  texto2<- paste("Para citar este paquete: Mario A. Sandoval-Molina (2021). tlamatini: Funciones utiles \npara biologxs y ecologxs confundidos con los modelos lineales. R package version 0.3", sep=" ")
+  texto2<- paste("Para citar este paquete: Mario A. Sandoval-Molina (2021). tlamatini: Funciones utiles \npara biologxs y ecologxs confundidos con los modelos lineales.", sep=" ")
   insight::print_color(texto2, "green")
 
 
