@@ -41,6 +41,8 @@ resid_DHARMa <- function(Modelo, nsim=NULL){
 
     insight::print_color("Gr\u00e1fico de la derecha muestra la distribuci\u00f3n esperada de los residuales, mediante simulaciones. Esto es \u00fatil cuando no sabemos cu\u00e1l es la distribuci\u00f3n nula de los residuales. El grafico de la derecha muestra los residuales contra los valores esperados (ajustados). Estas l\u00edneas pueden no ajustarse debido a un tama\u00f1o de muestra reducido.", "green")
 
+    insight::print_color("Recuerda citar el paquete DHARMa. Usa citation('DHARMa') para ver como citar este paquete.", "red")
+
 
     res.mod <-DHARMa::simulateResiduals(Modelo,n = 250)
     return(plot(res.mod, rank = T))
@@ -55,6 +57,7 @@ resid_DHARMa <- function(Modelo, nsim=NULL){
     insight::print_color("Dispersion test: p < 0.05, Indica problemas de sub/sobredispersi\u00f3n. En caso de haber problemas se recomienda ajustar el par\u00e1metro dispformula, solo para la paqueter\u00eda glmmTMB.", "green")
 
     insight::print_color("Gr\u00e1fico de la derecha muestra la distribuci\u00f3n esperada de los residuales, mediante simulaciones. Esto es \u00fatil cuando no sabemos cu\u00e1l es la distribuci\u00f3n nula de los residuales. El grafico de la derecha muestra los residuales contra los valores esperados (ajustados). Estas l\u00edneas pueden no ajustarse debido a un tama\u00f1o de muestra reducido.", "green")
+    insight::print_color("Recuerda citar el paquete DHARMa. Usa citation('DHARMa') para ver como citar este paquete.", "red")
 
     base::message(c(paste("Se usaron ", nsim, "simulaciones.")))
     res.mod <-DHARMa::simulateResiduals(Modelo,n = n.sim)

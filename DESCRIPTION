@@ -49,8 +49,6 @@ Suggests:
     base,
     knitr,
     lme4,
-    rmarkdown,
-    testthat,
     tibble,
     purrr,
     rlang,

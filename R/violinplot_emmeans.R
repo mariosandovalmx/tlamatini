@@ -23,76 +23,86 @@ violinplot_emmeans <- function(formula, modelo, data, p.adjust.method=NULL){
 
   if(is.null(p.adjust.method)){
 
-    data<- data
+    df<- data
     form <- as.formula(formula)
     mod <- modelo
 
     var <- as.character(form[3])
     respvar <- as.character(form[2])
 
+
+    var2 <- sym(as.character(form[3]))
+    respvar2 <- sym(as.character(form[2]))
+
+
     stat.tests <- data %>%
       rstatix::emmeans_test(form, model = mod, p.adjust.method = "bonferroni")
-    stat.tests
     stat.tests <- stat.tests %>% rstatix::add_xy_position(x = var)
-    stat.tests
     stat.tests2 <- stat.tests[,c(3:9)]
 
-    suppressWarnings(
-      viol <-  ggpubr::ggboxplot(data, x = var, y = respvar, fill = var, bxp.errorbar=T,width = 0.3,
-                                 bxp.errorbar.width = 0.2, ,add = c("jitter","mean"),add.params =
-                                   list(color = "black", alpha=0.3)) +
-        ggplot2::stat_boxplot(geom = "errorbar",width = 0.2, lwd=0.8) +
-        geom_split_violin(aes(x = factor(var), y = respvar, fill = var),alpha = .4, trim = FALSE) +
+
+      viol <-  ggplot(df, aes(x = !!var2, y = !!respvar2, fill=!!var2)) +
+        geom_boxplot(outlier.shape=NA,  alpha=0.5) +
+        stat_summary(fun.y=mean, geom="point", shape=20, size=6, color="darkred", fill="darkred") +
+        geom_jitter(aes(colour = !!var2),width=0.4, alpha=0.3)+
+        geom_split_violin(ggplot2::aes(x = !!var2, y = !!respvar2, fill = !!var2),alpha = .4, trim = FALSE, scale = "count")+
         ggplot2::theme(legend.position = "none") +
-        ggplot2::scale_fill_brewer(palette = "Dark2"))
+        ggplot2::scale_fill_brewer(palette = "Dark2")
 
 
-    viol2 <- viol + ggpubr::stat_pvalue_manual(stat.tests,
-                                               y.position = stat.tests$y.position,
-                                               color = "black",
-                                               label = "p.adj.signif",
-                                               linetype =7,
-                                               label.size = 4,
-                                               bracket.size =0.8)
+    #viol2 <- viol + ggpubr::stat_pvalue_manual(stat.tests,
+    #                                           y.position = stat.tests$y.position,
+    #                                          color = "black",
+    #                                           label = "p.adj.signif",
+    #                                           linetype =7,
+    #                                           label.size = 4,
+    #                                           bracket.size =0.8)
 
-    print(viol2)
-
+    print(viol)
+    insight::print_color("Funci\u00f3n en desarrollo. Agregar valores de p manualmente.", "red")
     return(stat.tests2)
 
 
 
+
   }else if(isTRUE(is.character(p.adjust.method))){
-    data<- data
-    form <- formula(model, fixed.only = TRUE)
-    mod <- model
+    df<- data
+    form <- as.formula(formula)
+    mod <- modelo
     padj <-  p.adjust.method
 
     var <- as.character(form[3])
     respvar <- as.character(form[2])
 
+
+    var2 <- sym(as.character(form[3]))
+    respvar2 <- sym(as.character(form[2]))
+
+
     stat.tests <- data %>%
       rstatix::emmeans_test(form, model = mod, p.adjust.method = padj)
-    stat.tests
     stat.tests <- stat.tests %>% rstatix::add_xy_position(x = var)
-    stat.tests
     stat.tests2 <- stat.tests[,c(3:9)]
 
-    suppressWarnings(
-      viol <-  ggpubr::ggboxplot(data, x = var, y = respvar, fill = var, bxp.errorbar=T,width = 0.3, bxp.errorbar.width = 0.2, ,add = c("jitter","mean"),add.params = list(color = "black", alpha=0.3)) + ggplot2::stat_boxplot(geom = "errorbar",width = 0.2, lwd=0.8) +
-        geom_split_violin(aes(x = var, y = respvar, fill = var),alpha = .4, trim = FALSE) +
-        ggplot2::theme(legend.position = "none") +
-        ggplot2::scale_fill_brewer(palette = "Dark2"))
+
+    viol <-  ggplot(df, aes(x = !!var2, y = !!respvar2, fill=!!var2)) +
+      geom_boxplot(outlier.shape=NA,  alpha=0.5) +
+      stat_summary(fun.y=mean, geom="point", shape=20, size=6, color="darkred", fill="darkred") +
+      geom_jitter(aes(colour = !!var2),width=0.4, alpha=0.3)+
+      geom_split_violin(ggplot2::aes(x = !!var2, y = !!respvar2, fill = !!var2),alpha = .4, trim = FALSE, scale = "count")+
+      ggplot2::theme(legend.position = "none") +
+      ggplot2::scale_fill_brewer(palette = "Dark2")
 
 
-    viol2 <- viol + ggpubr::stat_pvalue_manual(stat.tests,
-                                               y.position = stat.tests$y.position,
-                                               color = "black",
-                                               label = "p.adj.signif",
-                                               linetype =7,
-                                               label.size = 4,
-                                               bracket.size =0.8)
+    #viol2 <- viol + ggpubr::stat_pvalue_manual(stat.tests,
+    #                                           y.position = stat.tests$y.position,
+    #                                          color = "black",
+    #                                           label = "p.adj.signif",
+    #                                           linetype =7,
+    #                                           label.size = 4,
+    #                                           bracket.size =0.8)
 
-    print(viol2)
-
+    print(viol)
+    insight::print_color("Funci\u00f3n en desarrollo. Agregar valores de p manualmente.", "red")
     return(stat.tests2)}
 }
