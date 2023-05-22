@@ -15,16 +15,17 @@
 #'
 #' @param string Un vector de caracteres de nombres para limpiar.
 #' @param case Preferencias de mayusculas
+#' @param sep_in (abreviatura de entrada separadora) si es un carácter, se interpreta como una expresión regular (envuelta internamente en stringr::regex()). El valor por defecto es una expresión regular que coincide con cualquier secuencia de valores no alfanuméricos. Todas las coincidencias serán reemplazadas por guiones bajos (además de "_" y " ", para los que esto siempre es cierto, incluso si se proporciona NULL). Estos guiones bajos se utilizan internamente para dividir las cadenas en subcadenas y especificar los límites de las palabras.
+#' @param transliterations Un vector de caracteres (si no es NULL). Las entradas de este argumento deben ser elementos de stringi::stri_trans_list() (como "Latin-ASCII", que suele ser útil) o nombres de tablas de búsqueda (actualmente sólo se admite "german").
+#' @param parsing_option Un entero que determinará la parsing_option.
+#' @param numerals Carácter que especifica la alineación de los numerales ("medio", izquierda, derecha, asis o apretado). Es decir, numerales = "izquierda" garantiza que no haya ningún separador de salida delante de un dígito.
+#' @param ... ...
 #'
 #'
 #' @param replace Un vector de caracteres con nombre en el que el nombre se sustituye por el
 #'   value.
 #' @param ascii Convertir los nombres a ASCII (TRUE, por defecto) o no (FALSE).
-#' @param use_make_names ¿Deberia aplicarse el codigo {make.names()} para asegurar que la
-#' sea utilizable como un nombre sin comillas?  (Evitar \code{make.names()}
-#' asegura que la salida es independiente de la localizacion, pero las comillas pueden ser necesarias).
-#' @inheritParams snakecase::to_any_case
-#' @inheritDotParams snakecase::to_any_case
+#' @param use_make_names ¿Deberia aplicarse el codigo {make.names()} para asegurar que la sea utilizable como un nombre sin comillas?  (Evitar \code{make.names()} asegura que la salida es independiente de la localizacion, pero las comillas pueden ser necesarias).
 #'
 #' @return Devuelve el vector de caracteres "limpio".
 #' @export

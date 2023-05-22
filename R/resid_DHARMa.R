@@ -30,7 +30,7 @@
 #' @encoding UTF-8
 #' @importFrom DHARMa simulateResiduals
 resid_DHARMa <- function(Modelo, nsim=NULL){
-  if(is.null(nsim) ){
+if(is.null(nsim) ){
     options(encoding = "UTF-8")
     insight::print_color("Si Kolmogorov-Smirnov test (KS test) p < 0.05, entonces no hay normalidad en los residuales. Sin embargo, esta prueba es muy sensible al tama\u00f1o de muestra, con tama\u00f1o de muestra grande el valor de p tiene a < 0.05, pero la distribuci\u00f3n se aproxima mucho a la normal. Se recomienda ser un poco flexible con esta prueba al momento de examinar los residuales (examinar visualmente). Con tama\u00f1os de muestra grandes mayores a 500 el Teorema del Limite Central garantiza que los coeficientes de regresi\u00f3n se distribuyen normalmente en promedio (Ali & Sharma, 1996, Lumley et al., 2002).", "green")
 

@@ -16,12 +16,11 @@ optimizeGLMM(model, optimizer = c("optim", "nlminb"))
 Lista con los diferentes optimizadores y su ajuste. Si es FALSE, el modelo no converge.
 }
 \description{
-Esta es una función que permite ajustar GLMM con diferentes optimizadores cuando existen problemas
-de convergencia.
+Esta es una función que permite ajustar GLMM con diferentes optimizadores cuando existen problemas de convergencia. A veces al ajustar modelos pueden arrojar errores. Por ejemplo, una advertencia ‘iteration limit reached without convergence’, se soluciona aumentando el número de iteraciones: 'glmmTMBControl(optCtrl=list(iter.max=1e3,eval.max=1e3))'. Vea la ayuda de la función glmmTMBControl para mas detalles.
 }
 \examples{
 # do not run
-#datos <- datasets::ChickWeight
+#datos <- ChickWeight
 #library(glmmTMB)
 #modelo <- glmmTMB(weight ~ Diet +(1|Chick), family=gaussian("log"), data = datos)
 # optimizeGLMM(modelo, optimizer = "optim")

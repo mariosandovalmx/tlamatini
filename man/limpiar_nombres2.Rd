@@ -28,55 +28,17 @@ value.}
 
 \item{ascii}{Convertir los nombres a ASCII (TRUE, por defecto) o no (FALSE).}
 
-\item{use_make_names}{¿Deberia aplicarse el codigo {make.names()} para asegurar que la
-sea utilizable como un nombre sin comillas?  (Evitar \code{make.names()}
-asegura que la salida es independiente de la localizacion, pero las comillas pueden ser necesarias).}
+\item{use_make_names}{¿Deberia aplicarse el codigo {make.names()} para asegurar que la sea utilizable como un nombre sin comillas?  (Evitar \code{make.names()} asegura que la salida es independiente de la localizacion, pero las comillas pueden ser necesarias).}
 
-\item{sep_in}{(short for separator input) if character, is interpreted as a
-regular expression (wrapped internally into \code{stringr::regex()}). 
-The default value is a regular expression that matches any sequence of
-non-alphanumeric values. All matches will be replaced by underscores 
-(additionally to \code{"_"} and \code{" "}, for which this is always true, even
-if \code{NULL} is supplied). These underscores are used internally to split
-the strings into substrings and specify the word boundaries.}
+\item{sep_in}{(abreviatura de entrada separadora) si es un carácter, se interpreta como una expresión regular (envuelta internamente en stringr::regex()). El valor por defecto es una expresión regular que coincide con cualquier secuencia de valores no alfanuméricos. Todas las coincidencias serán reemplazadas por guiones bajos (además de "_" y " ", para los que esto siempre es cierto, incluso si se proporciona NULL). Estos guiones bajos se utilizan internamente para dividir las cadenas en subcadenas y especificar los límites de las palabras.}
 
-\item{transliterations}{A character vector (if not \code{NULL}). The entries of this argument
-need to be elements of \code{stringi::stri_trans_list()} (like "Latin-ASCII", which is often useful) or names of lookup tables (currently only "german" is supported). In the order of the entries the letters of the input
- string will be transliterated via \code{stringi::stri_trans_general()} or replaced via the 
- matches of the lookup table. When named character elements are supplied as part of `transliterations`, anything that matches the names is replaced by the corresponding value.
-You should use this feature with care in case of \code{case = "parsed"}, \code{case = "internal_parsing"} and 
-\code{case = "none"}, since for upper case letters, which have transliterations/replacements
- of length 2, the second letter will be transliterated to lowercase, for example Oe, Ae, Ss, which
- might not always be what is intended. In this case you can make usage of the option to supply named elements and specify the transliterations yourself.}
+\item{transliterations}{Un vector de caracteres (si no es NULL). Las entradas de este argumento deben ser elementos de stringi::stri_trans_list() (como "Latin-ASCII", que suele ser útil) o nombres de tablas de búsqueda (actualmente sólo se admite "german").}
 
-\item{parsing_option}{An integer that will determine the parsing_option.
-\itemize{
- \item{1: \code{"RRRStudio" -> "RRR_Studio"}}
- \item{2: \code{"RRRStudio" -> "RRRS_tudio"}}
- \item{3: \code{"RRRStudio" -> "RRRSStudio"}. This will become for example \code{"Rrrstudio"} when we convert to lower camel case.}
- \item{-1, -2, -3: These \code{parsing_options}'s will suppress the conversion after non-alphanumeric values.}
- \item{0: no parsing}
- }}
+\item{parsing_option}{Un entero que determinará la parsing_option.}
 
-\item{numerals}{A character specifying the alignment of numerals (\code{"middle"}, \code{left}, \code{right}, \code{asis} or \code{tight}). I.e. \code{numerals = "left"} ensures that no output separator is in front of a digit.}
+\item{numerals}{Carácter que especifica la alineación de los numerales ("medio", izquierda, derecha, asis o apretado). Es decir, numerales = "izquierda" garantiza que no haya ningún separador de salida delante de un dígito.}
 
-\item{...}{
-  Arguments passed on to \code{\link[snakecase:to_any_case]{snakecase::to_any_case}}
-  \describe{
-    \item{\code{abbreviations}}{character. (Case insensitive) matched abbreviations are surrounded by underscores. In this way, they can get recognized by the parser. This is useful when e.g. \code{parsing_option} 1 is needed for the use case, but some abbreviations but some substrings would require \code{parsing_option} 2. Furthermore, this argument also specifies the formatting of abbreviations in the output for the cases title, mixed, lower and upper camel. E.g. for upper camel the first letter is always in upper case, but when the abbreviation is supplied in upper case, this will also be visible in the output.
-
-Use this feature with care: One letter abbreviations and abbreviations next to each other are hard to read and also not easy to parse for further processing.}
-    \item{\code{sep_out}}{(short for separator output) String that will be used as separator. The defaults are \code{"_"} 
-and \code{""}, regarding the specified \code{case}. When \code{length(sep_out) > 1}, the last element of \code{sep_out} gets recycled and separators are incorporated per string according to their order.}
-    \item{\code{unique_sep}}{A string. If not \code{NULL}, then duplicated names will get 
-a suffix integer
-in the order of their appearance. The suffix is separated by the supplied string
- to this argument.}
-    \item{\code{empty_fill}}{A string. If it is supplied, then each entry that matches "" will be replaced
-by the supplied string to this argument.}
-    \item{\code{prefix}}{prefix (string).}
-    \item{\code{postfix}}{postfix (string).}
-  }}
+\item{...}{...}
 }
 \value{
 Devuelve el vector de caracteres "limpio".

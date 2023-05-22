@@ -14,7 +14,6 @@
 #' @encoding UTF-8
 #' @importFrom graphics boxplot
 #' @importFrom graphics title
-#' @importFrom grDevices boxplot.stats
 #' @importFrom graphics hist
 
 outlierKD <- function(dt, var) {
@@ -25,7 +24,7 @@ outlierKD <- function(dt, var) {
   par(mfrow=c(2, 2), oma=c(0,0,3,0))
   graphics::boxplot(var_name, main="Con outliers")
   hist(var_name, main="Sin outliers", xlab=NA, ylab=NA)
-  outlier <- grDevices::boxplot.stats(var_name)$out
+  outlier <- graphics::boxplot(var_name)$out
   mo <- mean(outlier)
   var_name <- ifelse(var_name %in% outlier, NA, var_name)
   graphics::boxplot(var_name, main="Sin outliers")

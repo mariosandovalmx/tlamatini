@@ -14,36 +14,14 @@ limpiar_nombres(dat, ...)
   Arguments passed on to \code{\link[=limpiar_nombres2]{limpiar_nombres2}}
   \describe{
     \item{\code{case}}{Preferencias de mayusculas}
+    \item{\code{sep_in}}{(abreviatura de entrada separadora) si es un carácter, se interpreta como una expresión regular (envuelta internamente en stringr::regex()). El valor por defecto es una expresión regular que coincide con cualquier secuencia de valores no alfanuméricos. Todas las coincidencias serán reemplazadas por guiones bajos (además de "_" y " ", para los que esto siempre es cierto, incluso si se proporciona NULL). Estos guiones bajos se utilizan internamente para dividir las cadenas en subcadenas y especificar los límites de las palabras.}
+    \item{\code{transliterations}}{Un vector de caracteres (si no es NULL). Las entradas de este argumento deben ser elementos de stringi::stri_trans_list() (como "Latin-ASCII", que suele ser útil) o nombres de tablas de búsqueda (actualmente sólo se admite "german").}
+    \item{\code{parsing_option}}{Un entero que determinará la parsing_option.}
+    \item{\code{numerals}}{Carácter que especifica la alineación de los numerales ("medio", izquierda, derecha, asis o apretado). Es decir, numerales = "izquierda" garantiza que no haya ningún separador de salida delante de un dígito.}
     \item{\code{replace}}{Un vector de caracteres con nombre en el que el nombre se sustituye por el
 value.}
     \item{\code{ascii}}{Convertir los nombres a ASCII (TRUE, por defecto) o no (FALSE).}
-    \item{\code{use_make_names}}{¿Deberia aplicarse el codigo {make.names()} para asegurar que la
-sea utilizable como un nombre sin comillas?  (Evitar \code{make.names()}
-asegura que la salida es independiente de la localizacion, pero las comillas pueden ser necesarias).}
-    \item{\code{sep_in}}{(short for separator input) if character, is interpreted as a
-regular expression (wrapped internally into \code{stringr::regex()}). 
-The default value is a regular expression that matches any sequence of
-non-alphanumeric values. All matches will be replaced by underscores 
-(additionally to \code{"_"} and \code{" "}, for which this is always true, even
-if \code{NULL} is supplied). These underscores are used internally to split
-the strings into substrings and specify the word boundaries.}
-    \item{\code{parsing_option}}{An integer that will determine the parsing_option.
-\itemize{
- \item{1: \code{"RRRStudio" -> "RRR_Studio"}}
- \item{2: \code{"RRRStudio" -> "RRRS_tudio"}}
- \item{3: \code{"RRRStudio" -> "RRRSStudio"}. This will become for example \code{"Rrrstudio"} when we convert to lower camel case.}
- \item{-1, -2, -3: These \code{parsing_options}'s will suppress the conversion after non-alphanumeric values.}
- \item{0: no parsing}
- }}
-    \item{\code{transliterations}}{A character vector (if not \code{NULL}). The entries of this argument
-need to be elements of \code{stringi::stri_trans_list()} (like "Latin-ASCII", which is often useful) or names of lookup tables (currently only "german" is supported). In the order of the entries the letters of the input
- string will be transliterated via \code{stringi::stri_trans_general()} or replaced via the 
- matches of the lookup table. When named character elements are supplied as part of `transliterations`, anything that matches the names is replaced by the corresponding value.
-You should use this feature with care in case of \code{case = "parsed"}, \code{case = "internal_parsing"} and 
-\code{case = "none"}, since for upper case letters, which have transliterations/replacements
- of length 2, the second letter will be transliterated to lowercase, for example Oe, Ae, Ss, which
- might not always be what is intended. In this case you can make usage of the option to supply named elements and specify the transliterations yourself.}
-    \item{\code{numerals}}{A character specifying the alignment of numerals (\code{"middle"}, \code{left}, \code{right}, \code{asis} or \code{tight}). I.e. \code{numerals = "left"} ensures that no output separator is in front of a digit.}
+    \item{\code{use_make_names}}{¿Deberia aplicarse el codigo {make.names()} para asegurar que la sea utilizable como un nombre sin comillas?  (Evitar \code{make.names()} asegura que la salida es independiente de la localizacion, pero las comillas pueden ser necesarias).}
   }}
 }
 \value{
