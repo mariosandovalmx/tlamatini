@@ -5,10 +5,10 @@
 \alias{optimizeGLMM}
 \title{Probar optimizadores en modelo glmmTMB}
 \usage{
-optimizeGLMM(model, optimizer = c("optim", "nlminb"))
+optimizeGLMM(modelo, optimizer = c("optim", "nlminb"))
 }
 \arguments{
-\item{model}{Modelo GLMM ajustado con la paqueteria glmmTMB.}
+\item{modelo}{Modelo GLMM ajustado con la paqueteria glmmTMB.}
 
 \item{optimizer}{Optimizador que se usa en el modelo, puede ser "optim" o "nlminb".}
 }
