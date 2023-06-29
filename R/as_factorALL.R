@@ -7,7 +7,8 @@
 #' @export
 #'
 #' @examples
-#' #iris2<- as_factorALL(iris)
+#' data(iris)
+#' iris2<- as_factorALL(iris)
 #' @encoding UTF-8
 as_factorALL<- function(dataframe){
 
