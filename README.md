@@ -47,6 +47,6 @@ Para consultar un tutorial rápido de como usar esta paqueteria con un GLM:
 ## Contacto
 
 Si tienes alguna duda, quieres sugerir alguna función o quisieras reportar algún problema con el paquete puedes contactarme a:
-Mario Sandoval - [@mariosandovalmo](https://twitter.com/mariosandovalmo) - sandoval.m@hotmail.com
+Mario Sandoval - [@mariosandovalmo](https://twitter.com/mariosandovalmo) - sandoval.m@hotmai.com ; mas413bio@gmail.com
 
 Más información sobre mi: [https://mariosandovalmx.github.io/ecology/](https://mariosandovalmx.github.io/ecology/)
