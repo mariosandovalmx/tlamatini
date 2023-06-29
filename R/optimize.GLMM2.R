@@ -1,9 +1,10 @@
 #' Probar optimizadores en modelo glmmTMB
 #'
-#' Esta es una función que permite ajustar GLMM con diferentes optimizadores cuando existen problemas de convergencia. A veces al ajustar modelos pueden arrojar errores. Por ejemplo, una advertencia ‘iteration limit reached without convergence’, se soluciona aumentando el número de iteraciones: 'glmmTMBControl(optCtrl=list(iter.max=1e3,eval.max=1e3))'. Vea la ayuda de la función glmmTMBControl para mas detalles.
+#' Esta es una función que permite ajustar GLMM usando una fomula y tus datos probando con diferentes optimizadores cuando existen problemas de convergencia. A veces al ajustar modelos pueden arrojar errores. Por ejemplo, una advertencia ‘iteration limit reached without convergence’, se soluciona aumentando el número de iteraciones: 'glmmTMBControl(optCtrl=list(iter.max=1e3,eval.max=1e3))'. Vea la ayuda de la función glmmTMBControl para mas detalles.
 #'
-#' @param modelo Modelo GLMM ajustado con la paqueteria glmmTMB.
-#' @return Lista con los diferentes optimizadores y su ajuste. Si es FALSE, el modelo no converge.
+#' @param formula Formula del modelo que queremos ajustar, incluyendo el componente aleatorio si es que hay. Por ejemplo: "y ~ x+z"
+#' @param data Base de datos que se usa para ajustar el modelo.
+#' @return Lista con los diferentes optimizadores y su ajuste. Si es FALSE, el modelo no converge.Si es TRUE, podemos ajustar ese modelo con ese optimizador.
 #' @export
 #'
 #' @examples
@@ -11,13 +12,15 @@
 #' #datos <- ChickWeight
 #' #library(glmmTMB)
 #' #modelo <- glmmTMB(weight ~ Diet +(1|Chick), family=gaussian("log"), data = datos)
-#' # optimizeGLMM(modelo)
+#' # optimizeGLMM2(formula = p_azucar ~ tratamiento * dia, data = datos)
 #' @encoding UTF-8
 #' @importFrom performance check_convergence
 #' @importFrom insight print_color
 #' @import glmmTMB
-optimizeGLMM <- function(modelo){
+optimizeGLMM2 <- function(formula, data){
   #if(missing(optimizer)) optimizer <- "Unspecified"
+  datos<- datos
+  form <- as.formula(formula)
 
   optmod <- c("optim","nlminb")
   optmethod <- c("BFGS", "L-BFGS-B", "Nelder-Mead", "CG", "SANN")
@@ -33,7 +36,9 @@ optimizeGLMM <- function(modelo){
   for(i in 1:length(optmethod)) {
 
     utils::setTxtProgressBar(pb, i)
-    suppressWarnings(op.mod <- stats::update(modelo, control=  glmmTMBControl(optimizer=optmod[1], optArgs=list(method=optmethod[i]))))
+    suppressWarnings(
+      op.mod <- glmmTMB::glmmTMB(form, data = datos, control=  glmmTMBControl(optimizer=optmod[1], optArgs=list(method=optmethod[i])))
+    )
 
 
     ##################################
@@ -49,7 +54,9 @@ optimizeGLMM <- function(modelo){
     ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ##                                   nlminb                                 ----
     ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    suppressWarnings(    suppressWarnings(op.mod2 <- stats::update(modelo, control=  glmmTMBControl(optimizer=optmod[2], optArgs=list(method=optmethod[i])))))
+    suppressWarnings(
+      op.mod2 <- glmmTMB::glmmTMB(form, data = datos, control=  glmmTMBControl(optimizer=optmod[2], optArgs=list(method=optmethod[i])))
+    )
 
 
     ##################################
@@ -66,3 +73,4 @@ optimizeGLMM <- function(modelo){
   return(df.out)
 
 }
+

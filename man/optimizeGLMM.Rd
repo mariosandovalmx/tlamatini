@@ -5,12 +5,10 @@
 \alias{optimizeGLMM}
 \title{Probar optimizadores en modelo glmmTMB}
 \usage{
-optimizeGLMM(modelo, optimizer = c("optim", "nlminb"))
+optimizeGLMM(modelo)
 }
 \arguments{
 \item{modelo}{Modelo GLMM ajustado con la paqueteria glmmTMB.}
-
-\item{optimizer}{Optimizador que se usa en el modelo, puede ser "optim" o "nlminb".}
 }
 \value{
 Lista con los diferentes optimizadores y su ajuste. Si es FALSE, el modelo no converge.
@@ -23,6 +21,5 @@ Esta es una función que permite ajustar GLMM con diferentes optimizadores cuand
 #datos <- ChickWeight
 #library(glmmTMB)
 #modelo <- glmmTMB(weight ~ Diet +(1|Chick), family=gaussian("log"), data = datos)
-# optimizeGLMM(modelo, optimizer = "optim")
-# optimizeGLMM(modelo, optimizer = "nlminb")
+# optimizeGLMM(modelo)
 }
