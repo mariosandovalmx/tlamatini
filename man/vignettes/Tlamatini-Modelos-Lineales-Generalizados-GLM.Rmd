@@ -1,0 +1,276 @@
+---
+title: "Tlamatini - Modelos Lineales Generalizados (GLM)"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tlamatini - Modelos Lineales Generalizados (GLM)}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+![Tlamatini](https://raw.githubusercontent.com/mariosandovalmx/ecology/ddc9d3c8fd1d40523bf7e9625a028e4dad7772af/images/tlamatini-logo.jpg){width=70%}
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    ...                                   ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Este paquete contiene funciones útiles para el análisis de datos, principalmente para modelos lineales (LM, GLM, GLMM). Aunque está pensado para usarse en Ciencias Biológicas, su aplicación se extiende a cualquier área del conocimiento que requiera análisis estadísticos. Es una compilación de funciones útiles creadas por mi o por alguien más, que facilitan el análisis de datos: exploración y transformaciones de datos, revisión de los supuestos de los modelos lineales (LM, LMM, GLM, GLMM), exportación de tablas, entre otros.
+
+Para más información sobre el paquete y actualizaciones, visita la página:
+[https://mariosandovalmx.github.io/tlamatini-website/](https://mariosandovalmx.github.io/tlamatini-website/)
+
+Para citar este paquete: Mario A. Sandoval-Molina (2021). tlamatini: Funciones útiles 
+para biologxs y ecologxs confundidos con los modelos lineales. R package. https://doi.org/10.5281/zenodo.7765347
+
+Si quieres conocer más de mi trabajo, visita mi pagina web:
+[https://mariosandovalmx.github.io/ecology/](https://mariosandovalmx.github.io/ecology/)
+
+
+Para este ejemplo sobre como ajustar Modelos Lineales Generalizados (GLM) usando Tlamatini vamos a usar una base de datos ficticia (los datos no son reales) que contiene la longitud hocico-cloaca de lagartijas de la especie *Sceloporus torquatus* en cuatro localidades distintas, que vamos a llamar A, B, C y D. Además, contiene la velocidad de desplazamiento y el tiempo de reacción de cada lagartija.
+
+La base de datos se puede descargar del siguiente enlace:
+[descargar datos](https://github.com/mariosandovalmx/examples-data/blob/53d82952ea60a25611d99dd6a7c0e6510d5bac7d/datos.GLM1.csv)
+
+Vamos a cargar la base de datos:
+
+```{r}
+df <- read.csv("https://raw.githubusercontent.com/mariosandovalmx/examples-data/main/datos.GLM1.csv", header=TRUE)
+```
+
+##Exploración de datos
+Así luce nuestra base de datos:
+
+```{r}
+head(df)
+
+```
+
+
+Para este ejemplo vamos a comenzar cargando la paquetería.
+```{r setup}
+library(tlamatini)
+```
+Vamos a comenzar por convertir todas las variables categóricas a factor. La función *as_factorALL* va a reconocer todas las variables que son tipo "caracter" y las va a codificar como factor automáticamente. Nota: solo funciona con variables que contienen letras, no funciona si la columna es numérica.
+
+```{r}
+df<- as_factorALL(df)
+
+```
+
+Vamos a explorar si hay datos faltantes en las variables numéricas, también  vemos la media, el mínimo y máximo de cada variable, además de otros parámetros.
+
+```{r}
+numSummary(df)
+```
+
+
+También podemos explorar las variables categóricas:
+```{r}
+charSummary(df)
+```
+
+
+¡No hay datos faltantes en las variables!
+
+También nos interesa saber cómo se relacionan las variables explicativas con nuestra variable de respuesta, en este caso velocidad. Para ello usamos la función *ggpairs_dfnum*, que nos da el valor de correlación y el valor de p. Como vemos en la gráfica, la velocidad de desplazamiento de las lagartijas se correlaciona negativamente con la longitud hocico cloaca. También vemos que el tiempo de reacción se correlaciona positivamente con la velocidad.
+```{r fig.height = 3, fig.width = 6}
+ggpairs_dfnum(df, var.response = "Velocidad")
+```
+
+Ahora vamos a graficar la velocidad por Localidad, para ello usaremos la paquetería *ggpubr*:
+```{r fig.height = 3, fig.width = 6}
+library(ggpubr)
+ ggboxplot(df, "Localidad", "Velocidad",
+    color = "Localidad", palette =c("#00AFBB", "#E7B800", "#FC4E07", "darkblue"),
+    add = "jitter", fill = "Localidad", alpha= 0.5)
+```
+
+Y si quisiéramos saber que si nuestra variable de respuesta sigue una distribución normal podemos hacer un histograma de frecuencias. Para ello usamos la función *hist_curva*. A la izquierda tenemos el histograma y a la derecha el Q-Q plot que nos muestra la distribución de nuestra variable de respuesta.
+```{r fig.height = 3, fig.width = 6}
+hist_curva(df$Velocidad)
+
+```
+
+La prueba de Kolmogorov-Smirnov indica que no la distribución NO es parecida a la normal. Además nos dice que hay dos datos extremos, el 22 y 87. Tenemos que revisar estas observaciones.
+
+Si quisieramos hacer la prueba de normalidad por localidad podemos usar las funciones *norm.shapiro.grupos*,*norm.ad.grupos* o **norm.lks.grupos**. Si queremos usar una prueba Shapiro Wilk:
+```{r}
+norm.shapiro.grupos(Velocidad~ Localidad, df)
+```
+
+La prueba nos muestra que todas las localidades, excepto la D, se distribuyen normalmente. Al menos numericamente, por que visualmente todas se ajustan perfectamente. Conviene revisar el punto que sale fuera de la distribución, como haremos más adelante. 
+
+Podemos ajustar un modelo lineal generalizado (GLM). Los modelos lineales generalizados pueden tener errores o distribuciones no normales. Sin embargo, existen limitaciones en cuanto a las posibles distribuciones. Por ejemplo, se puede utilizar la familia Poisson para datos de conteos, o puede utilizar la familia binomial para datos binomiales. La distribución gaussiana es adecuada cuando los errores en el modelo siguen una distribución normal y la variable de respuesta también se distribuye normalmente.
+
+Con esta base de datos vamos a ajustar dos modelos lineales generalizados, el primero con la distribución gaussiana y función de liga 'log'. El segundo con distribución gaussiana y función de liga 'identity'. Usaremos la Velocidad como variable de respuesta. Además, usaremos la variable longitud hocico-cloaca (LHC)  y Localidad como variables explicativas.
+
+```{r}
+modelo  <- glm(Velocidad ~ LHC + Localidad, family = gaussian("log"), data= df)
+modelo2 <- glm(Velocidad ~ LHC + Localidad, family = gaussian("identity"), data= df)
+AIC(modelo, modelo2)
+```
+De acuerdo con el Criterio de información de Akaike (AIC), el primer modelo2 es mejor. Vamos a ver el summary del modelo y la tabla ANOVA tipo III:
+
+```{r}
+summary(modelo2)
+
+```
+
+La LCH no es significativa p>0.001 pero... Atención: Debemos revisar el ajuste del modelo antes de hacer cualquier interpretación de resultados. Esto lo podemos hacer con la función *resid_glm*.
+
+Para explorar un modelo lineal generalizado (GLM) hay varios criterios que se pueden evaluar para comprobar el buen ajuste de un modelo.
+
+Normalidad: Los residuales son las diferencias entre los valores observados y los valores predichos por el modelo. Si los residuos siguen una distribución normal, eso significa que los errores del modelo son aleatorios y no presentan patrones que indiquen un mal ajuste del modelo.
+
+Homocedasticidad: Comprobar si la varianza de los residuales es constante en todo el rango de los valores ajustados. Esto se puede evaluar mediante gráficos de dispersión de los residuales estandarizados o los residuales absolutos frente a los valores ajustados.
+
+Influencia de observaciones influyentes (outliers): Identificar observaciones influyentes o valores atípicos que puedan tener un impacto desproporcionado en el modelo. Esto se puede hacer mediante la detección de valores altos de los residuales estandarizados.
+
+Autocorrelación: Revisar si hay autocorrelación en los residuales, lo que indica la presencia de dependencia entre las observaciones. Esto se puede evaluar mediante pruebas de autocorrelación o trazando gráficos de autocorrelación de los residuales.
+
+Multicolinealidad: Examinar la presencia de alta correlación entre las variables predictoras, lo que puede dificultar la interpretación de los coeficientes del modelo. Esto se puede evaluar mediante el cálculo del factor de inflación de la varianza (VIF) para cada variable predictora.
+Vamos a explorar los residuales del modelo:
+
+```{r fig.height = 4, fig.width = 8}
+par(mfrow=c(2,2))
+plot(modelo2)
+```
+
+En la primera gráfica, la línea roja es horizontal y aplanada sobre la línea punteada, indica buen ajuste, homocedasticidad. El QQPlot se ve bien, la mayoría de los puntos se ajustan a la línea punteada, lo cual indica que los residuales se aproximan a la distribución normal. Pero si vemos el gráfico de abajo a la derecha notamos que tenemos una observación influyente, el dato 22.
+
+En un GLM, los outliers pueden influir en los resultados y sesgar las estimaciones de los coeficientes. Por lo tanto, es importante identificar y, en algunos casos, remover los outliers antes de ajustar el modelo. Existen varios criterios comunes para identificar outliers en un GLM:
+
+1. Residuos estandarizados: Los residuos estandarizados son una medida de la distancia entre los valores observados y los valores predichos por el modelo. Los outliers pueden ser identificados como aquellos puntos cuyos residuos estandarizados están por encima de un umbral determinado, como 2 o 3 desviaciones estándar. Podemos analizarlos con la función *outliers.plot*.
+
+2. Distancia de Cook: La distancia de Cook es una medida de la influencia de cada observación en los coeficientes del modelo. Los puntos con una distancia de Cook alta pueden considerarse outliers y pueden ser removidos. Podemos analizarlos con la función *outliers.plot2*.
+
+3. Gráficos de residuos: Los gráficos de residuos, como el gráfico de residuos vs valores ajustados o el gráfico de residuos versus variables explicativas, pueden ayudar a identificar outliers visualmente. Los puntos que se encuentran lejos de la línea de referencia en estos gráficos pueden ser considerados outliers. Podemos explorarlos visualmente con la gráfica anterior, Residuals VS Leverage.
+
+Vamos a comprobarlo. 
+
+Primero, podemos usar la función *outliers.plot* para comprobar estas observaciones influyentes:
+
+```{r fig.height = 4, fig.width = 6}
+outliers.plot2(modelo2)
+
+```
+
+El dato que se encuentra en la fila 22 tiene un valor de std.resid mayor a 3, y el valor de p con ajuste de Bonferroni es < 0.05, lo que nos indica que puede ser un dato influyente y tenemos que revisar esta observación. 
+
+También podemos usar la función *outliers.DHARMa* para comprobar estas observaciones influyentes:
+
+```{r fig.height = 4, fig.width = 8}
+outliers.DHARMa(modelo2)
+
+```
+
+Tendremos que corroborar que esta observación es correcta y no cometimos ningún error al capturar nuestros datos. Vamos a suponer que fue un error de medición y no podemos confiar en este dato, y no hay forma de repetir la medición. Así que lo vamos a remover y volver a ajustar el modelo:
+
+Una forma de remover los outliers es usando la función *outlierKD* que remueve todas las observaciones influyentes. 
+
+Pero vamos a remover manualmente esta observación:
+```{r}
+library(dplyr)
+df2 <- slice(df, -c(22))
+modelo3 <- glm(Velocidad ~ LHC  + Localidad, family = gaussian("identity"), data= df2)
+```
+
+Pero volvemos a corroborar los residuales del modelo para saber si hay un buen ajuste:
+
+```{r fig.height = 4, fig.width = 8}
+par(mfrow=c(2,2))
+plot(modelo3)
+```
+
+Examinamos el resumen del modelo:
+```{r fig.height = 4, fig.width = 8}
+summary(modelo3)
+```
+
+Comprobamos si aún tenemos outliers en el nuevo modelo:
+```{r fig.height = 3, fig.width = 6}
+outliers.plot(modelo3)
+```
+
+Ya no tenemos outliers, lo ideal sería evitar remover observaciones. Pero si estamos seguros de que el outlier es un error o no es una observación confiable tenemos que quitarla de la base de datos. 
+
+Ahora vamos a revisar la multicolinealidad usando la función *VIF_model* y *VIF_plot*. La multicolinealidad en los modelos de regresión generalizada (GLM) se refiere a la presencia de alta correlación entre las variables predictoras. Esto puede causar problemas en la estimación de los coeficientes de regresión, ya que dificulta la identificación de la contribución individual de cada variable en el modelo.
+
+Cuando existe multicolinealidad, las estimaciones de los coeficientes pueden volverse inestables y poco confiables. Además, la multicolinealidad puede hacer que los intervalos de confianza sean demasiado amplios, lo que dificulta la interpretación de los resultados.
+
+```{r}
+VIF_model(modelo3)
+VIF_plot(modelo3)
+```
+
+Hay diferentes criterios de seleccipon pero en general un valor VIF mayor a 1 indica la presencia de multicolinealidad, y valores superiores a 5 o 10 suelen ser considerados problemáticos. Por lo que quizá convendria remover alguna de las dos variables o analizar por separado cada variable. Por ahora vamos a ignorar este problema y asumir que no hay problemas.
+
+El modelo tiene buen ajuste y ya podemos examinar los resultados con la tabla de ANOVA tipo III usando la función *table_ANOVA3*. La tabla de ANOVA tipo III es útil para evaluar la importancia relativa de las variables del modelo y determinar qué variables tienen un efecto significativo en la variable de respuesta.
+
+```{r}
+table_ANOVA3(modelo3)
+```
+En el modelo ahora muestra que la variable LHC es significativa, pero no hay un efecto significativo de la localidad.
+Vamos a graficar los efectos del modelo con la función *plot_effects*:
+```{r fig.height = 4, fig.width = 8}
+plot_effects(modelo3)
+```
+
+o bien con la función *plot_effects2*:
+
+
+```{r fig.height = 4, fig.width = 8}
+plot_effects2(modelo3, lineas = TRUE, puntos = TRUE, grids = FALSE)
+```
+
+Otra forma de graficar las variables es usando el paquete *ggeffects*. Este paquete nos permite obtener gráficos estéticos usando *ggplot* como interfaz. 
+```{r fig.height = 3, fig.width = 6}
+library(ggeffects)
+dat <- ggeffect(modelo3, terms = c("LHC"))
+plot(dat)
+```
+
+Y podemos usar los diferentes temas predefinidos para artículo científico o para presentación. Por ejemplo:
+```{r}
+pl <- plot(dat, add.data = TRUE)
+pl + tema_articulo()
+# o cambiar los parámetros de tamaño de letra en los ejes X y Y:
+#pl + tema_articulo(14,14)
+#pl + tema_articulo2()
+#pl + tema_presentacion()
+```
+
+```{r}
+pl + tema_articulo2()
+# o cambiar los parámetros de tamaño de letra en los ejes X y Y:
+#pl + tema_articulo(14,14)
+#pl + tema_articulo2()
+#pl + tema_presentacion()
+```
+
+
+
+Ahora vamos a obtener la tabla del modelo. De esta forma podremos copiar las tablas y pegarlas directamente en nuestro documento de Word. 
+```{r}
+table.models(modelo3)
+```
+
+Luego vamos a obtener los contrastes post-hoc Tuckey, en este caso la Localidad no es significativa pero para fines demostrativos vamos a hacerlo usando la paquetería *emmeans*. Y usando la función *table_contrasts* para obtener los contrastes en una tabla.
+
+```{r}
+library(emmeans)
+cont1 <- emmeans(modelo3, pairwise ~ Localidad,adjust="tukey",type="response")$contrasts
+table_contrasts(cont1)
+```
+
+Finalmente, vamos a graficar los efectos en un boxplot y colocar los valores de p que acabamos de obtener anteriormente:
+```{r}
+boxplot_emmeans(formula = Velocidad ~ Localidad, modelo=modelo3, data= df)
+```
+
+

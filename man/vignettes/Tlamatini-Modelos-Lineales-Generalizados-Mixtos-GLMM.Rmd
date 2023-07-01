@@ -1,0 +1,191 @@
+---
+title: "Tlamatini - Modelos Lineales Generalizados Mixtos (GLMM)"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tlamatini - Modelos Lineales Generalizados Mixtos (GLMM)}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+![Tlamatini](https://raw.githubusercontent.com/mariosandovalmx/ecology/ddc9d3c8fd1d40523bf7e9625a028e4dad7772af/images/tlamatini-logo.jpg){width=70%}
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    ...                                   ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Este paquete contiene funciones útiles para el análisis de datos, principalmente para modelos lineales (LM, GLM, GLMM). Aunque está pensado para usarse en Ciencias Biológicas, su aplicación se extiende a cualquier área del conocimiento que requiera análisis estadísticos. Es una compilación de funciones útiles creadas por mi o por alguien más, que facilitan el análisis de datos: exploración y transformaciones de datos, revisión de los supuestos de los modelos lineales (LM, LMM, GLM, GLMM), exportación de tablas, entre otros.
+
+Para más información sobre el paquete y actualizaciones, visita la página:
+[https://mariosandovalmx.github.io/tlamatini-website/](https://mariosandovalmx.github.io/tlamatini-website/)
+
+Para citar este paquete: Mario A. Sandoval-Molina (2021). tlamatini: Funciones útiles 
+para biologxs y ecologxs confundidos con los modelos lineales. R package. https://doi.org/10.5281/zenodo.7765347
+
+Si quieres conocer más de mi trabajo, visita mi pagina web:
+[https://mariosandovalmx.github.io/ecology/](https://mariosandovalmx.github.io/ecology/)
+
+
+Para este ejemplo sobre como ajustar Modelos Lineales Generalizados Mixtos (GLMM) usando Tlamatini vamos a usar una base de datos ficticia (los datos no son reales) sobre como la altura de la planta está influenciada por la temperatura y por el tipo de suelo en tres especies de *Viburnum nudum*.  
+
+Vamos a cargar la base de datos:
+```{r}
+datos <- read.csv("https://raw.githubusercontent.com/mariosandovalmx/examples-data/main/data.plants-GLMM%20example.csv", header=TRUE)
+```
+
+Primero vamos a convertir todas las variables caracter a categóricas usando la función *as_factorALL*
+```{r}
+library(tlamatini)
+datos <- as_factorALL(datos)
+```
+Vamos a comenzar por hacer una exploración de datos. Primero vamos a explorar como se relacionan las variables numericas de nuestra base de datos usando la función *ggpairs_dfnum*:
+```{r}
+ggpairs_dfnum(datos)
+```
+Existe una correlación positiva entre la altitud y la temperatura. Ahora vamos a explorar la normalidad de las variables usando la función *hist_curva*:
+```{r}
+# variable altura
+hist_curva(datos$altura)
+```
+
+```{r}
+# variable temperatura 
+hist_curva(datos$temperatura)
+```
+Ambas variables tienen una distribución parecida a la normal. Ahora vamos a explorar como se distribuye la altitud entre los diferentes tipos de suelo, para ello usaremos la paquetería *ggpubr*:
+```{r fig.height = 3, fig.width = 6}
+library(ggpubr)
+ggboxplot(datos, "tipo_suelo", "altura",
+          color = "tipo_suelo", palette =c("#00AFBB", "#E7B800", "#FC4E07"),
+          add = "jitter", fill = "tipo_suelo", alpha= 0.5)
+```
+
+Y si quisieramos saber si la altura por tipo de suelo se distribuyen normalmente:
+```{r}
+norm.shapiro.grupos(altura ~ tipo_suelo, datos)
+```
+
+Siguen una distribución normal. También podemos ver si hay diferencias entre las especies:
+```{r fig.height = 3, fig.width = 6}
+ggboxplot(datos, "especie", "altura",
+          color = "especie", palette =c("#00AFBB", "#E7B800", "#FC4E07"),
+          add = "jitter", fill = "especie", alpha= 0.5)
+```
+
+Ahora veremos la estructura del componente aleatorio de nuestros datos. Este componente captura la variabilidad no explicada por las variables predictoras fijas y se utilizan para modelar la correlación y la estructura de dependencia en los datos. En general son variables aleatorias que se asocian con las unidades de observación y se asumen distribuidas de acuerdo con una distribución específica. Estos efectos permiten tener en cuenta la variabilidad entre las unidades de observación, como las diferencias individuales o las diferencias debidas a la agrupación de los datos. Para eso usaremos la función *data.tree*, especificando ciertas columnas en específico:
+```{r}
+data.tree(datos[c(4,3,5)])
+```
+
+Con esta función veremos el tamaño de muestra asociado a cada nivel del componente aleatorio y las subdivisiones para tener un panorama amplio de la estructura de los datos.
+
+Ahora si podemos ajustar los GLMM. Vamos a probar diferentes familias y funciones de liga para seleccionar el mejor modelo que se ajuste a los datos.
+```{r}
+library(glmmTMB)
+# Ajuste del GLMM
+modelo <- glmmTMB(altura ~ temperatura + tipo_suelo*especie + (1|sitio/especie), data = datos, family = gaussian("identity"))
+modelo2 <- glmmTMB(altura ~ temperatura + tipo_suelo*especie + (1|sitio/especie), data = datos, family = gaussian("log")) 
+modelo3 <- glmmTMB(altura ~ temperatura + tipo_suelo*especie + (1|sitio/especie), data = datos, family = gaussian("sqrt"))
+AIC(modelo,modelo2, modelo3)
+```
+En este caso, todos los modelos convergen pero si alguno de los modelos presenta problemas de convergencia estos deben ignorarse o usar algun optimizador (ver función *optimizeGLMM*. 
+
+Parece que el primer modelo es mejor. Para comprobar el buen ajuste de un modelo lineal generalizado (GLM) hay varios criterios que se deben cumplir: 
+
+Normalidad: Los residuales son las diferencias entre los valores observados y los valores predichos por el modelo. Si los residuos siguen una distribución normal, eso significa que los errores del modelo son aleatorios y no presentan patrones que indiquen un mal ajuste del modelo.
+
+Homocedasticidad: Comprobar si la varianza de los residuales es constante en todo el rango de los valores ajustados. Esto se puede evaluar mediante gráficos de dispersión de los residuales estandarizados o los residuales absolutos frente a los valores ajustados.
+
+Influencia de observaciones influyentes (outliers): Identificar observaciones influyentes o valores atípicos que puedan tener un impacto desproporcionado en el modelo. Esto se puede hacer mediante la detección de valores altos de los residuales estandarizados.
+
+Autocorrelación: Revisar si hay autocorrelación en los residuales, lo que indica la presencia de dependencia entre las observaciones. Esto se puede evaluar mediante pruebas de autocorrelación o trazando gráficos de autocorrelación de los residuales. En este tutorial no vamos a aboradar este problema.
+
+Multicolinealidad: Examinar la presencia de alta correlación entre las variables predictoras, lo que puede dificultar la interpretación de los coeficientes del modelo. Esto se puede evaluar mediante el cálculo del factor de inflación de la varianza (VIF) para cada variable predictora.
+Vamos a explorar los residuales del modelo:
+
+Vamos a examinar los residuales del mejor modelo usando la paqueteria DHARMa:
+
+```{r}
+resid_DHARMa(modelo)
+```
+
+Parece que tenemos un buen ajuste del modelo! la prueba de normalidad (KS test) muestra que los residuales siguen una distribución normal. No hay evidencia que indique problemas de dispersion y outliers.
+
+Ahora vamos a revisar la multicolinealidad usando la función *VIF_model* y *VIF_plot*. La multicolinealidad en los modelos de regresión generalizada (GLM) se refiere a la presencia de alta correlación entre las variables predictoras. Esto puede causar problemas en la estimación de los coeficientes de regresión, ya que dificulta la identificación de la contribución individual de cada variable en el modelo.
+
+Cuando existe multicolinealidad, las estimaciones de los coeficientes pueden volverse inestables y poco confiables. Además, la multicolinealidad puede hacer que los intervalos de confianza sean demasiado amplios, lo que dificulta la interpretación de los resultados.
+
+```{r}
+VIF_model(modelo)
+VIF_plot(modelo)
+```
+
+Como tenemos una interacción entre tipo_suelo y especie, nos arroja una advertencia diciendo que los valores de VIF pueden estar inflados. Entonces ajustamos un modelo sin interacción:
+
+
+```{r}
+modelo_sininteraccion <- glmmTMB(altura ~ temperatura + tipo_suelo + especie + (1|sitio/especie), data = datos, family = gaussian("identity"))
+optimizeGLMM(modelo_sininteraccion)
+
+```
+El modelo sin interacción tiene problemas de convergencia, vamos a probar diferentes optimizadores. Parece que hay algunos optimizadores que arreglan el problema. Vamos a probar uno de la lista:
+```{r}
+modelo_sininteraccion2 <- glmmTMB(altura ~ temperatura + tipo_suelo + especie + (1|sitio/especie), data = datos, family = gaussian("identity"),control=glmmTMBControl(optimizer=optim, optArgs=list(method="BFGS")))
+
+```
+Ahora vamos a evaluar el VIF:
+```{r}
+VIF_model(modelo_sininteraccion2)
+VIF_plot(modelo_sininteraccion2)
+```
+
+Todas las variables en el modelo tienen una correlación baja. Así que podemos confiar en el modelo. 
+Ahora si vamos a
+
+
+```{r}
+summary(modelo)
+```
+Ya podemos examinar los resultados con la tabla de ANOVA tipo III usando la función *table_ANOVA3*. La tabla de ANOVA tipo III es útil para evaluar la importancia relativa de las variables del modelo y determinar qué variables tienen un efecto significativo en la variable de respuesta.
+
+```{r}
+table_ANOVA3(modelo)
+```
+
+Vamos a interpretar la tabla: la temperatura, el tipo de suelo y las especies tienen un efecto significativo en la altura de las plantas. Sin embargo, la interacción entre tipo de suelo y especie no es significativa.
+
+Graficamos los efectos del modelo con la función *plot_effects*:
+```{r fig.height = 4, fig.width = 8}
+plot_effects(modelo)
+```
+
+Otra forma de graficar las variables es usando el paquete *ggeffects*. Este paquete nos permite obtener gráficos estéticos usando *ggplot* como interfaz. 
+```{r fig.height = 3, fig.width = 6}
+library(ggeffects)
+dat <- ggeffect(modelo, terms = c("especie", "tipo_suelo"))
+plot(dat, add.data = TRUE) + tema_articulo()
+```
+
+Graficamos la temperatura:
+```{r fig.height = 3, fig.width = 6}
+library(ggeffects)
+dat2 <- ggeffect(modelo, terms = c("temperatura"))
+plot(dat2, add.data = TRUE) + tema_articulo()
+```
+
+Ahora vamos a obtener la tabla del modelo. De esta forma podremos copiar las tablas y pegarlas directamente en nuestro documento de Word. 
+```{r}
+table.models(modelo)
+```
+Usualmente no se hacen contrastes cuando la interacción no es significativa, aunque puede dar información relevante. Vamos a obtener los contrastes post-hoc Tuckey usando la paquetería *emmeans*. Y usando la función *table_contrasts* para obtener los contrastes en una tabla.
+
+```{r}
+library(emmeans)
+cont1 <- emmeans(modelo, pairwise ~ especie | tipo_suelo,adjust="tukey",type="response")$contrasts
+table_contrasts(cont1)
+```
+

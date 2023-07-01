@@ -1,0 +1,62 @@
+Package: tlamatini
+Title: Tlamatini: Funciones utiles para biologxs y ecologxs confundidos con los modelos lineales 
+Version: 0.5
+Date: 2021-09-30
+Authors@R: 
+    person(given = "Mario A.",
+           family = "Sandoval-Molina",
+           role = c("aut", "cre"),
+           email = "sandoval.m@hotmail.com",
+           comment = c(ORCID = "https://orcid.org/0000-0002-8536-6006"))
+Description: Este paquete contiene funciones utiles para el análisis de datos, principalmente para modelos lineales (LM, GLM, GLMM, GAM). Aunque está pensado para usarse en Ciencias Biológicas, su aplicación se extiende a cualquier area del conocimiento que requiera analisis estadisticos. Es una compilación de funciones utiles creadas por mi o creadas por alguien más, pero que facilitan el analisis de datos: transformaciones de datos, ajuste y revision de modelos lineales (LM, LMM, GLM, GLMM, GAM, etc), exportación de tablas, entre otras funciones. El nombre de la paquetería "Tlamatini" proviene del Náhuatl, una lengua indígena Mexicana, que significa "los que saben algo o los que saben cosas". Tambien puede ser traducida como hombres sabios y era el equivalente a los filósofos en la época de los Mexicas. Quienes nos dedicamos a las Ciencias Naturales, al igual que un Tlamatini, "sabemos cosas", cosas del mundo natural. El paquete está todavía en su etapa de desarrollo, puede haber errores en algunas funciones y pueden cambiar. (Nota: los acentos fueron removidos intencionalmente del paquete por razones de compatibilidad).
+License: MIT + file LICENSE
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports:
+    broom,
+    car,
+    data.table,
+    DHARMa,
+    dplyr,
+    effects,
+    GGally,
+    ggeffects,
+    ggplot2,
+    ggpubr,
+    glmmTMB,
+    insight,
+    multcomp,
+    magrittr,
+    nortest,
+    performance,
+    rstatix,
+    sjPlot,
+    stringr,
+    snakecase,
+    stringi
+Suggests:
+    checkmate,
+    graphics,
+    utils,
+    emmeans,
+    htmltools,
+    reshape,
+    glue,
+    MASS,
+    nlme,
+    stats,
+    base,
+    knitr,
+    lme4,
+    tibble,
+    purrr,
+    rlang,
+    see,
+    sf,
+    tidygraph,
+    survival,
+    rmarkdown
+VignetteBuilder: knitr
+BugReports: https://github.com/mariosandovalmx/tlamatini/issues
+Encoding: UTF-8
