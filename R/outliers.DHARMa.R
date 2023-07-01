@@ -10,7 +10,9 @@
 #' @export
 #'
 #' @examples
-#' #
+#' data(warpbreaks)
+#' modelo <- glm(breaks ~ wool + tension, family= poisson("log"), data= warpbreaks)
+#' #GLMMM
 #' #datos <- datasets::ChickWeight
 #' #library(glmmTMB)
 #' #modelo <- glmmTMB(weight ~ Diet +(1|Chick), family=gaussian("log"), data = datos)

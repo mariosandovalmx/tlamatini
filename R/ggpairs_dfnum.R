@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-#' #ggpairs_dfnum(iris)
+#' ggpairs_dfnum(iris)
 #' #ggpairs_dfnum(iris, var.response = "Petal.Length")
 #' @encoding UTF-8
 #' @import ggplot2

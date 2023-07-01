@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' data<- warpbreaks
-#' modelo <- glm(breaks ~ wool+tension, poisson, data= data)
+#' modelo <- glm(breaks ~ wool + tension, family= poisson("log"), data= data)
 #' dispfun2(modelo)
 #' @encoding UTF-8
 #' @importFrom stats pchisq

@@ -10,6 +10,7 @@
 #' @export
 #'
 #' @examples
+#' data(iris)
 #' hist_curva(iris$Sepal.Width)
 #' @encoding UTF-8
 #' @importFrom stats dnorm

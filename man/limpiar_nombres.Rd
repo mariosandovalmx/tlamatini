@@ -51,8 +51,8 @@ nombre y vectores, use \code{limpiar_nombres2()}.
 \examples{
 
 # --- uso ---
-#x <- data.frame(caseID = 1, DOB = 2, Other = 3)
-#limpiar_nombres(x)
+x <- data.frame(caseID = 1, DOB = 2, Other = 3)
+limpiar_nombres(x)
 
 # o usando pipelines:
 # x \%>\%

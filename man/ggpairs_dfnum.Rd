@@ -21,6 +21,6 @@ Matriz de correlación basada en ggpairs con lineas de regresion lineal y no lin
 de la paqueteria GGally.
 }
 \examples{
-#ggpairs_dfnum(iris)
+ggpairs_dfnum(iris)
 #ggpairs_dfnum(iris, var.response = "Petal.Length")
 }

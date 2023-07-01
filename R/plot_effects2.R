@@ -13,17 +13,12 @@
 #' @examples
 #' data(iris)
 #' modelo <- glm(Petal.Width ~ Petal.Length+Species, family = gaussian("log"), data=iris)
+#' plot_effects2(modelo)
+#' #grafico con lineas y puntos
 #' plot_effects2(modelo, lineas = TRUE, puntos=TRUE)
-#' #plot_effects2(modelo)
-#' #plot_effects2(modelo, grids = F)
-#' #plot_effects2(modelo, lineas = T, puntos = T)
-#' #plot_effects2(modelo, lineas = T, puntos = T, grids = F)
-#' #plot_effects2(modelo, lineas=F, puntos = F)
-#' #plot_effects2(modelo, lineas=F, puntos = F, grids = F)
-#' #plot_effects2(modelo, lineas = T, puntos = F)
-#' #plot_effects2(modelo, lineas = T, puntos = F, grids = F)
-#' #plot_effects2(modelo, lineas = F, puntos = T)
-#' #plot_effects2(modelo, lineas = F, puntos = T, grids = F)
+#' #grafico con sin rejillas
+#' plot_effects2(modelo, grids = FALSE)
+#' plot_effects2(modelo, lineas = TRUE, puntos = TRUE, grids = FALSE)
 #' @encoding UTF-8
 #' @importFrom ggeffects ggeffect
 #' @importFrom ggpubr ggarrange

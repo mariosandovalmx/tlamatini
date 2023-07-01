@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' data<- warpbreaks
-#' modelo <- glm(breaks ~ wool+tension, poisson, data= data)
+#' modelo <- glm(breaks ~ wool + tension, family= poisson("log"), data= data)
 #' dispfun(modelo)
 #' @encoding UTF-8
 #' @importFrom stats residuals

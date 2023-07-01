@@ -12,6 +12,7 @@
 #'iris[2,2]<-"@@"
 #'iris[3,2]<-"???"
 #'head(iris)
+#'#quitar los caracteres especiales
 #'iris2<-NA.quitarEspecial(iris,c("@@","???"))
 #'head(iris2)
 #' @encoding UTF-8

@@ -19,6 +19,6 @@ glmer, glmmTMB, etc. GLMM y GLM. Más detalles en:  https://github.com/glmmTMB/g
 }
 \examples{
 data<- warpbreaks
-modelo <- glm(breaks ~ wool+tension, poisson, data= data)
+modelo <- glm(breaks ~ wool + tension, family= poisson("log"), data= data)
 dispfun2(modelo)
 }

@@ -9,6 +9,7 @@
 #' @examples
 #' data(iris)
 #' iris2<- as_factorALL(iris)
+#' str(iris2)
 #' @encoding UTF-8
 as_factorALL<- function(dataframe){
 

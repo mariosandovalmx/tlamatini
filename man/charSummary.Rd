@@ -20,5 +20,7 @@ porcentaje de observaciones faltantes (miss\%), número de factores únicos (uni
 Función tomada de la paquetería: xda: R package for exploratory data analysis.
 }
 \examples{
+data(iris)
+#resumen de todas las variables categoricas del dataframe
 charSummary(iris)
 }

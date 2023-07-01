@@ -1,6 +1,6 @@
 #' Encontrar los outliers de un LM, LMM, GLM
 #'
-#' Encontrar los outliers de un LM, LMM, GLM, GLMM.
+#' Encontrar los outliers de un LM, LMM, GLM.
 #' @param model Modelo GLM, GLMM o LM.
 #'
 #' @return Encontrar los outliers de un modelo y graficarlos.

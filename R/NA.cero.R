@@ -7,9 +7,12 @@
 #' @export
 #'
 #' @examples
+#' #Introducimos NAs aleatorios en el dataframe
 #' iris$Sepal.Length[c(1,3,5,7,9)] <- NA
+#' head(iris)
+#' #ahora sustituimos por ceros
 #' iris.sinNA<- as.data.frame(lapply(iris,NA.cero))
-#' iris.sinNA$Sepal.Length
+#' head(iris)
 #' @encoding UTF-8
 NA.cero=function(x){
   x2<- ifelse(is.na(x),0,as.numeric(x))

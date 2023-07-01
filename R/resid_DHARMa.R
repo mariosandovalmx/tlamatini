@@ -23,10 +23,15 @@
 #'   }
 #'
 #' @examples
-#' #datos <- datasets::ChickWeight
-#' #library(glmmTMB)
-#' #modelo <- glmmTMB(weight ~ Diet +(1|Chick), family=gaussian("log"), data = datos)
-#' #resid_DHARMa(modelo)
+#' data(warpbreaks)
+#' modelo <- glm(breaks ~ wool + tension, family= poisson("log"), data= warpbreaks)
+#' resid_DHARMa(modelo)
+#'
+#' ### tambien se puede usar en GLMMs:
+#' datos <- datasets::ChickWeight
+#' library(lme4)
+#' modelo <- glmer(weight ~ Diet +(1|Chick), family=gaussian("log"), data = datos)
+#' resid_DHARMa2(modelo)
 #' @encoding UTF-8
 #' @importFrom DHARMa simulateResiduals
 resid_DHARMa <- function(Modelo, nsim=NULL){

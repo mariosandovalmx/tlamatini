@@ -22,8 +22,10 @@ Realiza la prueba de Anderson-Darling para probar la normalidad de una
 variable por grupos.
 }
 \examples{
-#data(iris)
-#norm.ad.grupos(Petal.Length~ Species, iris)
-#iris$site <- c(rep("A", 75), rep("B", 75))
-#norm.ad.grupos(Petal.Length~ Species+ site, iris)
+data(iris)
+# prueba de normalidad Anderson-Darling con una sola variable
+norm.ad.grupos(Petal.Length~ Species, iris)
+# prueba de normalidad Anderson-Darling con dos o mas variables de agrupamiento
+iris$site <- c(rep("A", 75), rep("B", 75))
+norm.ad.grupos(Petal.Length~ Species+ site, iris)
 }

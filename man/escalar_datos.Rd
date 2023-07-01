@@ -5,23 +5,18 @@
 \alias{escalar_datos}
 \title{Estandarizar las variables de un dataframe}
 \usage{
-escalar_datos(df, ex_variables = NULL, center = NULL, scale = NULL)
+escalar_datos(df, variables = NULL)
 }
 \arguments{
 \item{df}{Un dataframe}
 
-\item{ex_variables}{Variables a excluir del dataframe, si no queremos aplicar
-la escalada a dichas variables.}
-
-\item{center}{centrado}
-
-\item{scale}{escalado}
+\item{variables}{Variables dataframe que se van a escalar}
 }
 \value{
 Dataframe escalado y centrado
 }
 \description{
-Estandariza las todas las variables de un dataframe mediante el centrado
+Estandariza las variables de un dataframe mediante el centrado
 y el escalado. Para cada valor de una variable, simplemente restamos el
 valor medio de la variable, luego dividimos por la desviacion estandar de
 la variable. Esto significa que vamos a escalar los valores de manera que
@@ -38,9 +33,10 @@ Ver la funcion "stdize" de MuMIn package para mas detalles.
 }
 \examples{
 data(iris)
-#' #numericas del dataframe.
-# Si no se especifica que variables excluir, se aplicara a todas las columnas
-df.sc2 <- escalar_datos(iris)
-# si se especifica que variables excluir
-df.sc <- escalar_datos(iris, ex_variables = c("Petal.Width","Petal.Length"))
+#Si no se especifica que variables excluir, se escalan todas las variables numericas del dataframe.
+escalar_datos(iris)
+escalar_datos(iris, )
+#También se puede especificar que variables especificamente se van a escalar
+escalar_datos(iris, variables = c("Petal.Width","Petal.Length"))
+escalar_datos(iris, variables = c(1,3))
 }

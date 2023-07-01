@@ -1,7 +1,7 @@
 #' Encuentra y remueve los outliers de una variable
 #'
 #' Encuentra y quita outliers de un dataframe. Permite explorar la media y distribución con y sin ouliers,
-#' además de permitir decidir si remover los outliers del dataframe o no. Función tomada y modificada de:
+#' además de permitir decidir si remover los outliers del dataframe o no. Función tomada y modificada parcialmente de:
 #' https://datascienceplus.com/identify-describe-plot-and-removing-the-outliers-from-the-dataset/
 #' @param dt dataframe
 #' @param var variable de interes, un vector o columna.

@@ -22,8 +22,10 @@ Realiza la prueba de Lilliefors (Kolmogorov-Smirnov) para probar la normalidad d
 variable por grupos.
 }
 \examples{
-#data(iris)
-#norm.lks.grupos(Petal.Length~ Species, iris)
+data(iris)
+# prueba de normalidad Lilliefors (Kolmogorov-Smirnov) con una sola variable
+norm.lks.grupos(Petal.Length~ Species, iris)
+# prueba de normalidad Lilliefors (Kolmogorov-Smirnov) con dos o mas variables de agrupamiento
 #iris$site <- c(rep("A", 75), rep("B", 75))
 #norm.lks.grupos(Petal.Length~ Species+ site, iris)
 }

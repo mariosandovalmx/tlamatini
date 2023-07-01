@@ -8,6 +8,7 @@
 #'
 #' @examples
 #' df<-sin_cerosDF(iris)
+#' df
 #' @encoding UTF-8
 #' @importFrom stats complete.cases
 sin_cerosDF <- function(dataframe){

@@ -20,5 +20,6 @@ Crea un histograma de frecuencias con una linea de densidad de la distribución 
 -Wilk, si es mayor usa ks.test.
 }
 \examples{
+data(iris)
 hist_curva(iris$Sepal.Width)
 }

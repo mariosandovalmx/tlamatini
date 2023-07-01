@@ -1,8 +1,8 @@
 #' Encontrar los outliers de un LM, GLM
 #'
-#' Encontrar los outliers de un LM, GLM, GLMM O cualquier otro modelo. Ademas aplica una prueba para saber si
+#' Encontrar los outliers de un LM, GLM. Ademas aplica una prueba para saber si
 #' son o no datos influyentes.
-#' @param model Modelo LM, GLM, GLMM.
+#' @param model Modelo LM, GLM
 #' @param outliers Numero de outliers a mostrar.
 #'
 #' @return Encontrar los outliers de un modelo y graficarlos.
@@ -10,9 +10,9 @@
 #' @export
 #'
 #' @examples
-#' #data(iris)
-#' #modelo <- glm(Petal.Width ~ Petal.Length, family = gaussian("log"), data=iris)
-#' #outliers.plot(modelo)
+#' data(iris)
+#' modelo <- glm(Petal.Width ~ Petal.Length, family = gaussian("log"), data=iris)
+#' outliers.plot(modelo)
 #' @encoding UTF-8
 #' @importFrom car outlierTest
 #' @import ggplot2

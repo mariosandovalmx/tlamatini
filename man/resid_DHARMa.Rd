@@ -26,10 +26,15 @@ los gráficos disponibles. Esta función fue creada para explorar el ajuste, nor
 varianzas entre los grupos.
 }
 \examples{
-#datos <- datasets::ChickWeight
-#library(glmmTMB)
-#modelo <- glmmTMB(weight ~ Diet +(1|Chick), family=gaussian("log"), data = datos)
-#resid_DHARMa(modelo)
+data(warpbreaks)
+modelo <- glm(breaks ~ wool + tension, family= poisson("log"), data= warpbreaks)
+resid_DHARMa(modelo)
+
+### tambien se puede usar en GLMMs:
+datos <- datasets::ChickWeight
+library(lme4)
+modelo <- glmer(weight ~ Diet +(1|Chick), family=gaussian("log"), data = datos)
+resid_DHARMa2(modelo)
 }
 \references{
 \itemize{

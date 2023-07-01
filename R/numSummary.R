@@ -12,6 +12,7 @@
 #' @export
 #'
 #' @examples
+#' #resumen de todas las variables numericas del dataframe
 #' numSummary(iris)
 #' @encoding UTF-8
 #' @importFrom stats IQR

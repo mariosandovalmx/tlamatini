@@ -21,5 +21,6 @@ NA, etc.
 Función tomada de la paquetería: xda: R package for exploratory data analysis.
 }
 \examples{
+#resumen de todas las variables numericas del dataframe
 numSummary(iris)
 }

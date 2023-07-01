@@ -17,7 +17,10 @@ Na por cualquier valor en un vector o columna.
 Sustituir todos los NA por ceros.
 }
 \examples{
+#Introducimos NAs aleatorios en el dataframe
 iris$Sepal.Length[c(1,3,5,7,9)] <- NA
+head(iris)
+#ahora sustituimos por ceros
 iris.sinNA<- as.data.frame(lapply(iris,NA.cero))
-iris.sinNA$Sepal.Length
+head(iris)
 }

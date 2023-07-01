@@ -23,6 +23,8 @@ explicativas en el modelo y su influencia en la variable de respuesta.
 data(iris)
 modelo <- glm(Petal.Width ~ Petal.Length+Species, family = gaussian("log"), data=iris)
 plot_effects3(modelo)
+#mostrando los puntos de datos
 plot_effects3(modelo, show.data = TRUE)
+#no mostrando los puntos de datos
 plot_effects3(modelo, show.data = FALSE)
 }

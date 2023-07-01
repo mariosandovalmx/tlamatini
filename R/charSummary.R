@@ -11,6 +11,8 @@
 #' @export
 #'
 #' @examples
+#' data(iris)
+#' #resumen de todas las variables categoricas del dataframe
 #' charSummary(iris)
 #' @encoding UTF-8
 charSummary <- function(df){

@@ -9,7 +9,9 @@
 #'
 #' @examples
 #' #data(iris)
+#' # prueba de normalidad Shapiro-Wilk con una variable de agrupamiento
 #' #norm.shapiro.grupos(Petal.Length~ Species, iris)
+#' # prueba de normalidad Shapiro-Wilk con dos o mas variables de agrupamiento
 #' #iris$site <- c(rep("A", 75), rep("B", 75))
 #' #norm.shapiro.grupos(Petal.Length~ Species+ site, iris)
 #' @encoding UTF-8

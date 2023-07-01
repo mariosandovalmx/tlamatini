@@ -9,8 +9,11 @@
 #'
 #' @examples
 #' data(iris)
+#' #Introducimos NAs aleatorios en el dataframe
 #' iris$Sepal.Width[c(1,3,5,7)] <- NA
-#' iris<-NA.cualquiera(iris,c(22.22))
+#' head(iris)
+#' #Ahora vamos a sustituir los NA por cierto valor en especifico, en este caso por 22.22.
+#' iris<-tlamatini::NA.cualquiera(iris,c(22.22))
 #' head(iris)
 #' @encoding UTF-8
 NA.cualquiera <- function(x, reemplazo) {

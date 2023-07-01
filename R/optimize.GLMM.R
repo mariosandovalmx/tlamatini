@@ -7,11 +7,9 @@
 #' @export
 #'
 #' @examples
-#' # do not run
-#' #datos <- ChickWeight
-#' #library(glmmTMB)
-#' #modelo <- glmmTMB(weight ~ Diet +(1|Chick), family=gaussian("log"), data = datos)
-#' # optimizeGLMM(modelo)
+#' #data(ChickWeight)
+#' #modelo <- glmmTMB(weight ~ Diet +(1|Chick), family=gaussian("log"), data = ChickWeight)
+#' #optimizeGLMM(modelo)
 #' @encoding UTF-8
 #' @importFrom performance check_convergence
 #' @importFrom insight print_color
@@ -33,36 +31,78 @@ optimizeGLMM <- function(modelo){
   for(i in 1:length(optmethod)) {
 
     utils::setTxtProgressBar(pb, i)
-    suppressWarnings(op.mod <- stats::update(modelo, control=  glmmTMBControl(optimizer=optmod[1], optArgs=list(method=optmethod[i]))))
+    # detectar errores y pasal al siguiente optimizador
+    skip_to_next <- FALSE
+    tryCatch( suppressWarnings( op.mod <- stats::update(modelo, control=  glmmTMBControl(optimizer=optmod[1], optArgs=list(method=optmethod[i]))) )
+              , error = function(e) { skip_to_next <<- TRUE})
+
+    if(skip_to_next) {
+      mt <- optmethod[i]
+      tf <- "FALSE"
+      convtext <- paste0(mt,":", "Convergence ", tf ," ")
+      #insight::print_color(convtext, "green")
+      output <- c(output, convtext)
+      next } else {
 
 
-    ##################################
-    mt <- optmethod[i]
-    tf <- performance::check_convergence(op.mod)
-    convtext <- paste0(mt,":", "Convergence ", tf ," ")
-    #insight::print_color(convtext, "green")
-    output <- c(output, convtext)
+        #suppressWarnings(op.mod <- stats::update(modelo, control=  glmmTMBControl(optimizer=optmod[1], optArgs=list(method=optmethod[i]))))
 
 
+        ##################################
+        mt <- optmethod[i]
+        tf <- performance::check_convergence(op.mod)
+        convtext <- paste0(mt,":", "Convergence ", tf ," ")
+        #insight::print_color(convtext, "green")
+        output <- c(output, convtext)
+
+      }
 
 
     ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ##                                   nlminb                                 ----
     ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    suppressWarnings(    suppressWarnings(op.mod2 <- stats::update(modelo, control=  glmmTMBControl(optimizer=optmod[2], optArgs=list(method=optmethod[i])))))
+    #suppressWarnings(op.mod2 <- stats::update(modelo, control=  glmmTMBControl(optimizer=optmod[2], optArgs=list(method=optmethod[i]))))
+    # detectar errores y pasal al siguiente optimizador
+    skip_to_next <- FALSE
+    tryCatch( suppressWarnings( op.mod2 <- stats::update(modelo, control=  glmmTMBControl(optimizer=optmod[2], optArgs=list(method=optmethod[i]))) )
+              , error = function(e) { skip_to_next <<- TRUE})
 
+    if(skip_to_next) {
+      mt2 <- optmethod[i]
+      tf2 <- "FALSE"
+      convtext2 <- paste0(mt2,":", "Convergence ", tf2 ," ")
+      #insight::print_color(convtext, "green")
+      output2 <- c(output2, convtext2)
+      next } else {
 
-    ##################################
-    mt2 <- optmethod[i]
-    tf2 <- performance::check_convergence(op.mod2)
-    convtext2 <- paste0(mt2,":", "Convergence ", tf2 ," ")
-    #insight::print_color(convtext, "green")
-    output2 <- c(output2, convtext2)
-
+        ##################################
+        mt2 <- optmethod[i]
+        tf2 <- performance::check_convergence(op.mod2)
+        convtext2 <- paste0(mt2,":", "Convergence ", tf2 ," ")
+        #insight::print_color(convtext, "green")
+        output2 <- c(output2, convtext2)
+      }
 
   }
-  df.out <- data.frame(optim= output, nlminb=output2)
-  df.out <- knitr::kable(df.out, "rst")
-  return(df.out)
+
+
+  my_bind <- function(x, y){
+    if(length(x = x) > length(x = y)){
+      len_diff <- length(x) - length(y)
+      y <- c(y, rep(NA, len_diff))
+    }else if(length(x = x) < length(x = y)){
+      len_diff <- length(y) - length(x)
+      x <- c(x, rep(NA, len_diff))
+    }
+    cbind(x, y)
+  }
+
+  df.out <- my_bind(output,output2)
+  df.out <- as.data.frame(df.out)
+  names(df.out) <- c("optim", "nlminb")
+  cat("\n")
+  insight::print_color("Optimizadores del modelo:", "green")
+  print.data.frame(df.out, row.names = FALSE, right=FALSE)
+
 
 }

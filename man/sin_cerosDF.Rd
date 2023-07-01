@@ -18,4 +18,5 @@ Quitar todos los ceros del dataframe y quedarse solo con las filas con observaci
 }
 \examples{
 df<-sin_cerosDF(iris)
+df
 }

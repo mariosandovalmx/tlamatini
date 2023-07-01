@@ -8,7 +8,7 @@
 outliers.plot(model, outliers = 3)
 }
 \arguments{
-\item{model}{Modelo LM, GLM, GLMM.}
+\item{model}{Modelo LM, GLM}
 
 \item{outliers}{Numero de outliers a mostrar.}
 }
@@ -16,14 +16,14 @@ outliers.plot(model, outliers = 3)
 Encontrar los outliers de un modelo y graficarlos.
 }
 \description{
-Encontrar los outliers de un LM, GLM, GLMM O cualquier otro modelo. Ademas aplica una prueba para saber si
+Encontrar los outliers de un LM, GLM. Ademas aplica una prueba para saber si
 son o no datos influyentes.
 }
 \details{
 Ver funciones outlierTest
 }
 \examples{
-#data(iris)
-#modelo <- glm(Petal.Width ~ Petal.Length, family = gaussian("log"), data=iris)
-#outliers.plot(modelo)
+data(iris)
+modelo <- glm(Petal.Width ~ Petal.Length, family = gaussian("log"), data=iris)
+outliers.plot(modelo)
 }

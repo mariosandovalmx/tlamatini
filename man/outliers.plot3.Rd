@@ -14,7 +14,7 @@ outliers.plot3(model)
 Encontrar los outliers de un modelo y graficarlos.
 }
 \description{
-Encontrar los outliers de un LM, LMM, GLM, GLMM.
+Encontrar los outliers de un LM, LMM, GLM.
 }
 \examples{
 data(iris)

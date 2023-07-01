@@ -9,11 +9,14 @@
 #'
 #' @examples
 #' data("iris")
+#' #Introducimos NAs aleatorios en el dataframe
 #' iris$Sepal.Width[c(1,3,5,7,9)] <- NA
 #' iris$Petal.Width[c(2,5,6,7,9)] <- NA
 #' head(iris)
+#' #quitamos la columna Sepal.Width con NA
 #' iris.sinNA2 <- NA.quitar(iris, "Sepal.Width")
 #' head(iris.sinNA2)
+#' #quitamos las columnas con NA
 #' iris.sinNA3 <- NA.quitar(iris, c("Petal.Width","Sepal.Width"))
 #' head(iris.sinNA3)
 #' @encoding UTF-8
