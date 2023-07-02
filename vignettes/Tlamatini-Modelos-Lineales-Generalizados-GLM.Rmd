@@ -1,8 +1,8 @@
 ---
-title: "Tlamatini - Modelos Lineales Generalizados (GLM)"
+title: "Modelos Lineales Generalizados (GLM)"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Tlamatini - Modelos Lineales Generalizados (GLM)}
+  %\VignetteIndexEntry{Modelos Lineales Generalizados (GLM)}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,9 +15,6 @@ knitr::opts_chunk$set(
 )
 ```
 ![Tlamatini](https://raw.githubusercontent.com/mariosandovalmx/ecology/ddc9d3c8fd1d40523bf7e9625a028e4dad7772af/images/tlamatini-logo.jpg){width=70%}
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                                    ...                                   ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Este paquete contiene funciones útiles para el análisis de datos, principalmente para modelos lineales (LM, GLM, GLMM). Aunque está pensado para usarse en Ciencias Biológicas, su aplicación se extiende a cualquier área del conocimiento que requiera análisis estadísticos. Es una compilación de funciones útiles creadas por mi o por alguien más, que facilitan el análisis de datos: exploración y transformaciones de datos, revisión de los supuestos de los modelos lineales (LM, LMM, GLM, GLMM), exportación de tablas, entre otros.
 
