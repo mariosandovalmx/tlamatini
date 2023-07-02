@@ -13,7 +13,7 @@
 
 VIF_plot <- function(modelo) {
 
-
+ mod <- modelo
   if (!requireNamespace("see", quietly = TRUE)) { # nocov start
     stop(
       "Paquete \'see\' es necesario para que la funcion pueda ser usada. Por favor, inst\u00e1lelo y carguela usando: library(see).",
@@ -22,7 +22,7 @@ VIF_plot <- function(modelo) {
   } # nocov end
 
 
-    vifdf <- VIF_model(modelo)
+    vifdf <- VIF_model(mod)
     plvif<- plot(vifdf)
     plotvif<- plvif +  labs(title = "Multicolinearidad", subtitle = "Un valor alto de VIF puede inflar la incertidumbre de los parametros", y = "Variance Inflation Factor", x = "") + theme_light() + scale_color_manual(labels = c("Baja (<5)", "Moderada (<10)","Alta(>10)"), values = c("chartreuse4","darkgoldenrod1", "firebrick"))
     return(plotvif)

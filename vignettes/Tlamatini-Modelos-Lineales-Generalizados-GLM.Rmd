@@ -51,11 +51,11 @@ head(df)
 ```
 
 
-Para este ejemplo vamos a comenzar cargando la paquetería.
+Para este ejemplo vamos cargar primero la paquetería.
 ```{r setup}
 library(tlamatini)
 ```
-Vamos a comenzar por convertir todas las variables categóricas a factor. La función *as_factorALL* va a reconocer todas las variables que son tipo "caracter" y las va a codificar como factor automáticamente. Nota: solo funciona con variables que contienen letras, no funciona si la columna es numérica.
+Luego, vamos a convertir todas las variables categóricas a factor. La función *as_factorALL* va a reconocer todas las variables que son tipo "caracter" y las va a codificar como factor automáticamente. Nota: solo funciona con variables que contienen letras, no funciona si la columna es numérica. En caso que la columna sea numerica, se tiene que convertir a factor manualmente.
 
 ```{r}
 df<- as_factorALL(df)
@@ -96,14 +96,14 @@ hist_curva(df$Velocidad)
 
 ```
 
-La prueba de Kolmogorov-Smirnov indica que no la distribución NO es parecida a la normal. Además nos dice que hay dos datos extremos, el 22 y 87. Tenemos que revisar estas observaciones.
+La prueba de Kolmogorov-Smirnov indica que la distribución NO es parecida a la normal. Además nos dice que hay datos extremos, el número 22. Tenemos que revisar estas observaciones.
 
-Si quisieramos hacer la prueba de normalidad por localidad podemos usar las funciones *norm.shapiro.grupos*,*norm.ad.grupos* o **norm.lks.grupos**. Si queremos usar una prueba Shapiro Wilk:
+Si quisieramos hacer la prueba de normalidad por localidad podemos usar cualquiera de las funciones *norm.shapiro.grupos*,*norm.ad.grupos* o **norm.lks.grupos**. Por ejemplo, si queremos usar una prueba Shapiro Wilk:
 ```{r}
 norm.shapiro.grupos(Velocidad~ Localidad, df)
 ```
 
-La prueba nos muestra que todas las localidades, excepto la D, se distribuyen normalmente. Al menos numericamente, por que visualmente todas se ajustan perfectamente. Conviene revisar el punto que sale fuera de la distribución, como haremos más adelante. 
+Basándonos en los valores de p, la prueba nos muestra que todas las localidades, excepto la D, se distribuyen normalmente. Al menos numericamente, por que visualmente todas se ajustan bien. Conviene revisar el punto que sale fuera de la distribución, como haremos más adelante. 
 
 Podemos ajustar un modelo lineal generalizado (GLM). Los modelos lineales generalizados pueden tener errores o distribuciones no normales. Sin embargo, existen limitaciones en cuanto a las posibles distribuciones. Por ejemplo, se puede utilizar la familia Poisson para datos de conteos, o puede utilizar la familia binomial para datos binomiales. La distribución gaussiana es adecuada cuando los errores en el modelo siguen una distribución normal y la variable de respuesta también se distribuye normalmente.
 
@@ -114,10 +114,10 @@ modelo  <- glm(Velocidad ~ LHC + Localidad, family = gaussian("log"), data= df)
 modelo2 <- glm(Velocidad ~ LHC + Localidad, family = gaussian("identity"), data= df)
 AIC(modelo, modelo2)
 ```
-De acuerdo con el Criterio de información de Akaike (AIC), el primer modelo2 es mejor. Vamos a ver el summary del modelo y la tabla ANOVA tipo III:
+De acuerdo con el Criterio de información de Akaike (AIC), el primer modelo es mejor. Vamos a ver el summary del modelo y la tabla ANOVA tipo III:
 
 ```{r}
-summary(modelo2)
+summary(modelo)
 
 ```
 
@@ -138,10 +138,10 @@ Vamos a explorar los residuales del modelo:
 
 ```{r fig.height = 4, fig.width = 8}
 par(mfrow=c(2,2))
-plot(modelo2)
+plot(modelo)
 ```
 
-En la primera gráfica, la línea roja es horizontal y aplanada sobre la línea punteada, indica buen ajuste, homocedasticidad. El QQPlot se ve bien, la mayoría de los puntos se ajustan a la línea punteada, lo cual indica que los residuales se aproximan a la distribución normal. Pero si vemos el gráfico de abajo a la derecha notamos que tenemos una observación influyente, el dato 22.
+En la primera gráfica, la línea roja es horizontal y aplanada sobre la línea punteada, indica buen ajuste, homocedasticidad. El QQPlot se ve bien, la mayoría de los puntos se ajustan a la línea punteada, lo cual indica que los residuales se aproximan a la distribución normal. Pero si vemos el gráfico de abajo a la derecha notamos que tenemos observaciones influyentes, el dato 22.
 
 En un GLM, los outliers pueden influir en los resultados y sesgar las estimaciones de los coeficientes. Por lo tanto, es importante identificar y, en algunos casos, remover los outliers antes de ajustar el modelo. Existen varios criterios comunes para identificar outliers en un GLM:
 
@@ -156,18 +156,11 @@ Vamos a comprobarlo.
 Primero, podemos usar la función *outliers.plot* para comprobar estas observaciones influyentes:
 
 ```{r fig.height = 4, fig.width = 6}
-outliers.plot2(modelo2)
+outliers.plot2(modelo)
 
 ```
 
-El dato que se encuentra en la fila 22 tiene un valor de std.resid mayor a 3, y el valor de p con ajuste de Bonferroni es < 0.05, lo que nos indica que puede ser un dato influyente y tenemos que revisar esta observación. 
-
-También podemos usar la función *outliers.DHARMa* para comprobar estas observaciones influyentes:
-
-```{r fig.height = 4, fig.width = 8}
-outliers.DHARMa(modelo2)
-
-```
+El dato que se encuentra en la fila 22 y 29 tiene un valor de std.resid mayor a 3, y el valor de p con ajuste de Bonferroni es < 0.05, lo que nos indica que puede ser un dato influyente y tenemos que revisar esta observación. 
 
 Tendremos que corroborar que esta observación es correcta y no cometimos ningún error al capturar nuestros datos. Vamos a suponer que fue un error de medición y no podemos confiar en este dato, y no hay forma de repetir la medición. Así que lo vamos a remover y volver a ajustar el modelo:
 
@@ -270,7 +263,7 @@ table_contrasts(cont1)
 
 Finalmente, vamos a graficar los efectos en un boxplot y colocar los valores de p que acabamos de obtener anteriormente:
 ```{r}
-boxplot_emmeans(formula = Velocidad ~ Localidad, modelo=modelo3, data= df)
+boxplot_emmeans(formula = Velocidad ~ Localidad, modelo=modelo3, data= df2)
 ```
 
 

@@ -115,6 +115,13 @@ resid_DHARMa(modelo)
 
 Parece que tenemos un buen ajuste del modelo! la prueba de normalidad (KS test) muestra que los residuales siguen una distribución normal. No hay evidencia que indique problemas de dispersion y outliers.
 
+También podemos usar la función *outliers.DHARMa* para comprobar si hay observaciones influyentes. Según la función nos muestra un posible outlier, la fila 116 del dataframe. Sin embargo, basándonos en el valor de p, podemos concluir que esta observación no es un outlier:
+
+```{r fig.height = 4, fig.width = 8}
+outliers.DHARMa(modelo)
+
+```
+
 Ahora vamos a revisar la multicolinealidad usando la función *VIF_model* y *VIF_plot*. La multicolinealidad en los modelos de regresión generalizada (GLM) se refiere a la presencia de alta correlación entre las variables predictoras. Esto puede causar problemas en la estimación de los coeficientes de regresión, ya que dificulta la identificación de la contribución individual de cada variable en el modelo.
 
 Cuando existe multicolinealidad, las estimaciones de los coeficientes pueden volverse inestables y poco confiables. Además, la multicolinealidad puede hacer que los intervalos de confianza sean demasiado amplios, lo que dificulta la interpretación de los resultados.
@@ -129,15 +136,20 @@ Como tenemos una interacción entre tipo_suelo y especie, nos arroja una adverte
 
 ```{r}
 modelo_sininteraccion <- glmmTMB(altura ~ temperatura + tipo_suelo + especie + (1|sitio/especie), data = datos, family = gaussian("identity"))
-optimizeGLMM(modelo_sininteraccion)
 
 ```
-El modelo sin interacción tiene problemas de convergencia, vamos a probar diferentes optimizadores. Parece que hay algunos optimizadores que arreglan el problema. Vamos a probar uno de la lista:
+El modelo sin interacción tiene problemas de convergencia, vamos a probar diferentes optimizadores para ver que optimizador nos da un ajuste del modelo. Para eso usaremos la función *optimizeGLMM*. 
+
+```{r}
+optimizeGLMM(modelo_sininteraccion)
+```
+
+Parece que hay algunos optimizadores que arreglan el problema. Vamos a probar uno de la lista:
 ```{r}
 modelo_sininteraccion2 <- glmmTMB(altura ~ temperatura + tipo_suelo + especie + (1|sitio/especie), data = datos, family = gaussian("identity"),control=glmmTMBControl(optimizer=optim, optArgs=list(method="BFGS")))
 
 ```
-Ahora vamos a evaluar el VIF:
+Este optimizador nos da buen ajuste y ya no sale ninguna advertencia sobre problemas de convergencia. Ahora vamos a evaluar la multicolinearidad calculando el VIF con las funciones *VIF_model* y *VIF_plot*:
 ```{r}
 VIF_model(modelo_sininteraccion2)
 VIF_plot(modelo_sininteraccion2)

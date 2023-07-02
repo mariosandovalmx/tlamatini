@@ -118,7 +118,7 @@ datos</a></p>
 <span><span class="co">#&gt; 4 10.207365  5.128038 7.369430 Localidad_C</span></span>
 <span><span class="co">#&gt; 5 11.480672  3.274195 5.931493 Localidad_D</span></span>
 <span><span class="co">#&gt; 6  9.837144  5.588090 8.415775 Localidad_B</span></span></code></pre></div>
-<p>Para este ejemplo vamos a comenzar cargando la paquetería.</p>
+<p>Para este ejemplo vamos cargar primero la paquetería.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">tlamatini</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Registered S3 method overwritten by 'GGally':</span></span>
@@ -138,11 +138,12 @@ datos</a></p>
 <span><span class="co">#&gt;  Email de contacto: sandoval.m@hotmail.com </span></span>
 <span><span class="co">#&gt; Para citar este paquete: Mario A. Sandoval-Molina (2021). tlamatini: Funciones utiles </span></span>
 <span><span class="co">#&gt; para biologxs y ecologxs confundidos con los modelos lineales. R package. https://doi.org/10.5281/zenodo.7765347</span></span></code></pre></div>
-<p>Vamos a comenzar por convertir todas las variables categóricas a
-factor. La función <em>as_factorALL</em> va a reconocer todas las
-variables que son tipo “caracter” y las va a codificar como factor
-automáticamente. Nota: solo funciona con variables que contienen letras,
-no funciona si la columna es numérica.</p>
+<p>Luego, vamos a convertir todas las variables categóricas a factor. La
+función <em>as_factorALL</em> va a reconocer todas las variables que son
+tipo “caracter” y las va a codificar como factor automáticamente. Nota:
+solo funciona con variables que contienen letras, no funciona si la
+columna es numérica. En caso que la columna sea numerica, se tiene que
+convertir a factor manualmente.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span><span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_factorALL.html">as_factorALL</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Todas las columnas tipo caracter convertidas a factores</span></span></code></pre></div>
@@ -153,15 +154,15 @@ otros parámetros.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/numSummary.html">numSummary</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt;             n media    sd   max  min rango nunicos nceros  iqr limitinferior</span></span>
 <span><span class="co">#&gt; LHC       100 10.05 1.048 13.10 7.78  5.32     100      0 1.51          7.02</span></span>
-<span><span class="co">#&gt; Velocidad 100  5.07 1.317 14.19 2.35 11.84     100      0 1.23          2.53</span></span>
+<span><span class="co">#&gt; Velocidad 100  5.25 3.073 34.19 2.35 31.84     100      0 1.23          2.50</span></span>
 <span><span class="co">#&gt; Tiempo    100  7.48 0.913  9.93 4.94  4.98     100      0 1.16          5.12</span></span>
 <span><span class="co">#&gt;           limitesuperior noutlier kurtosis asimetria mode faltantes %faltantes</span></span>
 <span><span class="co">#&gt; LHC                13.10        1   -0.290     0.179 8.36         0          0</span></span>
-<span><span class="co">#&gt; Velocidad           7.44        2   20.799     3.118 5.63         0          0</span></span>
+<span><span class="co">#&gt; Velocidad           7.39        2   75.695     8.318 5.63         0          0</span></span>
 <span><span class="co">#&gt; Tiempo              9.71        2    0.147    -0.026 7.63         0          0</span></span>
 <span><span class="co">#&gt;             1%   5%  25%  50%   75%   95%   99%</span></span>
 <span><span class="co">#&gt; LHC       7.90 8.35 9.29 9.96 10.82 11.76 12.03</span></span>
-<span><span class="co">#&gt; Velocidad 2.84 3.34 4.36 5.08  5.60  6.79  7.06</span></span>
+<span><span class="co">#&gt; Velocidad 2.84 3.34 4.35 5.07  5.55  6.79  7.26</span></span>
 <span><span class="co">#&gt; Tiempo    5.44 6.00 6.85 7.53  7.97  8.91  9.59</span></span></code></pre></div>
 <p>También podemos explorar las variables categóricas:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -207,17 +208,18 @@ nuestra variable de respuesta.</p>
 <span><span class="co">#&gt;  Asymptotic one-sample Kolmogorov-Smirnov test</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; data:  variable</span></span>
-<span><span class="co">#&gt; D = 0.1, p-value = 0.02</span></span>
+<span><span class="co">#&gt; D = 0.3, p-value = 6e-08</span></span>
 <span><span class="co">#&gt; alternative hypothesis: two-sided</span></span></code></pre></div>
 <p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
 <pre><code><span><span class="co">#&gt; [1] 22 87</span></span></code></pre>
-<p>La prueba de Kolmogorov-Smirnov indica que no la distribución NO es
-parecida a la normal. Además nos dice que hay dos datos extremos, el 22
-y 87. Tenemos que revisar estas observaciones.</p>
+<p>La prueba de Kolmogorov-Smirnov indica que la distribución NO es
+parecida a la normal. Además nos dice que hay datos extremos, el número
+22. Tenemos que revisar estas observaciones.</p>
 <p>Si quisieramos hacer la prueba de normalidad por localidad podemos
-usar las funciones <em>norm.shapiro.grupos</em>,<em>norm.ad.grupos</em>
-o <strong>norm.lks.grupos</strong>. Si queremos usar una prueba Shapiro
-Wilk:</p>
+usar cualquiera de las funciones
+<em>norm.shapiro.grupos</em>,<em>norm.ad.grupos</em> o
+<strong>norm.lks.grupos</strong>. Por ejemplo, si queremos usar una
+prueba Shapiro Wilk:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/norm.shapiro.grupos.html">norm.shapiro.grupos</a></span><span class="op">(</span><span class="va">Velocidad</span><span class="op">~</span> <span class="va">Localidad</span>, <span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Prueba de normalidad de Shapiro-Wilk por grupos.</span></span></code></pre></div>
@@ -232,8 +234,8 @@ Wilk:</p>
 <tbody>
 <tr class="odd">
 <td align="right">Localidad_A</td>
-<td align="right">0.95</td>
-<td align="right">0.23</td>
+<td align="right">0.94</td>
+<td align="right">0.16</td>
 </tr>
 <tr class="even">
 <td align="right">Localidad_B</td>
@@ -247,15 +249,16 @@ Wilk:</p>
 </tr>
 <tr class="even">
 <td align="right">Localidad_D</td>
-<td align="right">0.52</td>
-<td align="right">5.59e-08</td>
+<td align="right">0.30</td>
+<td align="right">7.09e-10</td>
 </tr>
 </tbody>
 </table>
-<p>La prueba nos muestra que todas las localidades, excepto la D, se
-distribuyen normalmente. Al menos numericamente, por que visualmente
-todas se ajustan perfectamente. Conviene revisar el punto que sale fuera
-de la distribución, como haremos más adelante.</p>
+<p>Basándonos en los valores de p, la prueba nos muestra que todas las
+localidades, excepto la D, se distribuyen normalmente. Al menos
+numericamente, por que visualmente todas se ajustan bien. Conviene
+revisar el punto que sale fuera de la distribución, como haremos más
+adelante.</p>
 <p>Podemos ajustar un modelo lineal generalizado (GLM). Los modelos
 lineales generalizados pueden tener errores o distribuciones no
 normales. Sin embargo, existen limitaciones en cuanto a las posibles
@@ -275,39 +278,39 @@ variables explicativas.</p>
 <span><span class="va">modelo2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Velocidad</span> <span class="op">~</span> <span class="va">LHC</span> <span class="op">+</span> <span class="va">Localidad</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">gaussian</a></span><span class="op">(</span><span class="st">"identity"</span><span class="op">)</span>, data<span class="op">=</span> <span class="va">df</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/AIC.html" class="external-link">AIC</a></span><span class="op">(</span><span class="va">modelo</span>, <span class="va">modelo2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         df AIC</span></span>
-<span><span class="co">#&gt; modelo   6 327</span></span>
-<span><span class="co">#&gt; modelo2  6 326</span></span></code></pre></div>
+<span><span class="co">#&gt; modelo   6 446</span></span>
+<span><span class="co">#&gt; modelo2  6 504</span></span></code></pre></div>
 <p>De acuerdo con el Criterio de información de Akaike (AIC), el primer
-modelo2 es mejor. Vamos a ver el summary del modelo y la tabla ANOVA
-tipo III:</p>
+modelo es mejor. Vamos a ver el summary del modelo y la tabla ANOVA tipo
+III:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">modelo2</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">modelo</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Call:</span></span>
-<span><span class="co">#&gt; glm(formula = Velocidad ~ LHC + Localidad, family = gaussian("identity"), </span></span>
+<span><span class="co">#&gt; glm(formula = Velocidad ~ LHC + Localidad, family = gaussian("log"), </span></span>
 <span><span class="co">#&gt;     data = df)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Deviance Residuals: </span></span>
 <span><span class="co">#&gt;    Min      1Q  Median      3Q     Max  </span></span>
-<span><span class="co">#&gt; -2.353  -0.459  -0.046   0.321   8.871  </span></span>
+<span><span class="co">#&gt; -5.639  -1.061   0.506   1.455   5.583  </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Coefficients:</span></span>
-<span><span class="co">#&gt;                      Estimate Std. Error t value Pr(&gt;|t|)   </span></span>
-<span><span class="co">#&gt; (Intercept)             1.218      2.890    0.42   0.6744   </span></span>
-<span><span class="co">#&gt; LHC                     0.533      0.328    1.62   0.1080   </span></span>
-<span><span class="co">#&gt; LocalidadLocalidad_B   -1.084      0.450   -2.41   0.0179 * </span></span>
-<span><span class="co">#&gt; LocalidadLocalidad_C   -2.056      0.614   -3.35   0.0012 **</span></span>
-<span><span class="co">#&gt; LocalidadLocalidad_D   -2.880      0.943   -3.05   0.0029 **</span></span>
+<span><span class="co">#&gt;                      Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span><span class="co">#&gt; (Intercept)           -8.4543     0.6769  -12.49  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; LHC                    1.1299     0.0741   15.24  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; LocalidadLocalidad_B  -0.8765     0.1291   -6.79  9.6e-10 ***</span></span>
+<span><span class="co">#&gt; LocalidadLocalidad_C  -1.7970     0.1649  -10.89  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; LocalidadLocalidad_D  -2.9798     0.2754  -10.82  &lt; 2e-16 ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; (Dispersion parameter for gaussian family taken to be 1.43)</span></span>
+<span><span class="co">#&gt; (Dispersion parameter for gaussian family taken to be 4.73)</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     Null deviance: 171.75  on 99  degrees of freedom</span></span>
-<span><span class="co">#&gt; Residual deviance: 135.94  on 95  degrees of freedom</span></span>
-<span><span class="co">#&gt; AIC: 326.5</span></span>
+<span><span class="co">#&gt;     Null deviance: 934.79  on 99  degrees of freedom</span></span>
+<span><span class="co">#&gt; Residual deviance: 448.96  on 95  degrees of freedom</span></span>
+<span><span class="co">#&gt; AIC: 446</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Number of Fisher Scoring iterations: 2</span></span></code></pre></div>
+<span><span class="co">#&gt; Number of Fisher Scoring iterations: 9</span></span></code></pre></div>
 <p>La LCH no es significativa p&gt;0.001 pero… Atención: Debemos revisar
 el ajuste del modelo antes de hacer cualquier interpretación de
 resultados. Esto lo podemos hacer con la función <em>resid_glm</em>.</p>
@@ -338,14 +341,14 @@ del factor de inflación de la varianza (VIF) para cada variable
 predictora. Vamos a explorar los residuales del modelo:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">modelo2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">modelo</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-13-1.png" width="768"></p>
 <p>En la primera gráfica, la línea roja es horizontal y aplanada sobre
 la línea punteada, indica buen ajuste, homocedasticidad. El QQPlot se ve
 bien, la mayoría de los puntos se ajustan a la línea punteada, lo cual
 indica que los residuales se aproximan a la distribución normal. Pero si
-vemos el gráfico de abajo a la derecha notamos que tenemos una
-observación influyente, el dato 22.</p>
+vemos el gráfico de abajo a la derecha notamos que tenemos observaciones
+influyentes, el dato 22.</p>
 <p>En un GLM, los outliers pueden influir en los resultados y sesgar las
 estimaciones de los coeficientes. Por lo tanto, es importante
 identificar y, en algunos casos, remover los outliers antes de ajustar
@@ -375,33 +378,13 @@ Leverage.</p></li>
 <p>Primero, podemos usar la función <em>outliers.plot</em> para
 comprobar estas observaciones influyentes:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/outliers.plot2.html">outliers.plot2</a></span><span class="op">(</span><span class="va">modelo2</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/outliers.plot2.html">outliers.plot2</a></span><span class="op">(</span><span class="va">modelo</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Las distancias de Cook, es una medida de cómo influye la observación identificada como outlier sobre la estimación de B (pendiente) al ser retirada del conjunto de datos. Una distancia de Cook grande significa que una observación tiene un peso grande en la estimación de la pendiente. En el gráfico las observaciones con círculos grandes son consideradas outliers influyentes.</span></span></code></pre></div>
 <p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-14-1.png" width="576"></p>
-<p>El dato que se encuentra en la fila 22 tiene un valor de std.resid
-mayor a 3, y el valor de p con ajuste de Bonferroni es &lt; 0.05, lo que
-nos indica que puede ser un dato influyente y tenemos que revisar esta
-observación.</p>
-<p>También podemos usar la función <em>outliers.DHARMa</em> para
-comprobar estas observaciones influyentes:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/outliers.DHARMa.html">outliers.DHARMa</a></span><span class="op">(</span><span class="va">modelo2</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Si el valor de p &lt; 0.05, entonces hay observaciones influyentes en nuestros datos. ¿Que hacer con los outlieres? algunos investigadores sugieren remover algunos outliers (no todos), de esta forma se puede lograr un mejor ajuste del modelo.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  DHARMa outlier test based on exact binomial test with approximate</span></span>
-<span><span class="co">#&gt;  expectations</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; data:  res.mod</span></span>
-<span><span class="co">#&gt; outliers at both margin(s) = 1, observations = 100, p-value = 0.6</span></span>
-<span><span class="co">#&gt; alternative hypothesis: true probability of success is not equal to 0.00797</span></span>
-<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span><span class="co">#&gt;  0.000253 0.054459</span></span>
-<span><span class="co">#&gt; sample estimates:</span></span>
-<span><span class="co">#&gt; frequency of outliers (expected: 0.00796812749003984 ) </span></span>
-<span><span class="co">#&gt;                                                   0.01</span></span></code></pre></div>
-<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-15-1.png" width="768"></p>
-<pre><code><span><span class="co">#&gt; Esta función usa bootstrap para simular los outliers (posibles) basándose en la simulación de los valores atípicos. Las observaciones mas influyentes son:</span></span>
-<span><span class="co">#&gt; [1] 22</span></span></code></pre>
+<p>El dato que se encuentra en la fila 22 y 29 tiene un valor de
+std.resid mayor a 3, y el valor de p con ajuste de Bonferroni es &lt;
+0.05, lo que nos indica que puede ser un dato influyente y tenemos que
+revisar esta observación.</p>
 <p>Tendremos que corroborar que esta observación es correcta y no
 cometimos ningún error al capturar nuestros datos. Vamos a suponer que
 fue un error de medición y no podemos confiar en este dato, y no hay
@@ -410,7 +393,7 @@ ajustar el modelo:</p>
 <p>Una forma de remover los outliers es usando la función
 <em>outlierKD</em> que remueve todas las observaciones influyentes.</p>
 <p>Pero vamos a remover manualmente esta observación:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
@@ -424,12 +407,12 @@ ajustar el modelo:</p>
 <span><span class="va">modelo3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Velocidad</span> <span class="op">~</span> <span class="va">LHC</span>  <span class="op">+</span> <span class="va">Localidad</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">gaussian</a></span><span class="op">(</span><span class="st">"identity"</span><span class="op">)</span>, data<span class="op">=</span> <span class="va">df2</span><span class="op">)</span></span></code></pre></div>
 <p>Pero volvemos a corroborar los residuales del modelo para saber si
 hay un buen ajuste:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">modelo3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-17-1.png" width="768"></p>
+<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-16-1.png" width="768"></p>
 <p>Examinamos el resumen del modelo:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">modelo3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Call:</span></span>
@@ -438,44 +421,43 @@ hay un buen ajuste:</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Deviance Residuals: </span></span>
 <span><span class="co">#&gt;     Min       1Q   Median       3Q      Max  </span></span>
-<span><span class="co">#&gt; -1.4472  -0.3684   0.0471   0.3916   1.3952  </span></span>
+<span><span class="co">#&gt; -2.0377  -0.3638   0.0534   0.4201   1.3924  </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Coefficients:</span></span>
 <span><span class="co">#&gt;                      Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span><span class="co">#&gt; (Intercept)            14.039      1.581    8.88  4.4e-14 ***</span></span>
-<span><span class="co">#&gt; LHC                    -0.929      0.180   -5.17  1.3e-06 ***</span></span>
-<span><span class="co">#&gt; LocalidadLocalidad_B    0.236      0.231    1.02     0.31    </span></span>
-<span><span class="co">#&gt; LocalidadLocalidad_C    0.224      0.325    0.69     0.49    </span></span>
-<span><span class="co">#&gt; LocalidadLocalidad_D    0.570      0.498    1.15     0.26    </span></span>
+<span><span class="co">#&gt; (Intercept)            14.111      1.685    8.38  5.2e-13 ***</span></span>
+<span><span class="co">#&gt; LHC                    -0.947      0.192   -4.94  3.4e-06 ***</span></span>
+<span><span class="co">#&gt; LocalidadLocalidad_B    0.331      0.246    1.35     0.18    </span></span>
+<span><span class="co">#&gt; LocalidadLocalidad_C    0.331      0.346    0.96     0.34    </span></span>
+<span><span class="co">#&gt; LocalidadLocalidad_D    0.696      0.531    1.31     0.19    </span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; (Dispersion parameter for gaussian family taken to be 0.337)</span></span>
+<span><span class="co">#&gt; (Dispersion parameter for gaussian family taken to be 0.383)</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     Null deviance: 87.756  on 98  degrees of freedom</span></span>
-<span><span class="co">#&gt; Residual deviance: 31.680  on 94  degrees of freedom</span></span>
-<span><span class="co">#&gt; AIC: 180.1</span></span>
+<span><span class="co">#&gt;     Null deviance: 88.883  on 98  degrees of freedom</span></span>
+<span><span class="co">#&gt; Residual deviance: 35.994  on 94  degrees of freedom</span></span>
+<span><span class="co">#&gt; AIC: 192.8</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Number of Fisher Scoring iterations: 2</span></span></code></pre></div>
 <p>Comprobamos si aún tenemos outliers en el nuevo modelo:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/outliers.plot.html">outliers.plot</a></span><span class="op">(</span><span class="va">modelo3</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  ################################################################################################</span></span>
 <span><span class="co">#&gt; Observaciones con std.resid (residuales estandarizados) &gt; 3, son consideradas valores atípicos. Index es número de fila donde se encuentra la observación.</span></span>
 <span><span class="co">#&gt;  ################################################################################################</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 0 × 10</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 10 variables: Velocidad &lt;dbl&gt;, LHC &lt;dbl&gt;, Localidad &lt;fct&gt;, .fitted &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   .resid &lt;dbl&gt;, .hat &lt;dbl&gt;, .sigma &lt;dbl&gt;, cooksd &lt;dbl&gt;, StdResid &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   outlierID &lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 10</span></span></span>
+<span><span class="co">#&gt;   Velocidad   LHC Localidad   .fitted .resid   .hat .sigma cooksd StdResid</span></span>
+<span><span class="co">#&gt;       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>      3.69  8.86 Localidad_A    5.73  -<span style="color: #BB0000;">2.04</span> 0.040<span style="text-decoration: underline;">8</span>  0.584 0.096<span style="text-decoration: underline;">1</span>    -<span style="color: #BB0000;">3.36</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: outlierID &lt;int&gt;</span></span></span>
 <span><span class="co">#&gt;  ################################################################################################</span></span>
 <span><span class="co">#&gt; En el gráfico de la derecha se marcan en rojo las observaciones influyentes.No todos los outliers son observaciones influyentes. Para revisar que los datos contienen potenciales datos influyentes, se puede inspeccionar los residuales estandarizados. Datos con residuales estandarizados absolutos mayores a 3 representan posibles outliers y merecen atención. Sugerencia: 1) remover, 2)transformar los datos, 3) usar métodos no paramétricos. A continuación se hace una prueba Bonferroni para cada dato identificado como outlier.</span></span>
 <span><span class="co">#&gt;  ################################################################################################</span></span>
-<span><span class="co">#&gt; No Studentized residuals with Bonferroni p &lt; 0.05</span></span>
-<span><span class="co">#&gt; Largest |rstudent|:</span></span>
 <span><span class="co">#&gt;    rstudent unadjusted p-value Bonferroni p</span></span>
-<span><span class="co">#&gt; 22    -2.63             0.0085        0.841</span></span>
+<span><span class="co">#&gt; 28    -3.57           0.000363       0.0359</span></span>
 <span><span class="co">#&gt;  ################################################################################################</span></span></code></pre></div>
-<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
+<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-18-1.png" width="576"></p>
 <p>Ya no tenemos outliers, lo ideal sería evitar remover observaciones.
 Pero si estamos seguros de que el outlier es un error o no es una
 observación confiable tenemos que quitarla de la base de datos.</p>
@@ -491,7 +473,7 @@ pueden volverse inestables y poco confiables. Además, la
 multicolinealidad puede hacer que los intervalos de confianza sean
 demasiado amplios, lo que dificulta la interpretación de los
 resultados.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/VIF_model.html">VIF_model</a></span><span class="op">(</span><span class="va">modelo3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # Comprobación de la multicolinealidad</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -504,7 +486,7 @@ resultados.</p>
 <span><span class="co">#&gt; Variable `Component` is not in your data frame :/</span></span>
 <span><span class="co">#&gt; Scale for <span style="color: #00BB00;">colour</span> is already present.</span></span>
 <span><span class="co">#&gt; Adding another scale for <span style="color: #00BB00;">colour</span>, which will replace the existing scale.</span></span></code></pre></div>
-<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
+<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
 <p>Hay diferentes criterios de seleccipon pero en general un valor VIF
 mayor a 1 indica la presencia de multicolinealidad, y valores superiores
 a 5 o 10 suelen ser considerados problemáticos. Por lo que quizá
@@ -516,7 +498,7 @@ la tabla de ANOVA tipo III usando la función <em>table_ANOVA3</em>. La
 tabla de ANOVA tipo III es útil para evaluar la importancia relativa de
 las variables del modelo y determinar qué variables tienen un efecto
 significativo en la variable de respuesta.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/table_ANOVA3.html">table_ANOVA3</a></span><span class="op">(</span><span class="va">modelo3</span><span class="op">)</span></span></code></pre></div>
 <table style="border-collapse:collapse; border:none;" class="table">
 <caption style="font-weight: bold; text-align:left;">
@@ -541,7 +523,7 @@ P.value
 LHC
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
-26.72
+24.40
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
 1
@@ -555,13 +537,13 @@ LHC
 Localidad
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">
-2.11
+2.46
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">
 3
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">
-0.550
+0.482
 </td>
 </tr>
 <tr>
@@ -573,36 +555,36 @@ Localidad
 <p>En el modelo ahora muestra que la variable LHC es significativa, pero
 no hay un efecto significativo de la localidad. Vamos a graficar los
 efectos del modelo con la función <em>plot_effects</em>:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_effects.html">plot_effects</a></span><span class="op">(</span><span class="va">modelo3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-22-1.png" width="768"></p>
+<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-21-1.png" width="768"></p>
 <p>o bien con la función <em>plot_effects2</em>:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_effects2.html">plot_effects2</a></span><span class="op">(</span><span class="va">modelo3</span>, lineas <span class="op">=</span> <span class="cn">TRUE</span>, puntos <span class="op">=</span> <span class="cn">TRUE</span>, grids <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-23-1.png" width="768"></p>
+<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-22-1.png" width="768"></p>
 <p>Otra forma de graficar las variables es usando el paquete
 <em>ggeffects</em>. Este paquete nos permite obtener gráficos estéticos
 usando <em>ggplot</em> como interfaz.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://strengejacke.github.io/ggeffects/" class="external-link">ggeffects</a></span><span class="op">)</span></span>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://strengejacke.github.io/ggeffects/reference/ggpredict.html" class="external-link">ggeffect</a></span><span class="op">(</span><span class="va">modelo3</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"LHC"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-24-1.png" width="576"></p>
+<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
 <p>Y podemos usar los diferentes temas predefinidos para artículo
 científico o para presentación. Por ejemplo:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dat</span>, add.data <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">pl</span> <span class="op">+</span> <span class="fu"><a href="../reference/tema_articulo.html">tema_articulo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-25-1.png" width="700"></p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-24-1.png" width="700"></p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># o cambiar los parámetros de tamaño de letra en los ejes X y Y:</span></span>
 <span><span class="co">#pl + tema_articulo(14,14)</span></span>
 <span><span class="co">#pl + tema_articulo2()</span></span>
 <span><span class="co">#pl + tema_presentacion()</span></span></code></pre></div>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pl</span> <span class="op">+</span> <span class="fu"><a href="../reference/tema_articulo2.html">tema_articulo2</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-26-1.png" width="700"></p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-25-1.png" width="700"></p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># o cambiar los parámetros de tamaño de letra en los ejes X y Y:</span></span>
 <span><span class="co">#pl + tema_articulo(14,14)</span></span>
 <span><span class="co">#pl + tema_articulo2()</span></span>
@@ -610,7 +592,7 @@ científico o para presentación. Por ejemplo:</p>
 <p>Ahora vamos a obtener la tabla del modelo. De esta forma podremos
 copiar las tablas y pegarlas directamente en nuestro documento de
 Word.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/table.models.html">table.models</a></span><span class="op">(</span><span class="va">modelo3</span><span class="op">)</span></span></code></pre></div>
 <table style="border-collapse:collapse; border:none;" class="table">
 <tr>
@@ -643,13 +625,13 @@ p
 (Intercept)
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-14.039
+14.111
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-1.581
+1.685
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-8.882
+8.376
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
 <strong>&lt;0.001</strong>
@@ -660,13 +642,13 @@ p
 LHC
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.929
+-0.947
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.180
+0.192
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--5.169
+-4.940
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
 <strong>&lt;0.001</strong>
@@ -677,16 +659,16 @@ LHC
 Localidad [Localidad_B]
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.236
+0.331
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.231
+0.246
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-1.021
+1.347
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.307
+0.178
 </td>
 </tr>
 <tr>
@@ -694,16 +676,16 @@ Localidad [Localidad_B]
 Localidad [Localidad_C]
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.224
+0.331
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.325
+0.346
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.690
+0.957
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.490
+0.339
 </td>
 </tr>
 <tr>
@@ -711,16 +693,16 @@ Localidad [Localidad_C]
 Localidad [Localidad_D]
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.570
+0.696
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.498
+0.531
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-1.145
+1.310
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.252
+0.190
 </td>
 </tr>
 <tr>
@@ -736,7 +718,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="4">
-0.639
+0.595
 </td>
 </tr>
 <tr>
@@ -744,7 +726,7 @@ R<sup>2</sup>
 AIC
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="4">
-180.145
+192.784
 </td>
 </tr>
 </table>
@@ -752,7 +734,7 @@ AIC
 Localidad no es significativa pero para fines demostrativos vamos a
 hacerlo usando la paquetería <em>emmeans</em>. Y usando la función
 <em>table_contrasts</em> para obtener los contrastes en una tabla.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rvlenth/emmeans" class="external-link">emmeans</a></span><span class="op">)</span></span>
 <span><span class="va">cont1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">modelo3</span>, <span class="va">pairwise</span> <span class="op">~</span> <span class="va">Localidad</span>,adjust<span class="op">=</span><span class="st">"tukey"</span>,type<span class="op">=</span><span class="st">"response"</span><span class="op">)</span><span class="op">$</span><span class="va">contrasts</span></span>
 <span><span class="fu"><a href="../reference/table_contrasts.html">table_contrasts</a></span><span class="op">(</span><span class="va">cont1</span><span class="op">)</span></span></code></pre></div>
@@ -782,19 +764,19 @@ p.value
 Localidad_A - Localidad_B
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
--0.230
+-0.330
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
-0.230
+0.246
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
 94
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
--1.020
+-1.340
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
-0.738
+0.536
 </td>
 </tr>
 <tr>
@@ -802,19 +784,19 @@ Localidad_A - Localidad_B
 Localidad_A - Localidad_C
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
--0.220
+-0.330
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
-0.324
+0.346
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
 94
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
--0.690
+-0.950
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
-0.901
+0.774
 </td>
 </tr>
 <tr>
@@ -822,19 +804,19 @@ Localidad_A - Localidad_C
 Localidad_A - Localidad_D
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
--0.570
+-0.690
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
-0.498
+0.530
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
 94
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
--1.140
+-1.310
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
-0.663
+0.559
 </td>
 </tr>
 <tr>
@@ -842,16 +824,16 @@ Localidad_A - Localidad_D
 Localidad_B - Localidad_C
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
-0.011
+0.000
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
-0.202
+0.215
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
 94
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
-0.056
+0.000
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
 1.000
@@ -862,19 +844,19 @@ Localidad_B - Localidad_C
 Localidad_B - Localidad_D
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
--0.330
+-0.360
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
-0.349
+0.372
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
 94
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
--0.950
+-0.970
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
-0.773
+0.762
 </td>
 </tr>
 <tr>
@@ -882,19 +864,19 @@ Localidad_B - Localidad_D
 Localidad_C - Localidad_D
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">
--0.340
+-0.360
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">
-0.251
+0.268
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">
 94
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">
--1.370
+-1.350
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">
-0.518
+0.528
 </td>
 </tr>
 <tr>
@@ -905,18 +887,18 @@ Localidad_C - Localidad_D
 </table>
 <p>Finalmente, vamos a graficar los efectos en un boxplot y colocar los
 valores de p que acabamos de obtener anteriormente:</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/boxplot_emmeans.html">boxplot_emmeans</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">Velocidad</span> <span class="op">~</span> <span class="va">Localidad</span>, modelo<span class="op">=</span><span class="va">modelo3</span>, data<span class="op">=</span> <span class="va">df</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-29-1.png" width="700"></p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/boxplot_emmeans.html">boxplot_emmeans</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">Velocidad</span> <span class="op">~</span> <span class="va">Localidad</span>, modelo<span class="op">=</span><span class="va">modelo3</span>, data<span class="op">=</span> <span class="va">df2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Tlamatini-Modelos-Lineales-Generalizados-GLM_files/figure-html/unnamed-chunk-28-1.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
 <span><span class="co">#&gt;   group1      group2         df statistic     p p.adj p.adj.signif</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Localidad_A Localidad_B    94   -<span style="color: #BB0000;">1.02</span>   0.310     1 ns          </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Localidad_A Localidad_C    94   -<span style="color: #BB0000;">0.690</span>  0.492     1 ns          </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Localidad_A Localidad_D    94   -<span style="color: #BB0000;">1.15</span>   0.255     1 ns          </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Localidad_B Localidad_C    94    0.056<span style="text-decoration: underline;">6</span> 0.955     1 ns          </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Localidad_B Localidad_D    94   -<span style="color: #BB0000;">0.958</span>  0.340     1 ns          </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Localidad_C Localidad_D    94   -<span style="color: #BB0000;">1.38</span>   0.172     1 ns</span></span></code></pre>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Localidad_A Localidad_B    94 -<span style="color: #BB0000;">1.35</span>     0.181     1 ns          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Localidad_A Localidad_C    94 -<span style="color: #BB0000;">0.957</span>    0.341     1 ns          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Localidad_A Localidad_D    94 -<span style="color: #BB0000;">1.31</span>     0.193     1 ns          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Localidad_B Localidad_C    94  0.000<span style="text-decoration: underline;">130</span> 1.00      1 ns          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Localidad_B Localidad_D    94 -<span style="color: #BB0000;">0.979</span>    0.330     1 ns          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Localidad_C Localidad_D    94 -<span style="color: #BB0000;">1.36</span>     0.178     1 ns</span></span></code></pre>
   </main>
 </div>
 

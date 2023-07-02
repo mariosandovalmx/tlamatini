@@ -38,11 +38,6 @@ if (!require("remotes")) install.packages("remotes")
 remotes::install_github("mariosandovalmx/tlamatini")
 ```
 
-<!-- *** -->
-Para consultar un tutorial rápido de como usar esta paqueteria con un GLM: 
-[https://mariosandovalmx.github.io/tlamatini-website/GLM_ejemplo.html](https://mariosandovalmx.github.io/tlamatini-website/GLM_ejemplo.html)
-
-
 <!-- CONTACTO -->
 ## Contacto
 
