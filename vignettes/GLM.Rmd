@@ -80,7 +80,7 @@ ggpairs_dfnum(df, var.response = "Velocidad")
 ```
 
 Ahora vamos a graficar la velocidad por Localidad, para ello usaremos la paquetería *ggpubr*:
-```{r fig.height = 3, fig.width = 6}
+```{r fig.height = 4, fig.width = 6}
 library(ggpubr)
  ggboxplot(df, "Localidad", "Velocidad",
     color = "Localidad", palette =c("#00AFBB", "#E7B800", "#FC4E07", "darkblue"),
@@ -133,7 +133,7 @@ Autocorrelación: Revisar si hay autocorrelación en los residuales, lo que indi
 Multicolinealidad: Examinar la presencia de alta correlación entre las variables predictoras, lo que puede dificultar la interpretación de los coeficientes del modelo. Esto se puede evaluar mediante el cálculo del factor de inflación de la varianza (VIF) para cada variable predictora.
 Vamos a explorar los residuales del modelo:
 
-```{r fig.height = 4, fig.width = 8}
+```{r fig.height = 6, fig.width = 6}
 par(mfrow=c(2,2))
 plot(modelo)
 ```
@@ -152,7 +152,7 @@ Vamos a comprobarlo.
 
 Primero, podemos usar la función *outliers.plot* para comprobar estas observaciones influyentes:
 
-```{r fig.height = 4, fig.width = 6}
+```{r fig.height = 5, fig.width = 6}
 outliers.plot2(modelo)
 
 ```
@@ -172,7 +172,7 @@ modelo3 <- glm(Velocidad ~ LHC  + Localidad, family = gaussian("identity"), data
 
 Pero volvemos a corroborar los residuales del modelo para saber si hay un buen ajuste:
 
-```{r fig.height = 4, fig.width = 8}
+```{r fig.height = 6, fig.width = 6}
 par(mfrow=c(2,2))
 plot(modelo3)
 ```
@@ -183,7 +183,7 @@ summary(modelo3)
 ```
 
 Comprobamos si aún tenemos outliers en el nuevo modelo:
-```{r fig.height = 3, fig.width = 6}
+```{r fig.height = 5, fig.width = 6}
 outliers.plot(modelo3)
 ```
 
@@ -193,7 +193,7 @@ Ahora vamos a revisar la multicolinealidad usando la función *VIF_model* y *VIF
 
 Cuando existe multicolinealidad, las estimaciones de los coeficientes pueden volverse inestables y poco confiables. Además, la multicolinealidad puede hacer que los intervalos de confianza sean demasiado amplios, lo que dificulta la interpretación de los resultados.
 
-```{r}
+```{r fig.height = 5, fig.width = 6}
 VIF_model(modelo3)
 VIF_plot(modelo3)
 ```
@@ -207,26 +207,26 @@ table_ANOVA3(modelo3)
 ```
 En el modelo ahora muestra que la variable LHC es significativa, pero no hay un efecto significativo de la localidad.
 Vamos a graficar los efectos del modelo con la función *plot_effects*:
-```{r fig.height = 4, fig.width = 8}
+```{r fig.height = 4, fig.width = 10}
 plot_effects(modelo3)
 ```
 
 o bien con la función *plot_effects2*:
 
 
-```{r fig.height = 4, fig.width = 8}
+```{r fig.height = 4, fig.width = 10}
 plot_effects2(modelo3, lineas = TRUE, puntos = TRUE, grids = FALSE)
 ```
 
 Otra forma de graficar las variables es usando el paquete *ggeffects*. Este paquete nos permite obtener gráficos estéticos usando *ggplot* como interfaz. 
-```{r fig.height = 3, fig.width = 6}
+```{r fig.height = 3, fig.width = 3}
 library(ggeffects)
 dat <- ggeffect(modelo3, terms = c("LHC"))
 plot(dat)
 ```
 
 Y podemos usar los diferentes temas predefinidos para artículo científico o para presentación. Por ejemplo:
-```{r}
+```{r fig.height = 3, fig.width = 4}
 pl <- plot(dat, add.data = TRUE)
 pl + tema_articulo()
 # o cambiar los parámetros de tamaño de letra en los ejes X y Y:
@@ -235,7 +235,7 @@ pl + tema_articulo()
 #pl + tema_presentacion()
 ```
 
-```{r}
+```{r fig.height = 3, fig.width = 4}
 pl + tema_articulo2()
 # o cambiar los parámetros de tamaño de letra en los ejes X y Y:
 #pl + tema_articulo(14,14)
@@ -259,7 +259,7 @@ table_contrasts(cont1)
 ```
 
 Finalmente, vamos a graficar los efectos en un boxplot y colocar los valores de p que acabamos de obtener anteriormente:
-```{r}
+```{r fig.height = 4, fig.width = 5}
 boxplot_emmeans(formula = Velocidad ~ Localidad, modelo=modelo3, data= df2)
 ```
 

@@ -274,7 +274,7 @@ DHARMa:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/resid_DHARMa.html">resid_DHARMa</a></span><span class="op">(</span><span class="va">modelo</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Si Kolmogorov-Smirnov test (KS test) p &lt; 0.05, entonces no hay normalidad en los residuales. Sin embargo, esta prueba es muy sensible al tamaño de muestra, con tamaño de muestra grande el valor de p tiene a &lt; 0.05, pero la distribución se aproxima mucho a la normal. Se recomienda ser un poco flexible con esta prueba al momento de examinar los residuales (examinar visualmente). Con tamaños de muestra grandes mayores a 500 el Teorema del Limite Central garantiza que los coeficientes de regresión se distribuyen normalmente en promedio (Ali &amp; Sharma, 1996, Lumley et al., 2002).Outlier test: p &lt; 0.05, no hay outliers. En caso de haber outliers, usar la función outliers.DHARMa para saber cuáles son los datos influyentes.Dispersion test: p &lt; 0.05, Indica problemas de sub/sobredispersión. En caso de haber problemas se recomienda ajustar el parámetro dispformula, solo para la paquetería glmmTMB.Gráfico de la derecha muestra la distribución esperada de los residuales, mediante simulaciones. Esto es útil cuando no sabemos cuál es la distribución nula de los residuales. El grafico de la derecha muestra los residuales contra los valores esperados (ajustados). Estas líneas pueden no ajustarse debido a un tamaño de muestra reducido.Recuerda citar el paquete DHARMa. Usa citation('DHARMa') para ver como citar este paquete.</span></span></code></pre></div>
-<p><img src="GLMM_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
+<p><img src="GLMM_files/figure-html/unnamed-chunk-12-1.png" width="768"></p>
 <p>Parece que tenemos un buen ajuste del modelo! la prueba de normalidad
 (KS test) muestra que los residuales siguen una distribución normal. No
 hay evidencia que indique problemas de dispersión y outliers.</p>
@@ -553,13 +553,13 @@ usando <em>ggplot</em> como interfaz.</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://strengejacke.github.io/ggeffects/" class="external-link">ggeffects</a></span><span class="op">)</span></span>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://strengejacke.github.io/ggeffects/reference/ggpredict.html" class="external-link">ggeffect</a></span><span class="op">(</span><span class="va">modelo</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"especie"</span>, <span class="st">"tipo_suelo"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dat</span>, add.data <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/tema_articulo.html">tema_articulo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="GLMM_files/figure-html/unnamed-chunk-22-1.png" width="576"></p>
+<p><img src="GLMM_files/figure-html/unnamed-chunk-22-1.png" width="480"></p>
 <p>Graficamos la temperatura:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://strengejacke.github.io/ggeffects/" class="external-link">ggeffects</a></span><span class="op">)</span></span>
 <span><span class="va">dat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://strengejacke.github.io/ggeffects/reference/ggpredict.html" class="external-link">ggeffect</a></span><span class="op">(</span><span class="va">modelo</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"temperatura"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dat2</span>, add.data <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/tema_articulo.html">tema_articulo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="GLMM_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
+<p><img src="GLMM_files/figure-html/unnamed-chunk-23-1.png" width="480"></p>
 <p>Ahora vamos a obtener la tabla del modelo. De esta forma podremos
 copiar las tablas y pegarlas directamente en nuestro documento de
 Word.</p>
@@ -1077,7 +1077,7 @@ C
 </td>
 </tr>
 </table>
-<p>Eso es todo.</p>
+<p>Eso es todo…</p>
   </main>
 </div>
 

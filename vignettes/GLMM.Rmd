@@ -54,7 +54,7 @@ hist_curva(datos$altura)
 hist_curva(datos$temperatura)
 ```
 Ambas variables tienen una distribución parecida a la normal. Ahora vamos a explorar como se distribuye la altitud entre los diferentes tipos de suelo, para ello usaremos la paquetería *ggpubr*:
-```{r fig.height = 3, fig.width = 6}
+```{r fig.height = 4, fig.width = 6}
 library(ggpubr)
 ggboxplot(datos, "tipo_suelo", "altura",
           color = "tipo_suelo", palette =c("#00AFBB", "#E7B800", "#FC4E07"),
@@ -67,7 +67,7 @@ norm.shapiro.grupos(altura ~ tipo_suelo, datos)
 ```
 
 La altura entre los distintos tipos de suelo sigue una distribución normal. También podemos explorar visualmente si hay diferencias entre las especies:
-```{r fig.height = 3, fig.width = 6}
+```{r fig.height = 4, fig.width = 6}
 ggboxplot(datos, "especie", "altura",
           color = "especie", palette =c("#00AFBB", "#E7B800", "#FC4E07"),
           add = "jitter", fill = "especie", alpha= 0.5)
@@ -105,7 +105,7 @@ Multicolinealidad: Examinar la presencia de alta correlación entre las variable
 
 Vamos a examinar los residuales del mejor modelo usando la paqueteria DHARMa:
 
-```{r}
+```{r fig.height = 4, fig.width = 8}
 resid_DHARMa(modelo)
 ```
 
@@ -171,14 +171,14 @@ plot_effects(modelo)
 ```
 
 Otra forma de graficar las variables es usando el paquete *ggeffects*. Este paquete nos permite obtener gráficos estéticos usando *ggplot* como interfaz. 
-```{r fig.height = 3, fig.width = 6}
+```{r fig.height = 4, fig.width = 5}
 library(ggeffects)
 dat <- ggeffect(modelo, terms = c("especie", "tipo_suelo"))
 plot(dat, add.data = TRUE) + tema_articulo()
 ```
 
 Graficamos la temperatura:
-```{r fig.height = 3, fig.width = 6}
+```{r fig.height = 4, fig.width = 5}
 library(ggeffects)
 dat2 <- ggeffect(modelo, terms = c("temperatura"))
 plot(dat2, add.data = TRUE) + tema_articulo()
@@ -196,4 +196,4 @@ cont1 <- emmeans(modelo, pairwise ~ especie | tipo_suelo,adjust="tukey",type="re
 table_contrasts(cont1)
 ```
 
-Eso es todo.
+Eso es todo...
