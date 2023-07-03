@@ -157,7 +157,7 @@ outliers.plot2(modelo)
 
 ```
 
-El dato que se encuentra en la fila 22 y 29 tiene un valor de std.resid mayor a 3, y el valor de p con ajuste de Bonferroni es < 0.05, lo que nos indica que puede ser un dato influyente y tenemos que revisar esta observación. 
+El dato que se encuentra en la fila 22 tiene un valor de std.resid mayor a 3, y el valor de p con ajuste de Bonferroni es < 0.05, lo que nos indica que puede ser un dato influyente y tenemos que revisar esta observación. 
 
 Tendremos que corroborar que esta observación es correcta y no cometimos ningún error al capturar nuestros datos. Vamos a suponer que fue un error de medición y no podemos confiar en este dato, y no hay forma de repetir la medición. Así que lo vamos a remover y volver a ajustar el modelo:
 

@@ -61,12 +61,12 @@ ggboxplot(datos, "tipo_suelo", "altura",
           add = "jitter", fill = "tipo_suelo", alpha= 0.5)
 ```
 
-Y si quisieramos saber si la altura por tipo de suelo se distribuyen normalmente:
+Y si quisieramos saber si la altura por cada tipo de suelo se distribuyen normalmente, usamos la función *norm.shapiro.grupos*:
 ```{r}
 norm.shapiro.grupos(altura ~ tipo_suelo, datos)
 ```
 
-Siguen una distribución normal. También podemos ver si hay diferencias entre las especies:
+La altura entre los distintos tipos de suelo sigue una distribución normal. También podemos explorar visualmente si hay diferencias entre las especies:
 ```{r fig.height = 3, fig.width = 6}
 ggboxplot(datos, "especie", "altura",
           color = "especie", palette =c("#00AFBB", "#E7B800", "#FC4E07"),
@@ -80,7 +80,7 @@ data.tree(datos[c(4,3,5)])
 
 Con esta función veremos el tamaño de muestra asociado a cada nivel del componente aleatorio y las subdivisiones para tener un panorama amplio de la estructura de los datos.
 
-Ahora si podemos ajustar los GLMM. Vamos a probar diferentes familias y funciones de liga para seleccionar el mejor modelo que se ajuste a los datos.
+Ahora si podemos ajustar los GLMMs. Vamos a probar diferentes familias y funciones de liga para seleccionar el mejor modelo que se ajuste a los datos.
 ```{r}
 library(glmmTMB)
 # Ajuste del GLMM
@@ -89,9 +89,9 @@ modelo2 <- glmmTMB(altura ~ temperatura + tipo_suelo*especie + (1|sitio/especie)
 modelo3 <- glmmTMB(altura ~ temperatura + tipo_suelo*especie + (1|sitio/especie), data = datos, family = gaussian("sqrt"))
 AIC(modelo,modelo2, modelo3)
 ```
-En este caso, todos los modelos convergen pero si alguno de los modelos presenta problemas de convergencia estos deben ignorarse o usar algun optimizador (ver función *optimizeGLMM*. 
+En este caso, todos los modelos convergen pero si alguno de los modelos presenta problemas de convergencia estos deben ignorarse o usar algun optimizador como se demuestra más adelante (ver función *optimizeGLMM*). 
 
-Parece que el primer modelo es mejor. Para comprobar el buen ajuste de un modelo lineal generalizado (GLM) hay varios criterios que se deben cumplir: 
+Con base en el AIC el primer modelo es mejor. Para comprobar el buen ajuste de un modelo lineal generalizado (GLM) hay varios criterios que se deben cumplir: 
 
 Normalidad: Los residuales son las diferencias entre los valores observados y los valores predichos por el modelo. Si los residuos siguen una distribución normal, eso significa que los errores del modelo son aleatorios y no presentan patrones que indiquen un mal ajuste del modelo.
 
@@ -102,7 +102,6 @@ Influencia de observaciones influyentes (outliers): Identificar observaciones in
 Autocorrelación: Revisar si hay autocorrelación en los residuales, lo que indica la presencia de dependencia entre las observaciones. Esto se puede evaluar mediante pruebas de autocorrelación o trazando gráficos de autocorrelación de los residuales. En este tutorial no vamos a aboradar este problema.
 
 Multicolinealidad: Examinar la presencia de alta correlación entre las variables predictoras, lo que puede dificultar la interpretación de los coeficientes del modelo. Esto se puede evaluar mediante el cálculo del factor de inflación de la varianza (VIF) para cada variable predictora.
-Vamos a explorar los residuales del modelo:
 
 Vamos a examinar los residuales del mejor modelo usando la paqueteria DHARMa:
 
@@ -110,16 +109,16 @@ Vamos a examinar los residuales del mejor modelo usando la paqueteria DHARMa:
 resid_DHARMa(modelo)
 ```
 
-Parece que tenemos un buen ajuste del modelo! la prueba de normalidad (KS test) muestra que los residuales siguen una distribución normal. No hay evidencia que indique problemas de dispersion y outliers.
+Parece que tenemos un buen ajuste del modelo! la prueba de normalidad (KS test) muestra que los residuales siguen una distribución normal. No hay evidencia que indique problemas de dispersión y outliers.
 
-También podemos usar la función *outliers.DHARMa* para comprobar si hay observaciones influyentes. Según la función nos muestra un posible outlier, la fila 116 del dataframe. Sin embargo, basándonos en el valor de p, podemos concluir que esta observación no es un outlier:
+También podemos usar la función *outliers.DHARMa* para comprobar si hay observaciones influyentes. Según la función nos muestra un posible outlier, la fila 116 del dataframe. Sin embargo, basándonos en el valor de p, podemos concluir que esta observación no es una observación influyente:
 
 ```{r fig.height = 4, fig.width = 8}
 outliers.DHARMa(modelo)
 
 ```
 
-Ahora vamos a revisar la multicolinealidad usando la función *VIF_model* y *VIF_plot*. La multicolinealidad en los modelos de regresión generalizada (GLM) se refiere a la presencia de alta correlación entre las variables predictoras. Esto puede causar problemas en la estimación de los coeficientes de regresión, ya que dificulta la identificación de la contribución individual de cada variable en el modelo.
+Ahora vamos a revisar la multicolinealidad usando las funciones *VIF_model* y *VIF_plot*. La multicolinealidad en los modelos de regresión generalizada (GLM) se refiere a la presencia de alta correlación entre las variables predictoras. Esto puede causar problemas en la estimación de los coeficientes de regresión, ya que dificulta la identificación de la contribución individual de cada variable en el modelo.
 
 Cuando existe multicolinealidad, las estimaciones de los coeficientes pueden volverse inestables y poco confiables. Además, la multicolinealidad puede hacer que los intervalos de confianza sean demasiado amplios, lo que dificulta la interpretación de los resultados.
 
@@ -141,7 +140,7 @@ El modelo sin interacción tiene problemas de convergencia, vamos a probar difer
 optimizeGLMM(modelo_sininteraccion)
 ```
 
-Parece que hay algunos optimizadores que arreglan el problema. Vamos a probar uno de la lista:
+Parece que hay algunos optimizadores que arreglan el problema. Vamos a probar uno de la lista que salió "Convergence TRUE":
 ```{r}
 modelo_sininteraccion2 <- glmmTMB(altura ~ temperatura + tipo_suelo + especie + (1|sitio/especie), data = datos, family = gaussian("identity"),control=glmmTMBControl(optimizer=optim, optArgs=list(method="BFGS")))
 
@@ -152,8 +151,7 @@ VIF_model(modelo_sininteraccion2)
 VIF_plot(modelo_sininteraccion2)
 ```
 
-Todas las variables en el modelo tienen una correlación baja. Así que podemos confiar en el modelo. 
-Ahora si vamos a
+Todas las variables en el modelo tienen una correlación baja. Así que podemos confiar en el modelo. Vamos a obtener el summary del modelo:
 
 
 ```{r}
@@ -190,7 +188,7 @@ Ahora vamos a obtener la tabla del modelo. De esta forma podremos copiar las tab
 ```{r}
 table.models(modelo)
 ```
-Usualmente no se hacen contrastes cuando la interacción no es significativa, aunque puede dar información relevante. Vamos a obtener los contrastes post-hoc Tuckey usando la paquetería *emmeans*. Y usando la función *table_contrasts* para obtener los contrastes en una tabla.
+Usualmente no se hacen contrastes cuando la interacción no es significativa, aunque puede dar información relevante. Vamos a obtener los contrastes post-hoc Tuckey usando la paquetería *emmeans*. Y usando la función *table_contrasts* para obtener los contrastes en una tabla exportable.
 
 ```{r}
 library(emmeans)
@@ -198,3 +196,4 @@ cont1 <- emmeans(modelo, pairwise ~ especie | tipo_suelo,adjust="tukey",type="re
 table_contrasts(cont1)
 ```
 
+Eso es todo.
