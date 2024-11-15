@@ -98,8 +98,8 @@ tema_articulo <-  function( axis.size=NULL, axis.title.size = NULL, legend.posit
       theme(legend.position = "left",
             legend.text=element_text(size=12),
             title = element_blank(),
-            panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank(),
+            #panel.grid.major = element_blank(),
+            #panel.grid.minor = element_blank(),
             axis.text=element_text(size=15, color="black"),
             axis.title=element_text(size=15,face="bold",color="black"))
 
@@ -109,8 +109,8 @@ tema_articulo <-  function( axis.size=NULL, axis.title.size = NULL, legend.posit
       theme(legend.position = legend.position,
             legend.text=element_text(size=12),
             title = element_blank(),
-            panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank(),
+            #panel.grid.major = element_blank(),
+            #panel.grid.minor = element_blank(),
             axis.text=element_text(size=axis.size, color="black"),
             axis.title=element_text(size=axis.title.size,face="bold",color="black"))
   }
