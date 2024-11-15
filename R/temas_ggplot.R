@@ -73,6 +73,7 @@ tema_presentacion <- function(base_size = 24, base_family = "") {
 #'
 #' @param axis.size Tamaño de los ejes.
 #' @param axis.title.size Tamaño de la leyenda del eje.
+#' @param legend.position Puede ser: “left”,“top”, “right”, “bottom”
 #'
 #' @return Un grafico de ggplot con el tema predefinido.
 #'
@@ -88,16 +89,29 @@ tema_presentacion <- function(base_size = 24, base_family = "") {
 #' @encoding UTF-8
 #' @import ggplot2
 
-tema_articulo <-  function( axis.size=NULL, axis.title.size = NULL){
 
-  if(is.null(axis.size) & is.null(axis.title.size)){
+tema_articulo <-  function( axis.size=NULL, axis.title.size = NULL, legend.position= NULL){
 
-    tema_articulo  <- theme_classic() + theme(legend.position = "top", legend.text=element_text(size=12),title = element_blank(),panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.text=element_text(size=axis.size, color="black"),axis.title=element_text(size=axis.title.size,face="bold",color="black"))
+  if(is.null(axis.size) & is.null(axis.title.size & is.null(legend.position))){
+
+    tema_articulo  <- theme_minimal(base_size =16) +
+      theme(legend.position = "left",
+            legend.text=element_text(size=12),
+            title = element_blank(),
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank(),
+            axis.text=element_text(size=15, color="black"),
+            axis.title=element_text(size=15,face="bold",color="black"))
 
   } else {
 
-    tema_articulo  <- theme_classic() + theme(legend.position = "top", legend.text=element_text(size=12),title = element_blank(),panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.text=element_text(size=axis.size, color="black"),axis.title=element_text(size=axis.title.size,face="bold",color="black"))
-
-
+    tema_articulo  <- theme_minimal(base_size =16) +
+      theme(legend.position = legend.position,
+            legend.text=element_text(size=12),
+            title = element_blank(),
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank(),
+            axis.text=element_text(size=axis.size, color="black"),
+            axis.title=element_text(size=axis.title.size,face="bold",color="black"))
   }
 }
